@@ -131,6 +131,23 @@ python -m esmf.orientation_seam_w
 python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-Y/Z/AA · Complementary questions and evidence-gated continuity
+
+**Most consequential correction:** the old claim “even-winding observation gives no orientation information” only holds with a known/conditioned initial fiber. For an *unknown, shared* antisymmetric fiber contrast `D=F01-F10`, one scalar even observation `Y_e=D+noise` and one odd observation `Y_o=T D+noise` are each individually uninformative about balanced monodromy `T`, but their **joint covariance determines a likelihood for T**. No shared-D provenance, no such inference. [Mathematical corollary and 256-episode resource experiment](research/results/G0_Y_2026-10-25.md).
+
+- [G0-Y active epistemics](esmf/active_epistemics_y.py): 256 episodes, a two-step information policy reached 77.3% classification coverage using 2.99 simulated resource units on average. A *fixed alternating-focused circuit* did **slightly better** at 79.7% coverage, with 3.14 units; the online policy cost ~**500×** more Python CPU time in this benchmark. An ordinary identically informed real Bayesian model ties the geometric interpretation.
+- [G0-Z provenance auditor](esmf/provenance_z.py): a three-hypothesis filter distinguishes one persistent D from independently replaced D; in 128 independent-replacement episodes, unsupported confident orientation claims fell from **71.9% to 10.9%**, with a small loss of confidence coverage on genuinely persistent cases. [Results](research/results/G0_Z_2026-10-25.md).
+- [G0-AA temporal repair](esmf/temporal_repair_aa.py): a finite 13-hypothesis filter additionally considers one unknown change boundary and can issue two **temporal Worldlet descriptors** when evidence justifies a split. It recovered the true K=3 boundary in only ~34% of all change-point episodes and sometimes proposed false splits; ~4.3× extra CPU over the simpler provenance filter. [Results and failures](research/results/G0_AA_2026-10-25.md).
+
+**Scope:** These are scalar readouts *derived from* the Mat₂(R) neutral (2,2) bundle architecture, **not** its integrated four-dimensional developmental/embodied dynamics. Synthetic action reserves are not measured electrical energy; Bayesian source inference is not biological sentience or general semantic cognition. Strongest conventional models with the same likelihoods remain equal in these experiments.
+
+```bash
+python -m esmf.active_epistemics_y --seeds 32
+python -m esmf.provenance_z --seeds 128
+python -m esmf.temporal_repair_aa --seeds 128
+python -m unittest discover -s tests
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
