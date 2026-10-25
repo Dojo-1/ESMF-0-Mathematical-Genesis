@@ -29,6 +29,14 @@ python -m esmf.development --steps 300 --seeds 0,1,2,3
 python -m esmf.gauge
 ```
 
+## Mechanochemical status: a useful failure
+
+[G0-F](esmf/mechanochemical.py) introduces two reaction-diffusion fields, receptor-dependent stochastic guidance, bounded motility and resource-limited contact growth. The first remote CPU test uncovered **metabolic depletion and contact collapse**. Chemical mass accounting remained numerically consistent; no stable anatomy or semantic benefit has been demonstrated. [Read the numerical audit](research/results/G0_F_2026-10-25.md).
+
+```bash
+python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
