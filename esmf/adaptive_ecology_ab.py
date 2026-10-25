@@ -75,8 +75,11 @@ class LocalHypothesis:
 
 class AdaptiveContinuityFilter:
     def __init__(self,plastic=True):
-        self.states=[[LocalHypothesis(.5*PRIOR_MODE[m]) for m in range(3)]
+        self.states=[[LocalHypothesis(.4*PRIOR_MODE[m]) for m in range(3)]
                      for t in range(2)]
+        # A separate whole-episode no-continuity model. It has no T;
+        # conditioning on it to classify orientation would be invalid.
+        self.diffuse_weight=.20
         self.hazard=.045
         self.plastic=plastic
         self.fast_clock=0
@@ -87,12 +90,18 @@ class AdaptiveContinuityFilter:
         self.hazard_history=[self.hazard]
 
     @property
+    def p_persistent(self):
+        return sum(x.weight for row in self.states for x in row)
+
+    @property
     def probability_twist(self):
-        return sum(h.weight for h in self.states[1])
+        # CONDITIONAL on a persistent source, never a marginal claim when
+        # independent-event replacement dominates.
+        return sum(h.weight for h in self.states[1])/max(1e-300,self.p_persistent)
 
     @property
     def p_reset(self):
-        return sum(self.states[t][2].weight for t in range(2))
+        return sum(self.states[t][2].weight for t in range(2))/max(1e-300,self.p_persistent)
 
     def predictive_step(self,observed=None,parity=0,sd=.5):
         if sd<=0:
@@ -126,7 +135,7 @@ class AdaptiveContinuityFilter:
         diagnostics=[]
         post=[]
         logweights=[]
-        prior_total=sum(x[0] for row in priors for x in row)
+        prior_total=sum(x[0] for row in priors for x in row)+self.diffuse_weight
         if abs(prior_total-1.)>1e-11:
             raise ArithmeticError("prior mixture not normalized")
         if observed is not None and not math.isfinite(observed):
@@ -152,6 +161,14 @@ class AdaptiveContinuityFilter:
                 newrow.append(LocalHypothesis(w,new_mu,new_var))
                 diagnostics.append(w*residual*residual/variance)
             post.append(newrow)
+        # Hypothesis outside the global orientation fiber: D_t is freshly
+        # drawn each event, so Y_t has no information about T.
+        if observed is None:
+            logweights.append(math.log(max(1e-300,self.diffuse_weight)))
+        else:
+            vv=1.+sd*sd
+            logweights.append(math.log(max(1e-300,self.diffuse_weight))-
+                              .5*(math.log(2*math.pi*vv)+observed*observed/vv))
         norm=logsum(logweights)
         if observed is not None:
             self.surprise=.85*self.surprise+.15*sum(diagnostics)
@@ -163,7 +180,8 @@ class AdaptiveContinuityFilter:
                     raise ArithmeticError("invalid Kalman component")
                 k+=1
         self.states=post
-        if abs(sum(x.weight for row in post for x in row)-1.)>1e-10:
+        self.diffuse_weight=math.exp(logweights[-1]-norm)
+        if abs(sum(x.weight for row in post for x in row)+self.diffuse_weight-1.)>1e-10:
             raise ArithmeticError("posterior mixture not normalized")
         self.fast_clock+=1
         self.last_reset=self.p_reset
@@ -178,7 +196,8 @@ class AdaptiveContinuityFilter:
 
     def label(self):
         p=self.probability_twist
-        return int(p>=.5) if max(p,1-p)>=SENSOR_CONFIDENCE else None
+        return int(p>=.5) if (self.p_persistent>=.70 and
+                               max(p,1-p)>=SENSOR_CONFIDENCE) else None
 
     def recontextualize(self,tick):
         """A typed structural event redirects future mode mass, preserving P(T)."""
@@ -339,7 +358,8 @@ def simulate(seed,twist,world,policy):
             high_reset_streak=0
         # Slow structural events have a refractory period and are logged.
         if (policy in ("adaptive","equivalent_real") and
-              high_reset_streak>=2 and tick-last_bud>=3):
+              belief.p_persistent>=.70 and high_reset_streak>=2
+              and tick-last_bud>=3):
             buds.append(belief.recontextualize(tick))
             last_bud=tick
             high_reset_streak=0
@@ -363,6 +383,7 @@ def simulate(seed,twist,world,policy):
             "probes":sum(1 for x in history if x["probe"]!="sleep"),
             "focus":sum(1 for x in history if "focus" in x["probe"]),
             "hazard_initial":.045,"hazard_final":belief.hazard,
+            "p_independent":belief.diffuse_weight,
             "hazard_updates":belief.slow_clock,
             "gate_switches":gate.switches,
             "bud_count":len(buds),"buds":buds,
@@ -388,6 +409,7 @@ def summary(rows):
         "mean_probes":sum(x["probes"] for x in rows)/n,
         "mean_focus":sum(x["focus"] for x in rows)/n,
         "mean_final_hazard":sum(x["hazard_final"] for x in rows)/n,
+        "mean_p_independent":sum(x["p_independent"] for x in rows)/n,
         "mean_buds":sum(x["bud_count"] for x in rows)/n,
         "mean_gate_switches":sum(x["gate_switches"] for x in rows)/n
     }
