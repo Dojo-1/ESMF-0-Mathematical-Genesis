@@ -1,6 +1,6 @@
 import unittest
 import random
-from esmf.monodromy_x import selfcheck,episode,select,run,simulate
+from esmf.monodromy_x import selfcheck,episode,select,run,simulate,run_alternate,ALT
 from esmf.causal_bundle_s import PI
 
 class TestMonodromyX(unittest.TestCase):
@@ -13,6 +13,9 @@ class TestMonodromyX(unittest.TestCase):
         zero=episode(rng,params,True,"zero",noise=0.)
         answer,_=select([zero],params)
         self.assertIsNone(answer)
+
+    def test_exploratory_unknown_monodromy(self):
+        self.assertEqual(run_alternate(0)["decision"],"unmodeled")
 
     def test_control_selection(self):
         for twist in (False,True):
