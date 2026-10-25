@@ -37,6 +37,16 @@ python -m esmf.gauge
 python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3
 ```
 
+## Geometric anti-collapse audit — G0-K
+
+The biological simulator currently uses a 2D periodic mesh and scalar activity. **This is a numerical approximation to external tissue chemistry, not the ontology of cognition.** [G0-K](research/G0_K_GEOMETRIC_AUDIT.md) adds a separate, tested matrix-fiber layer with independent GL(n) frames, a (2,1) indefinite form, hyperboloid distances, gauge-covariant transports, holonomy conjugation, and exact lazy decay for quiescent compartments. [Remote numerical self-check](https://huggingface.co/jobs/jesusvilela/6addd66b1e112550ce7ea222) gave residuals near machine precision.
+
+These are **algebra checks**, not evidence of cognitive efficacy or real energy efficiency. Indefinite mismatch is not a positive Lyapunov energy; applying a dissipative sign assumption to it would be invalid.
+
+```bash
+python -m esmf.geometry_k
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
