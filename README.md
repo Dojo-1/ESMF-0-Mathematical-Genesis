@@ -71,6 +71,14 @@ A [CPU-only paired benchmark](esmf/representations_n.py) compares equal four-rea
 python -m esmf.representations_n --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-P · Bundle atlas and nonflat neutral connection
+
+[G0-P](esmf/bundle_p.py) implements constant O(2,2) charts, consistent transition cocycles, metric-compatible connection generators, noncommuting curvature and loop holonomy. A [remote CPU audit](research/results/G0_P_2026-10-25.md) caught and corrected an orientation-sign error; the corrected implementation passes gauge and small-loop convergence checks. **This is a trivial bundle testbed with nonflat connection**, not yet a fully general bundle, adaptive cognition, or biological embodiment.
+
+```bash
+python -m esmf.bundle_p
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
