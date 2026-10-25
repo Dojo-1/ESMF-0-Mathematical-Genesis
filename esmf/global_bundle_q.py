@@ -141,7 +141,7 @@ class NeutralCylinderBundle:
         h=self.metric(chart,theta,z)
         _,Dt,Dz=self.frame(chart,theta,z)
         Df=Dt if axis==0 else Dz
-        return plus(matmul(transpose(Df),h),matmul(h,Df),-1.)
+        return scaled(plus(matmul(transpose(Df),h),matmul(h,Df)),-1.)
 
     def curvature(self,chart,theta,z):
         B,_,_=self.frame(chart,theta,z)
@@ -240,7 +240,7 @@ class NeutralCylinderBundle:
                     max_connection=max(max_connection,maxdiff(A1,expected))
                     h=self.metric(a,theta,z)
                     dh=self.metric_derivative(a,theta,z,axis)
-                    compat=plus(dh,plus(matmul(transpose(A0),h),matmul(h,A0)))
+                    compat=plus(dh,plus(matmul(transpose(A0),h),matmul(h,A0)),-1.)
                     max_metric=max(max_metric,maxdiff(compat,matzero()))
                     c0=self.covariant_derivative_section(a,theta,z,axis)
                     c1=self.covariant_derivative_section(b,theta,z,axis)
