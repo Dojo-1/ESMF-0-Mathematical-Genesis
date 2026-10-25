@@ -1,0 +1,45 @@
+# ESMF-0 — Mathematical Genesis
+
+**An experimental substrate for endogenous semiotic morphogenesis.**
+
+ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
+
+## Evidence boundary
+
+- **P (conditional mathematics):** bounded projection; finite resource/accounting identities; predictive-equivalence quotient; Gram positive semidefiniteness under the stated assumptions.
+- **M (measurement):** reserved for actual recorded runs with seeds, environment, and matched controls.
+- **H (hypotheses):** morphology improves held-out prediction; endogenous dynamics generate transferable concepts or useful compositional novelty.
+- **S (semantic):** Worldlets, tendrils, and creative organization are design vocabulary, not biological claims.
+- The connection-Laplacian Lean results and tenth-discriminant jet-Gram results are *prior mathematics*, not automatically verified theorems about ESMF.
+
+## G0 test ladder
+
+1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
+2. **G0-B:** compare fixed and dynamic topology on held-out interventions, with appearance nuisances to prevent superficial classification.
+3. **G0-C:** test withheld causal compositions and damage recovery; require measured gains beyond equal-budget controls.
+
+The first simulator is a deliberately small **engineering baseline**, not proof of concept emergence. Never infer meaning from graph shape, oscillation, or an attractive plot.
+
+## Reproduce (CPU-only, no packages)
+
+```bash
+python -m unittest discover -s tests -v
+python -m esmf.experiment --seeds 0,1,2,3 --episodes 600
+```
+
+Run defaults use standard Python, no GPU, no LM Studio, no remote LLM, no background services, and no filesystem write. The Kaggle machine is not used by Hugging Face-hosted Jobs.
+
+See [G0 protocol](research/G0_PROTOCOL.md) for fixed predictions, controls, falsifiers and what must be recorded before any claim promotion.
+
+## Architecture constraint
+
+No global spectral oracle or determinant maximizer inside the learner. The learner accesses only local observations, messages, interventions and bounded plasticity signals. Connection Laplacian and observation Gram are **external diagnostics**. Z+ is treated as a prospective two-channel possibilistic/probabilistic construction, **not** an implemented Zadeh-faithful uncertainty calculus in the first baseline.
+
+## Related mathematics
+
+- [Connection Laplacian formalization](https://github.com/jesusvilela/connection_laplacian_lean)
+- [Tenth discriminant trace-Gram formalization](https://github.com/Dojo-1/tenth-discriminant)
+
+## Safety and research discipline
+
+No autonomous local execution, GPU access, paid inference or Kaggle process interference. Do not silently upgrade an experiment to a proof. Negative and inconclusive results belong in the record.
