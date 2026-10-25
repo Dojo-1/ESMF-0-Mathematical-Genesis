@@ -63,3 +63,9 @@ Kill if covariance is violated, if nonflat curvature is mislabeled from a gauge 
 ## Status authority
 
 [P] conditional identities for metric-compatible connection, noncommutative curvature and chart covariance; [A] proposed time-varying connection and Gaussian sensors; [M] only later verified remote runs; [H] benefits beyond conventional coordinate-aware RLS. A connected structural body is not yet assembled: G0-AB and G0-AC0 are orthogonal tested components of a future coupled organism.
+
+## Frozen evaluation appendix (recorded after three-seed smoke, before held-out)
+
+The first successful three-seed diagnostic is available at https://huggingface.co/jobs/jesusvilela/6ade17211e112550ce7ebcad . It verified chart covariance, metric transport and nonzero curvature, while showing that constant-forgetting RLS can beat the more sophisticated surprise-triggered update in abrupt/sign-reversal settings. **Do not tune the controller against those results and then re-label them validation.** The implementation's hyperparameters (`SD=.02`, `HORIZON=60`, `BURN_IN=12`, adaptive q=.0008+.04·burst, threshold 6, burst 5; constant q=.01) remain frozen before the next run.
+
+Hold-out seeds: **100 through 131 inclusive (32 distinct seeds)**, all five worlds and all five policy labels. Evaluate noise-free independent probe MSE on t=12..59, mean coefficient and curvature errors, per-seed paired bootstrap (2,000 seed resamples), and exact equivalence against the ordinary real estimator. The three-seed smoke is development data, not held-out evidence. No new policy tuning after seeing seeds 100..131 may count as validation on the same seeds.
