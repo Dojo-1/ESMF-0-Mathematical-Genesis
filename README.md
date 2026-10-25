@@ -63,6 +63,14 @@ python -m esmf.remainder
 python -m esmf.neutral22
 ```
 
+## G0-N · Representation comparisons (preliminary)
+
+A [CPU-only paired benchmark](esmf/representations_n.py) compares equal four-real-parameter Euclidean, neutral (2,2), and complex-block real encodings on the same action-conditioned task. [Eight-seed results](research/results/G0_N_2026-10-25.md): Brier 0.00724437 (Euclidean), 0.01271116 (neutral), 0.00724437 (complex-block). **This is not a gauge-fair comparison:** Euclidean SGD and L2 weight decay change behavior under nonorthogonal O(2,2) boosts. The observed difference is a conditioning result, not a cognitive verdict.
+
+```bash
+python -m esmf.representations_n --seeds 0,1,2,3,4,5,6,7
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
