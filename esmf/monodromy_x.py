@@ -9,9 +9,11 @@ import json
 import math
 import random
 from .causal_bundle_s import PI,TAU,wrap,make_episodes,fit,tangent_step,mm,physical_world
-from .associated22_u import flatten,neutral_square
+from .associated22_u import flatten,neutral_square,H
 from .orientation_seam_w import P
-from .geometry_k import matvec
+from .geometry_k import matvec,matmul,transpose
+
+ALT=((0.,0.,0.,1.),(0.,1.,0.,0.),(0.,0.,1.,0.),(1.,0.,0.,0.))
 
 
 def simulate(start,actions,F0,params,twist=False):
@@ -34,8 +36,11 @@ def simulate(start,actions,F0,params,twist=False):
     if abs(wrap(physical[0]-ref[0]))>1e-9 or abs(physical[1]-ref[1])>1e-9:
         raise AssertionError("independent physical replay mismatch")
     vector=flatten(F)
-    if twist and winding%2:
-        vector=matvec(P,vector)
+    if winding%2:
+        if twist=="alternate":
+            vector=matvec(ALT,vector)
+        elif twist:
+            vector=matvec(P,vector)
     if abs(neutral_square(vector)-neutral_square(flatten(F0)))>1e-8:
         raise AssertionError("neutral form was not preserved")
     return physical,winding,vector
@@ -98,14 +103,17 @@ def loss(episodes,params,twist):
     return err/len(episodes)
 
 
-def select(episodes,params):
+def select(episodes,params,reject_threshold=None):
     # Fundamental identifiability guard: no odd winding => no Z2 evidence.
     if not any(abs(predict_fiber(ep,params,False)[0])%2 for ep in episodes):
         return None,{"identity":loss(episodes,params,False),
                      "transpose":loss(episodes,params,True)}
     s0=loss(episodes,params,False)
     s1=loss(episodes,params,True)
-    return s1<s0,{"identity":s0,"transpose":s1}
+    scores={"identity":s0,"transpose":s1}
+    if reject_threshold is not None and min(s0,s1)>reject_threshold:
+        return "unmodeled",scores
+    return s1<s0,scores
 
 
 def run(seed,twist):
@@ -135,6 +143,17 @@ def run(seed,twist):
             "null_probe_model_gap":abs(null_scores["identity"]-null_scores["transpose"])}
 
 
+def run_alternate(seed):
+    # EXPLORATORY out-of-family monitor, added after primary I/P runs.
+    rng=random.Random(seed+91291)
+    true_params,training,_,_=make_episodes(seed,"noncommuting")
+    learned=fit(training,"nonlinear",epochs=125)
+    samples=[episode(rng,true_params,"alternate","odd") for _ in range(10)]
+    decision,scores=select(samples,learned,reject_threshold=.01)
+    return {"seed":seed,"decision":decision,"best_candidate_loss":min(scores.values()),
+            "identity_loss":scores["identity"],"transpose_loss":scores["transpose"]}
+
+
 def selfcheck():
     F=((.7,-.3),(.4,1.1))
     start=(PI-.035,.7)
@@ -144,6 +163,7 @@ def selfcheck():
     assert abs(neutral_square(x)-neutral_square(flatten(F)))<1e-12
     init,end=select([episode(random.Random(123),(.58,-.44),True,"zero")],(.58,-.44))
     assert init is None
+    assert matmul(matmul(transpose(ALT),H),ALT)==H
     return {"twisted_single_winding":w,"nonzero_neutral_quadratic_preserved":True,
             "zero_winding_topology_unidentifiable":True}
 
