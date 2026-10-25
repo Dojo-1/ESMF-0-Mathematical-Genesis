@@ -16,6 +16,19 @@ ESMF-0 asks whether locally adaptive predictive relations, with bounded resource
 
 **G0-A was a misleading comparator.** A scripted-edge model appeared better than an empty fixed graph. G0-B then added the missing one-edge fixed control: it slightly **outperformed scripted growth on all eight paired seeds**. The result does **not** establish endogenous learning; it corrects the causal interpretation of the earlier smoke test. See [G0-B's full negative-control record](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
 
+## Developmental surrogate and gauge freedom
+
+**G0-D** now simulates local trophic diffusion, growing tips, exploratory branching, activity-dependent stabilization/pruning, maturity and limited contacts. Six remote CPU runs exhibit both contact formation and pruning—but also high turnover and weak resource pressure. **This is not a realistic brain simulation.**
+
+**G0-E** adds independent local basis transforms with properly transformed metrics and transports. External checks confirm transported edge-energy invariance and the correct Gram determinant transformation. Arbitrary GL chart changes do **not** preserve a raw Gram determinant.
+
+[Development notes](research/G0_D_DEVELOPMENT.md) · [Gauge freedom](research/G0_E_GAUGE.md) · [Measured results](research/results/G0_D_E_2026-10-25.md)
+
+```bash
+python -m esmf.development --steps 300 --seeds 0,1,2,3
+python -m esmf.gauge
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
