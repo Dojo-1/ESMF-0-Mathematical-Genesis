@@ -162,10 +162,9 @@ def math_checks(bundle=None):
         max_metric=max(max_metric,maxdiff(matmul(matmul(transpose(local),h1),local),h0))
         y,g=predict(p,coeff,bundle,gradient=True)
         vref=matvec(inverse(B0),p.source_local)
-        for sensor in p.sensors_local:
+        for j,sensor in enumerate(p.sensors_local):
             cref=matvec(transpose(B1),sensor)
             intrinsic=dot(cref,matvec(U,vref))
-            j=p.sensors_local.index(sensor)
             max_chart=max(max_chart,abs(y[j]-intrinsic))
         eps=1e-6
         hi=predict(p,coeff+eps,bundle)
@@ -174,10 +173,13 @@ def math_checks(bundle=None):
             max_gradient=max(max_gradient,abs(g[j]-(hi[j]-lo[j])/(2*eps)))
         wrong_chart_gap=max(wrong_chart_gap,
                             maxdiff(local,U))
+        # Genuine two-chart curvature covariance, not self-comparison.
         cur=curvature((.31,-.29))
+        source_cur=matmul(matmul(B0,cur),inverse(B0))
+        target_cur=matmul(matmul(B1,cur),inverse(B1))
+        gauge=matmul(B1,inverse(B0))
         max_curvature=max(max_curvature,maxdiff(
-            matmul(matmul(B0,cur),inverse(B0)),
-            matmul(matmul(B0,cur),inverse(B0))))
+            target_cur,matmul(matmul(gauge,source_cur),inverse(gauge))))
     # Winding orientation remains det-negative while connection changes.
     monodromy=[]
     for a in (.2,.8,-.6):
@@ -186,12 +188,13 @@ def math_checks(bundle=None):
         monodromy.append(det_sign(W))
         assert maxdiff(matmul(matmul(transpose(W),ETA),W),ETA)<1e-10
     assert all(s==-1 for s in monodromy)
-    assert max(max_chart,max_metric,max_gradient)<1e-7
+    assert max(max_chart,max_metric,max_gradient,max_curvature)<1e-7
     assert wrong_chart_gap>.01
     return {"paths":60,"max_chart_prediction_gap":max_chart,
             "max_metric_compatibility_residual":max_metric,
             "max_independent_gradient_gap":max_gradient,
             "max_wrong_chart_transport_gap":wrong_chart_gap,
+            "max_curvature_gauge_residual":max_curvature,
             "winding_det_signs":monodromy,
             "curvature_nonzero":maxdiff(curvature((.31,-.29)),zero)>.01}
 
