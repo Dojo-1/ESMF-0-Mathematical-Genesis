@@ -332,7 +332,6 @@ def simulate(seed,twist,world,policy):
     env_rng=random.Random(seed*107+8421)
     history=[]
     buds=[]
-    high_reset_streak=0
     last_bud=-100
     for tick,d in enumerate(physical):
         ledger.replenish()
@@ -355,17 +354,17 @@ def simulate(seed,twist,world,policy):
             # Even quiescent organs have maintenance cost; charge if viable.
             ledger.charge(.025)
         belief.predictive_step(obs,parity,measured_sd)
-        if belief.p_reset>.24 and obs is not None:
-            high_reset_streak+=1
-        else:
-            high_reset_streak=0
-        # Slow structural events have a refractory period and are logged.
+        # Amendment after the first pilot: jump evidence is often a
+        # sharp, isolated event. A two-consecutive-observation rule missed
+        # all true resets; use a one-event posterior reset gate with a
+        # higher threshold, source-continuity floor and refractory period.
+        # Never present this posthoc repair as a preregistered result.
         if (policy in ("adaptive","equivalent_real") and
-              belief.p_persistent>=.70 and high_reset_streak>=2
+              obs is not None and tick>=2 and
+              belief.p_persistent>=.85 and belief.p_reset>.33
               and tick-last_bud>=3):
             buds.append(belief.recontextualize(tick))
             last_bud=tick
-            high_reset_streak=0
         history.append({"tick":tick,"probe":probe.name if probe else "sleep",
                         "reserve":round(ledger.reserve,5),
                         "p_twist":round(belief.probability_twist,5),
@@ -414,6 +413,10 @@ def summary(rows):
         "mean_final_hazard":sum(x["hazard_final"] for x in rows)/n,
         "mean_p_independent":sum(x["p_independent"] for x in rows)/n,
         "mean_buds":sum(x["bud_count"] for x in rows)/n,
+        "timely_jump_event_detection":(
+            sum(any(abs(b["boundary_after_tick"]-target)<=1 for b in x["buds"])
+                for x in rows for target in (5,9))/(2*n)
+            if world=="jumps" else None),
         "mean_gate_switches":sum(x["gate_switches"] for x in rows)/n
     }
 
