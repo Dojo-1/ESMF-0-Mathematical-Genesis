@@ -196,8 +196,11 @@ class AdaptiveContinuityFilter:
 
     def label(self):
         p=self.probability_twist
-        return int(p>=.5) if (self.p_persistent>=.70 and
-                               max(p,1-p)>=SENSOR_CONFIDENCE) else None
+        # Declare only when the JOINT event (persistent source AND this
+        # orientation) is supported. Two separate weak gates formerly
+        # permitted as little as .70*.95=.665 joint credibility.
+        support=self.p_persistent*max(p,1-p)
+        return int(p>=.5) if support>=SENSOR_CONFIDENCE else None
 
     def recontextualize(self,tick):
         """A typed structural event redirects future mode mass, preserving P(T)."""
