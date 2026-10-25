@@ -47,6 +47,14 @@ These are **algebra checks**, not evidence of cognitive efficacy or real energy 
 python -m esmf.geometry_k
 ```
 
+## G0-L · Heterogeneous transport without hidden flattening
+
+[Worldlet correspondence](esmf/remainder.py) permits independent local dimensions, clocks, metrics, forward maps and reconstruction maps. [Gauge-aware residual](research/G0_L_TRANSPORT_REMAINDER.md) is typed and transported rather than silently discarded. A remote CPU [numerical check](research/results/G0_L_2026-10-25.md) passed for a 3D-to-2D lossy correspondence. This is **mathematical infrastructure**, not demonstrated cognition or efficiency.
+
+```bash
+python -m esmf.remainder
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
