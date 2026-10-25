@@ -212,7 +212,7 @@ def bracket(q,p,a,b):
 def chart_check():
     rng=random.Random(8324)
     max_state=max_fiber=max_quad=max_det=0.
-    naive_min=1e6
+    naive_max=0.
     for _ in range(60):
         start=(rng.uniform(-PI,PI),rng.uniform(-.8,.8))
         actions=path(rng,rng.randint(1,7))
@@ -232,8 +232,8 @@ def chart_check():
             max_fiber=max(max_fiber,diff(chartF,expected))
             max_det=max(max_det,abs(det(J)-1))
             max_quad=max(max_quad,abs(det(chartF)/det(Bend)-det(F)))
-            naive=mm(J,mm(Bstart,mi(Bstart))) # invalid basis-blind transport diagnostic
-            naive_min=min(naive_min,diff(Jnew,J))
+            # Chart-blind reuse of J generally disagrees with the correct Jnew.
+            naive_max=max(naive_max,diff(Jnew,J))
             current=nxt
         ref,base_F=induced_tangent(start,actions,params)
         max_state=max(max_state,abs(wrap(ref[0]-current[0])),abs(ref[1]-current[1]))
@@ -244,7 +244,8 @@ def chart_check():
             "max_fiber_chart_gap":max_fiber,
             "max_neutral_form_gap":max_quad,
             "max_jacobian_det_error":max_det,
-            "nontrivial_frame_change_seen":naive_min>1e-5}
+            "nontrivial_frame_change_seen":naive_max>1e-3,
+            "chart_blind_transport_gap":naive_max}
 
 
 def bracket_check():
