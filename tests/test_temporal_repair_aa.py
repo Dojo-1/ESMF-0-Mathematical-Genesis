@@ -53,7 +53,9 @@ class TestTemporalRepairAA(unittest.TestCase):
                  marginalized_segment_loglike(ys[3:],signed[3:],noise[3:]))
         prior_ratio=(.35/(2*5))/(.45/2)
         inferred_ratio=h_k3.weight/h_shared.weight
-        self.assertAlmostEqual(inferred_ratio,prior_ratio*math.exp(p_split-p_shared),places=8)
+        # The Bayes factor can be ~1e21. Compare its log, not an absolute
+        # 8-decimal tolerance that spuriously rejects near-machine accuracy.
+        self.assertLess(abs(math.log(inferred_ratio)-math.log(prior_ratio)-(p_split-p_shared)),1e-10)
 
     def test_strong_changepoint_spawns_two_worldlets(self):
         model=TemporalEcology()
