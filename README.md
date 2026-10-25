@@ -87,6 +87,14 @@ python -m esmf.bundle_p
 python -m esmf.global_bundle_q
 ```
 
+## G0-R · Honest variable-rank interface
+
+[Rank-stratified restrictions](esmf/strata_r.py) provide separate local spaces and typed boundary comparison; [smoke test](https://huggingface.co/jobs/jesusvilela/6adde50d046eb82b1ece4e5d) distinguishes compatible and incompatible gluing and identifies invisible kernel states. This is a presheaf-like test instrument, **not** a globally fixed-rank vector bundle or a proved sheaf descent system. See the [G0-Q expanded audit](research/results/G0_Q_2026-10-25.md).
+
+```bash
+python -m esmf.strata_r
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
