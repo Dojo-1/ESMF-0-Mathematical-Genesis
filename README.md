@@ -111,6 +111,16 @@ python -m esmf.context_bundle_t --seeds 0,1,2,3,4,5,6,7
 python -m esmf.associated22_u
 ```
 
+## G0-W · A topology obstruction and two commuting regulatory factors
+
+An important constraint emerged from the [measured causal associated-bundle experiment](research/results/G0_S_T_U_2026-10-25.md): on Mat₂(R), every LEFT GL₂ action has positive determinant in its induced four-dimensional representation, so this action family alone cannot reproduce the nonorientable global twist of G0-Q. [G0-W](esmf/orientation_seam_w.py) implements an orientation-reversing **transpose** isometry that preserves the (2,2) determinant quadratic form while conjugating left SL₂ actions into right ones. Two factor actions commute across left/right roles, but can be noncommutative within a role. Seam-equivariant transport passes remote tests; a chart-blind operator fails.
+
+This suggests—but does not establish the usefulness of—a dual-organ, multi-clock algebraic surrogate with factor-exchange transitions. [G0-W evidence and limitations](research/results/G0_W_2026-10-25.md). No seam-adaptive learner or cognitive/energy advantage has been measured.
+
+```bash
+python -m esmf.orientation_seam_w
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
