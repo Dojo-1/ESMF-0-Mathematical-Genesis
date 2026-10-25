@@ -121,6 +121,16 @@ This suggests—but does not establish the usefulness of—a dual-organ, multi-c
 python -m esmf.orientation_seam_w
 ```
 
+## G0-X · Learning one global bundle transition from evidence
+
+[G0-X](esmf/monodromy_x.py) advances beyond checking preselected local/global structure: given ten noisy odd-winding fiber observations and previously learned causal dynamics, it chooses between identity and orientation-reversing transpose monodromy. Across 32 seeds per world it chose the correct candidate **32/32 times in each**; it correctly abstained when no odd winding was observed, and double winding restored parity. A third, out-of-family neutral twist was rejected in 32 exploratory cases using a posthoc threshold. [Protocol](research/G0_X_MONODROMY_PROTOCOL.md) · [Full results and critical boundaries](research/results/G0_X_2026-10-25.md).
+
+**Evidence boundary:** this is constrained binary model selection on a simulation built from those candidate laws, using faithful frame sensors, not learned arbitrary topology, semiotic understanding, or better efficiency than an equivalently informed real recurrent model.
+
+```bash
+python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
