@@ -100,11 +100,11 @@ def selfcheck():
     assert curvature_gap<1e-12
     h=.002
     loop=transport(Ax,Ay,h)
-    # orientation of ordered column-vector transports yields +[Ax,Ay] h^2
-    leading=plus(identity(N),F,h*h)
+    # ordered column-vector transports under Dv=0 yield -[Ax,Ay] h^2
+    leading=plus(identity(N),F,-h*h)
     loop_error=maxdiff(loop,leading)
     reverse=transport(Ax,Ay,h/2)
-    half_error=maxdiff(reverse,plus(identity(N),F,h*h/4))
+    half_error=maxdiff(reverse,plus(identity(N),F,-h*h/4))
     assert half_error<loop_error/6
     transformed_loop=transport(Ax1,Ay1,h)
     loop_gauge=maxdiff(transformed_loop,matmul(matmul(G,loop),Gi))
