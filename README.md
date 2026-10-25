@@ -12,6 +12,10 @@ ESMF-0 asks whether locally adaptive predictive relations, with bounded resource
 - **S (semantic):** Worldlets, tendrils, and creative organization are design vocabulary, not biological claims.
 - The connection-Laplacian Lean results and tenth-discriminant jet-Gram results are *prior mathematics*, not automatically verified theorems about ESMF.
 
+## Current empirical finding
+
+**G0-A was a misleading comparator.** A scripted-edge model appeared better than an empty fixed graph. G0-B then added the missing one-edge fixed control: it slightly **outperformed scripted growth on all eight paired seeds**. The result does **not** establish endogenous learning; it corrects the causal interpretation of the earlier smoke test. See [G0-B's full negative-control record](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
@@ -25,6 +29,7 @@ The first simulator is a deliberately small **engineering baseline**, not proof 
 ```bash
 python -m unittest discover -s tests -v
 python -m esmf.experiment --seeds 0,1,2,3 --episodes 600
+python -m esmf.controls --seeds 0,1,2,3,4,5,6,7 --episodes 600
 ```
 
 Run defaults use standard Python, no GPU, no LM Studio, no remote LLM, no background services, and no filesystem write. The Kaggle machine is not used by Hugging Face-hosted Jobs.
