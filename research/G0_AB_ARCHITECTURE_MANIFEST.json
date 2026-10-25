@@ -1,0 +1,324 @@
+{
+  "name": "ESMF-G0-AB-adaptive-organ-ecology-surrogate",
+  "evidence_floor": "A",
+  "worldlets": [
+    {
+      "id": "physical.neutral-fiber",
+      "carrier": "Mat2(R) associated real 4D carrier; currently only unipotent shear orbit F(D)",
+      "geometry": "determinant quadratic signature (2,2), Q(F)=1 on implemented orbit",
+      "algebra": "SL2 real shear multiplication; transpose involution",
+      "state": "Latent D_t and T hidden from inference; actual F=[[1,D],[0,1]]",
+      "clocks": [
+        "fast"
+      ],
+      "observers": [
+        "simulator",
+        "external-auditor"
+      ],
+      "boundary": "partial scalar sign-sensitive sensor projection",
+      "remainder_types": [
+        "transport",
+        "identity"
+      ]
+    },
+    {
+      "id": "sensorimotor.spinal",
+      "carrier": "finite local action/probe set",
+      "geometry": "orientation parity of neutral seam",
+      "algebra": "deterministic finite-state parity and precision choices",
+      "state": "probe parity; quiet/focus; optional economy mode",
+      "clocks": [
+        "fast"
+      ],
+      "observers": [
+        "sensorimotor",
+        "autonomic"
+      ],
+      "boundary": "resource gate, no direct access to hidden D or T",
+      "remainder_types": [
+        "transport"
+      ]
+    },
+    {
+      "id": "autonomic.precision",
+      "carrier": "hysteretic gate with surprise and continuity diagnostics",
+      "geometry": "local threshold/hysteresis state, not physical spacetime",
+      "algebra": "finite-state transitions and bounded scalar controls",
+      "state": "focus flag, gate switches, provenance-only probing",
+      "clocks": [
+        "meso",
+        "fast"
+      ],
+      "observers": [
+        "autonomic",
+        "cortical-filter"
+      ],
+      "boundary": "resource-dependent precision",
+      "remainder_types": [
+        "empirical"
+      ]
+    },
+    {
+      "id": "enteric.resource",
+      "carrier": "nonnegative bounded reserve with external source and ledger",
+      "geometry": "positive real budget simplex (not (2,2) energy)",
+      "algebra": "additive supply, expenditure, overflow",
+      "state": "reserve; delivered; spent; overflow",
+      "clocks": [
+        "fast"
+      ],
+      "observers": [
+        "homeostatic",
+        "external-auditor"
+      ],
+      "boundary": "no overspend below floor",
+      "remainder_types": [
+        "empirical"
+      ]
+    },
+    {
+      "id": "cortical.context-modes",
+      "carrier": "two orientation classes × three Kalman continuity regimes plus global no-continuity model",
+      "geometry": "finite statistical mixture/information geometry; not a full neural manifold",
+      "algebra": "Gaussian component transitions; approximate moment matching",
+      "state": "local means and variances; mode probabilities; unknown source continuity",
+      "clocks": [
+        "fast",
+        "slow"
+      ],
+      "observers": [
+        "cognitive-surrogate",
+        "external-auditor"
+      ],
+      "boundary": "joint provenance/orientation confidence gate",
+      "remainder_types": [
+        "transport",
+        "identity"
+      ]
+    },
+    {
+      "id": "episodic.temporal-bud",
+      "carrier": "typed boundary-tagged context descriptors",
+      "geometry": "time-segmented observation provenance",
+      "algebra": "discrete conditional split, model mass reweighting",
+      "state": "parent/child worldlet and split tick; refractory",
+      "clocks": [
+        "slow"
+      ],
+      "observers": [
+        "episodic",
+        "auditor"
+      ],
+      "boundary": "reset evidence threshold and continuity floor",
+      "remainder_types": [
+        "identity",
+        "attribution"
+      ]
+    }
+  ],
+  "tendrils": [
+    {
+      "source": "physical.neutral-fiber",
+      "target": "sensorimotor.spinal",
+      "relation": "partial fiber observation, parity-dependent",
+      "relation_order": 2,
+      "forward_transport": "sign-sensitive D projection after transposition, with sensor noise",
+      "return_transport": "posterior Gaussian mixture over latent D and orientation, not a true inverse",
+      "preserved": [
+        "provenance candidate",
+        "declared parity"
+      ],
+      "transformed": [
+        "fiber state into scalar reading"
+      ],
+      "remainder": "transport",
+      "cost": "finite observation and motor-resource charge"
+    },
+    {
+      "source": "sensorimotor.spinal",
+      "target": "cortical.context-modes",
+      "relation": "Bayesian evidence channel",
+      "relation_order": 2,
+      "forward_transport": "read y under controlled probe and known noise law",
+      "return_transport": "posterior orientation and source-continuity probabilities",
+      "preserved": [
+        "tick and probe provenance",
+        "sensor variance"
+      ],
+      "transformed": [
+        "observation likelihoods and conditional states"
+      ],
+      "remainder": "identity",
+      "cost": "bounded filter computations"
+    },
+    {
+      "source": "cortical.context-modes",
+      "target": "autonomic.precision",
+      "relation": "partial posterior-to-action governance",
+      "relation_order": 3,
+      "forward_transport": "predictive-surprise and reset-mass diagnostics",
+      "return_transport": "sensor focus or economical continuity interrogation",
+      "preserved": [
+        "uncertainty and source model"
+      ],
+      "transformed": [
+        "probe costs and precision"
+      ],
+      "remainder": "empirical",
+      "cost": "mesoscopic event processing"
+    },
+    {
+      "source": "enteric.resource",
+      "target": "sensorimotor.spinal",
+      "relation": "positive resource admissibility",
+      "relation_order": 2,
+      "forward_transport": "gate selected motor/sensing cost",
+      "return_transport": "deliver exact accounting of consumed resource and reserve",
+      "preserved": [
+        "ledger closure"
+      ],
+      "transformed": [
+        "resource budget into action feasibility"
+      ],
+      "remainder": "empirical",
+      "cost": "maintenance plus action"
+    },
+    {
+      "source": "cortical.context-modes",
+      "target": "episodic.temporal-bud",
+      "relation": "evidence-gated temporal-identity repair",
+      "relation_order": 3,
+      "forward_transport": "reset and shared-source posterior mass",
+      "return_transport": "recontextualization of future regime weighting, not past evidence rewrite",
+      "preserved": [
+        "conditional orientation belief",
+        "typed identity remainder"
+      ],
+      "transformed": [
+        "transition prior",
+        "temporal context cover"
+      ],
+      "remainder": "identity",
+      "cost": "slow refractory event"
+    }
+  ],
+  "identity": {
+    "local_holonomies": [
+      "physical orientation parity via transpose monodromy (real operator)",
+      "temporal context path identity (analogy; no constructed holonomy)"
+    ],
+    "couplings": [
+      "somatic-episodic-provenance",
+      "autonomic-resource-cognition"
+    ],
+    "higher_coherence": [
+      "environment-source/sensor-model/temporal-repair triple consistency, tested partially"
+    ],
+    "viability_constraints": [
+      "posterior normalization",
+      "resource floor",
+      "source-identity before orientation claim",
+      "avoid chattering"
+    ],
+    "immune_actions": [
+      "abstain",
+      "continuity probe",
+      "bud temporary context",
+      "reweight future regime model"
+    ],
+    "remainder": "identity"
+  },
+  "clocks": [
+    {
+      "id": "fast",
+      "role": "physical state and sensor/inference event",
+      "rate": 1
+    },
+    {
+      "id": "meso",
+      "role": "autonomic precision/hysteresis feedback",
+      "rate": 0.5
+    },
+    {
+      "id": "slow",
+      "role": "reset-hazard plasticity, optional context budding",
+      "rate": 0.25
+    }
+  ],
+  "dynamics": {
+    "breathing": "Only mixture uncertainty/gating changes presently. True tissue metric breathing is NOT implemented.",
+    "weaving": "Combine orientation and continuity likelihoods by normalized Gaussian mixture. Not a proved sheaf gluing algorithm.",
+    "deweaving": "Separate source-replacement hypothesis and approximate mixture-matching remainder; not inverse translation.",
+    "governance": "Joint P(persistent,T) decision threshold and positive resource ledger; no Hamiltonian biology.",
+    "morphogenesis": "Threshold/reset-triggered creation of temporal context descriptor and future transition reweighting; not neurite growth.",
+    "repair": "Typed change-point recontextualization preserves orientation marginal, with prior update only for future steps."
+  },
+  "evidence": [
+    {
+      "claim_id": "g0ab-physical-neutral-carrier",
+      "status": "P",
+      "source": "esmf/adaptive_ecology_ab.py; esmf/associated22_u.py",
+      "assumptions": [
+        "F(D)=[[1,D],[0,1]]",
+        "transpose preserves determinant"
+      ],
+      "controls": [
+        "explicit matrix determinant and shear transport tests"
+      ],
+      "limitations": [
+        "one-dimensional orbit, not full 4D learned cognition"
+      ]
+    },
+    {
+      "claim_id": "g0ab-online-multiclock-control",
+      "status": "M",
+      "source": "research/results/G0_AB_2026-10-25.md",
+      "assumptions": [
+        "synthetic bounded setting",
+        "finite Gaussian continuity models"
+      ],
+      "controls": [
+        "fixed focus",
+        "fixed quiet",
+        "random",
+        "no slow adaptation",
+        "equivalent real"
+      ],
+      "limitations": [
+        "does not outperform fixed focused sensing overall",
+        "not measured hardware power"
+      ]
+    },
+    {
+      "claim_id": "g0ab-developmental-intelligence",
+      "status": "H",
+      "source": "research/G0_AB_ADAPTIVE_PROTOCOL.md",
+      "assumptions": [
+        "actual growth and adaptive bundles require future integration"
+      ],
+      "controls": [
+        "ordinary recurrent and fixed architecture strong baselines"
+      ],
+      "limitations": [
+        "no biological reality or cognition demonstrated"
+      ]
+    }
+  ],
+  "observables": [
+    "source-provenance and orientation joint confidence",
+    "neutral determinant invariant",
+    "mixture gluing/transport moment-match dispersion [R]_transport",
+    "temporal context [R]_id bud false/true rate",
+    "resource ledger and external input/output",
+    "gate switches and slow hazard trajectory",
+    "held-out Brier and correct-declaration coverage",
+    "actual remote CPU wall-clock as non-energy proxy"
+  ],
+  "falsifiers": [
+    "Retire complex geometric credit if ordinary real state-space control ties, as it does here.",
+    "Demote slow hazard adaptation when held-out matched ablation is better or equivalent.",
+    "Retire budding if correct change detection fails against false buds under matched resource and error.",
+    "Do not promote false orientation confidence under diffuse sources.",
+    "No consciousness or sentience inference from these surrogate organs."
+  ]
+}
