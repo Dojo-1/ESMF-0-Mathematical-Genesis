@@ -240,7 +240,7 @@ class NeutralCylinderBundle:
                     max_connection=max(max_connection,maxdiff(A1,expected))
                     h=self.metric(a,theta,z)
                     dh=self.metric_derivative(a,theta,z,axis)
-                    compat=plus(dh,plus(matmul(transpose(A0),h),matmul(h,A0)),-1.)
+                    compat=plus(dh,plus(matmul(transpose(A0),h),matmul(h,A0)))
                     max_metric=max(max_metric,maxdiff(compat,matzero()))
                     c0=self.covariant_derivative_section(a,theta,z,axis)
                     c1=self.covariant_derivative_section(b,theta,z,axis)
