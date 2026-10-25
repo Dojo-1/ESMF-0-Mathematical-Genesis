@@ -193,7 +193,7 @@ class NeutralCylinderBundle:
             raise ValueError("basepoint must be in seam overlap near 0")
         T0=self.chart_transport_theta(0,theta,math.pi,z)
         g01=self.transition(0,1,math.pi,z)
-        T1=self.chart_transport_theta(1,math.pi,theta,z)
+        T1=self.chart_transport_theta(1,math.pi,theta+TAU,z)
         g10=self.transition(1,0,theta,z)
         return matmul(matmul(matmul(g10,T1),g01),T0)
 
