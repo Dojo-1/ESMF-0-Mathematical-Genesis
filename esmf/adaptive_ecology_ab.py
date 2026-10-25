@@ -261,6 +261,7 @@ class AutonomicGate:
         self.last_surprise=1.
         self.meso_clock=0
         self.switches=0
+        self.provenance_checks=0
 
     def update(self,tick,belief,ledger):
         if tick%2:
@@ -278,7 +279,15 @@ class AutonomicGate:
                 self.switches+=1
 
     def choose(self,tick,belief,ledger,rng):
-        if self.mode=="random":
+        # When persistence itself is doubtful, focus observations on
+        # inexpensive continuity testing, with one odd probe every four
+        # opportunities to avoid permanently losing orientation evidence.
+        # This switch changes the FUTURE action menu, not just beliefs.
+        if self.mode.startswith("adaptive") and tick>=4 and belief.diffuse_weight>=.80:
+            parity=1 if tick%4==3 else 0
+            preference="quiet"
+            self.provenance_checks+=1
+        elif self.mode=="random":
             parity=rng.randrange(2)
             preference="focus" if rng.randrange(2) else "quiet"
         else:
@@ -388,6 +397,7 @@ def simulate(seed,twist,world,policy):
             "p_independent":belief.diffuse_weight,
             "hazard_updates":belief.slow_clock,
             "gate_switches":gate.switches,
+            "provenance_checks":gate.provenance_checks,
             "bud_count":len(buds),"buds":buds,
             "moment_match_dispersion":belief.moment_match_remainder,
             "trace":history}
@@ -417,7 +427,8 @@ def summary(rows):
             sum(any(abs(b["boundary_after_tick"]-target)<=1 for b in x["buds"])
                 for x in rows for target in (5,9))/(2*n)
             if world=="jumps" else None),
-        "mean_gate_switches":sum(x["gate_switches"] for x in rows)/n
+        "mean_gate_switches":sum(x["gate_switches"] for x in rows)/n,
+        "mean_provenance_checks":sum(x["provenance_checks"] for x in rows)/n
     }
 
 
