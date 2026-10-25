@@ -131,6 +131,17 @@ python -m esmf.orientation_seam_w
 python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-AC0 · A genuinely adaptive neutral connection (new)
+
+[G0-AC0](esmf/adaptive_connection_ac0.py) lifts adaptation from G0-AB's scalar observation quotient into a **rank-four real neutral (2,2) vector bundle connection** over a cylindrical base. The connection `A_t=a_tX dtheta + b_tY dz` now learns its two coefficients from *two partial sensor readings* of injected test sections; it remains compatible with three nonorthogonal position-dependent local frames, the neutral metric, nonzero curvature and the orientation-reversing global seam. [Mathematical and numerical audit](research/results/G0_AC0_2026-10-25.md), [frozen pre-run protocol](research/G0_AC0_ADAPTIVE_CONNECTION_PROTOCOL.md), [replay driver](research/run_g0_ac0_heldout.py).
+
+**Held-out 32-seed result:** continued learning beats a frozen connection when the transport law changes, but **ordinary constant-forgetting recursive least squares outperforms the surprise-triggered adaptive variant** in abrupt-change and sign-reversal worlds. Under stationary transport, no forgetting wins. A mathematically equivalent conventional real estimator ties the adaptive variant. **Connection adaptation is implemented and chart-covariant; an intrinsic geometric learning/energy advantage is not demonstrated.** Eight independent package tests passed on remote CPU.
+
+```bash
+python -m unittest discover -s tests -p 'test_adaptive_connection_ac0.py'
+python -m research.run_g0_ac0_heldout --start 100 --count 32
+```
+
 ## G0-AB · Adaptation with a resource and evidence budget
 
 [G0-AB](esmf/adaptive_ecology_ab.py) now implements a multi-clock adaptive surrogate: fast sensory selection and Gaussian filtering, mesoscopic surprise-/provenance-dependent sensing precision, slow reset-hazard feedback, and evidence-gated creation of temporary temporal Worldlet contexts. The organism's positive resource ledger includes external supply, explicit sensing expense, overflow, viability floor and state-change costs. The underlying mathematical carrier is a **one-dimensional shear orbit inside a genuine neutral (2,2) Mat₂(R) representation**, not full learned four-dimensional cognition.
