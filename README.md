@@ -95,6 +95,22 @@ python -m esmf.global_bundle_q
 python -m esmf.strata_r
 ```
 
+## G0-S/T/U · First causal learning across bundle charts
+
+**New measured bridge, not cognition proved:** an independently simulated, reversible, area-preserving two-action world on S¹×R supplies short noisy sensorimotor traces. [G0-S](esmf/causal_bundle_s.py) learns two causal-action coefficients and predicts longer held-out intervention sequences. [G0-T](esmf/context_bundle_t.py) infers two nonlinear observation-chart parameters from 32 paired sensor sightings and transfers predictions among three changing local charts. [G0-U](esmf/associated22_u.py) explicitly lifts physical Jacobians to Mat₂(R), a real four-dimensional **(2,2) neutral associated fiber**, with an appropriately transformed bilinear metric.
+
+On 32 paired synthetic seeds, mean held-out loss in the noncommuting world was 0.136080 (flat translation), 0.001496 (linear shear), and 0.00000507 (correctly specified nonlinear shear). **The nonlinear model matches the generative family by design.** The ranking reverses in the commuting-world negative control: flat 0.00000433 versus nonlinear 0.374192. Learned chart calibration retained noncommuting loss 0.00000516; intentionally chart-blind processing scored 0.05614. All numerical gauge tests and independent tangent finite-difference checks passed.
+
+**Critical comparator:** the same calibrated nonlinear recurrence implemented with ordinary real arithmetic and no explicit bundle lift obtains the same predictions. Therefore we have established *consistent causal learning with geometric transport*, **not an advantage of bundle geometry over an equally informed conventional model**, and no measured efficiency or biological cognition. The G0-Q nonorientable global twist remains a separate bundle instance, not yet coupled to this learner.
+
+[Complete G0-S/T/U results, failures and bounds](research/results/G0_S_T_U_2026-10-25.md) · [Pre-registered causal protocol](research/G0_S_CAUSAL_PROTOCOL.md)
+
+```bash
+python -m esmf.causal_bundle_s --seeds 0,1,2,3,4,5,6,7
+python -m esmf.context_bundle_t --seeds 0,1,2,3,4,5,6,7
+python -m esmf.associated22_u
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
