@@ -131,6 +131,19 @@ python -m esmf.orientation_seam_w
 python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-AB · Adaptation with a resource and evidence budget
+
+[G0-AB](esmf/adaptive_ecology_ab.py) now implements a multi-clock adaptive surrogate: fast sensory selection and Gaussian filtering, mesoscopic surprise-/provenance-dependent sensing precision, slow reset-hazard feedback, and evidence-gated creation of temporary temporal Worldlet contexts. The organism's positive resource ledger includes external supply, explicit sensing expense, overflow, viability floor and state-change costs. The underlying mathematical carrier is a **one-dimensional shear orbit inside a genuine neutral (2,2) Mat₂(R) representation**, not full learned four-dimensional cognition.
+
+**A critical negative result:** in a frozen held-out comparison (seed IDs 128–191, 128 episodes/world/policy) simple fixed focused sensing won predictive coverage over the adaptive version in stable, drift, two-reset and regime-switch worlds. In STABLE, adaptive confidence coverage was 64.8% vs 84.4% for fixed focus, using mean simulated resources 8.776 vs 8.990; in JUMPS it was 56.3% vs 77.3%, using *slightly more* resource. The adaptive organism generated about 0.383 temporal context buds per two-reset episode, detecting just **19.1%** of known reset events within one tick. A separate no-persistent-source hypothesis reduced false orientation claims but did **not eliminate them** (3 of 128 diffuse episodes). An equivalent real Bayesian implementation ties exactly. **No emergent cognition, geometric advantage or measured joule saving.**
+
+[Held-out results, paired CIs, failures and correction history](research/results/G0_AB_2026-10-25.md) · [Pre-registered protocol](research/G0_AB_ADAPTIVE_PROTOCOL.md) · [Post-pilot corrections frozen before held-out](research/G0_AB1_HELDOUT_AMENDMENT.md) · [Typed architecture manifest](research/G0_AB_ARCHITECTURE_MANIFEST.json) · [Replay driver](research/run_g0_ab_heldout.py).
+
+```bash
+python -m unittest discover -s tests -p 'test_adaptive_ecology_ab.py'
+python -m research.run_g0_ab_heldout --start 128 --count 64
+```
+
 ## G0-Y/Z/AA · Complementary questions and evidence-gated continuity
 
 **Most consequential correction:** the old claim “even-winding observation gives no orientation information” only holds with a known/conditioned initial fiber. For an *unknown, shared* antisymmetric fiber contrast `D=F01-F10`, one scalar even observation `Y_e=D+noise` and one odd observation `Y_o=T D+noise` are each individually uninformative about balanced monodromy `T`, but their **joint covariance determines a likelihood for T**. No shared-D provenance, no such inference. [Mathematical corollary and 256-episode resource experiment](research/results/G0_Y_2026-10-25.md).
