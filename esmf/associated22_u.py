@@ -12,7 +12,7 @@ import json
 import math
 import random
 from .geometry_k import matmul,matvec,inverse,transpose,identity,bilinear
-from .causal_bundle_s import mm,det,wrap,tangent_step,physical_world
+from .causal_bundle_s import mm,det,wrap,tangent_step,physical_world,induced_tangent
 from .context_bundle_t import chart_jac
 
 H=((0.,0.,0.,.5),(0.,0.,-.5,0.),(0.,-.5,0.,0.),(.5,0.,0.,0.))
@@ -95,6 +95,26 @@ def selfcheck():
             current,F,chart,B=later,next_F,next_chart,C
     assert max(max_frame,max_metric,max_quadratic,max_resource)<1e-10
     assert max_ignorant>.1
+    # Independent black-box finite differences of the physical simulator,
+    # rather than checking analytic J only against its own matrix identities.
+    max_external_jacobian=0.
+    epsilon=1e-6
+    for _ in range(36):
+        start=(rng.uniform(-math.pi,math.pi),rng.uniform(-.6,.6))
+        actions=tuple((rng.choice(("X","Y")),rng.choice((-1.,1.))*rng.uniform(.25,.9))
+                      for k in range(rng.randint(1,7)))
+        params=(.62,-.51)
+        _,analytic=induced_tangent(start,actions,params)
+        for axis in (0,1):
+            plus=list(start);minus=list(start)
+            plus[axis]+=epsilon;minus[axis]-=epsilon
+            hi=physical_world(plus,actions,params,"noncommuting")
+            lo=physical_world(minus,actions,params,"noncommuting")
+            dq=wrap(hi[0]-lo[0])/(2*epsilon)
+            dp=(hi[1]-lo[1])/(2*epsilon)
+            max_external_jacobian=max(max_external_jacobian,
+                abs(dq-analytic[0][axis]),abs(dp-analytic[1][axis]))
+    assert max_external_jacobian<2e-8
     null=(1.,0.,0.,0.)
     assert neutral_square(null)==0. and positive_square(null)>0.
     FF=((1.5,-.6),(.3,1.1))
@@ -109,6 +129,7 @@ def selfcheck():
             "max_metric_transport_gap":max_metric,
             "max_neutral_square_gap":max_quadratic,
             "max_positive_cost_chart_gap":max_resource,
+            "max_independent_jacobian_gap":max_external_jacobian,
             "chart_blind_operator_gap":max_ignorant,
             "dissipative_counterexample_gap":loss,
             "null_nonzero_positive_cost":True}
