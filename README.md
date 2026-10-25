@@ -79,6 +79,14 @@ python -m esmf.representations_n --seeds 0,1,2,3,4,5,6,7
 python -m esmf.bundle_p
 ```
 
+## G0-Q · Globally twisted neutral bundle
+
+[Executable construction](esmf/global_bundle_q.py) advances beyond local gauge checks and the earlier trivial bundle: a non-orientable rank-four neutral (2,2) real vector bundle over a cylinder, with three position-dependent charts, triple-overlap transitions, a compatible nonflat connection, explicit global sections, curvature and winding holonomy. [Remote test and failures ledger](research/results/G0_Q_2026-10-25.md) records both the corrected successful run and the initial metric-derivative bug. **This is an explicit, nontrivial bundle instance, not yet a general theory of cognitive fiber bundles or a learning organism.**
+
+```bash
+python -m esmf.global_bundle_q
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
