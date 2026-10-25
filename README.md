@@ -55,6 +55,14 @@ python -m esmf.geometry_k
 python -m esmf.remainder
 ```
 
+## G0-M · Neutral-signature (2,2) cognitive carriers
+
+[Real (2,2) test geometry](esmf/neutral22.py) replaces planar assumptions **in the new algebraic test layer**, not yet throughout mechanochemical dynamics. Its (O(2,2)) isometries, nonzero null states, and metric-covariant transports are checked remotely on CPU; the [mathematical audit](research/G0_M_NEUTRAL_22.md) documents the distinction between an indefinite signed form and a positive physical resource norm. It does not yet establish semantic, cognitive, or efficiency benefit.
+
+```bash
+python -m esmf.neutral22
+```
+
 ## G0 test ladder
 
 1. **G0-A:** prove/check state bounds, degree/resource limits, deterministic replays, and numerical stability.
