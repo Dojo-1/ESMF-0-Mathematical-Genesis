@@ -202,6 +202,12 @@ python -m unittest discover -s tests -p 'test_adaptive_ecology_ab.py'
 python -m research.run_g0_ab_heldout --start 128 --count 64
 ```
 
+An experimental follow-up now couples a finite-state reflex and novelty-triggered
+continuity audit to the full charted rank-four bundle with delayed partial
+sensing: [G0-AB reflex/bundle bridge](research/G0_AB_REFLEX_BUNDLE_BRIDGE.md). It is
+not held-out evidence and leaves the original G0-AB results unchanged. The
+bridge reports software runtime/memory only; it measures no physical joules.
+
 ## G0-Y/Z/AA · Complementary questions and evidence-gated continuity
 
 **Most consequential correction:** the old claim “even-winding observation gives no orientation information” only holds with a known/conditioned initial fiber. For an *unknown, shared* antisymmetric fiber contrast `D=F01-F10`, one scalar even observation `Y_e=D+noise` and one odd observation `Y_o=T D+noise` are each individually uninformative about balanced monodromy `T`, but their **joint covariance determines a likelihood for T**. No shared-D provenance, no such inference. [Mathematical corollary and 256-episode resource experiment](research/results/G0_Y_2026-10-25.md).
