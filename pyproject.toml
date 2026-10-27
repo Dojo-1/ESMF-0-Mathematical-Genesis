@@ -21,7 +21,3 @@ target-version = "py311"
 # variables are style here, not defects.
 select = ["F", "E9", "B"]
 ignore = ["B905", "B007", "B008"]
-
-[tool.ruff.lint.per-file-ignores]
-# Edited by an open PR; clean up once it lands to avoid a conflict.
-"esmf/adaptive_connection_ac0.py" = ["F401"]
