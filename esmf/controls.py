@@ -13,6 +13,7 @@ from pathlib import Path
 
 N_REGIONS = 12
 READOUT = 1
+PROPOSAL_SENDERS = ((READOUT - 1) % N_REGIONS, (READOUT + 1) % N_REGIONS)
 FEATURES = 9
 EXPLORATION_PERIOD = 20
 STRATEGIES = ("fixed_informative", "random_one_edge", "scripted_edge",
@@ -26,10 +27,12 @@ def sigmoid(x):
 
 
 def sample(rng, composition="and", intervention="observe", appearance=None):
-    """Create local observations; labels are evaluator-only."""
+    """Create local observations and an outcome; latent causes stay hidden."""
     if composition not in COMPOSITIONS or intervention not in INTERVENTIONS:
         raise ValueError("unknown composition or intervention")
-    a, b = rng.randrange(2), rng.randrange(2)
+    latent = rng.randrange(2)
+    a = latent ^ int(rng.random() < 0.2)
+    b = latent ^ int(rng.random() < 0.2)
     if intervention == "do_a":
         a = rng.randrange(2)
     elif intervention == "do_b":
@@ -68,7 +71,8 @@ class LocalReadout:
         }[strategy]
         self.edges = {tuple(sorted(initial))}
         self.weights = [0.0] * FEATURES
-        self.residual_scores = [0.0] * N_REGIONS
+        self.residual_scores = {i: 0.0 for i in PROPOSAL_SENDERS}
+        self.proposal_messages = {i: 0.0 for i in PROPOSAL_SENDERS}
         self.learning_rate = 0.12
         self.updates = 0
         self.edge_exposures = 0
@@ -98,9 +102,9 @@ class LocalReadout:
         return sigmoid(score), has_message
 
     def _explore(self):
-        senders = [i for i in range(N_REGIONS) if i != READOUT]
-        scores = [abs(self.residual_scores[i]) for i in senders]
-        self.candidate_evaluations += len(senders)
+        senders = list(PROPOSAL_SENDERS)
+        scores = [self.proposal_messages[i] for i in senders]
+        self.candidate_evaluations += len(PROPOSAL_SENDERS)
         self.proposal_events += 1
         if self.strategy == "residual_driven":
             best_score = max(scores)
@@ -118,9 +122,11 @@ class LocalReadout:
         for i, value in enumerate(features):
             self.weights[i] = max(-4.0, min(4.0,
                                           self.weights[i] + self.learning_rate * error * value))
-        for i, cue in enumerate(cues):
+        for i in PROPOSAL_SENDERS:
+            cue = cues[i]
             self.residual_scores[i] = (0.95 * self.residual_scores[i]
                                        + error * (float(cue) - 0.5))
+            self.proposal_messages[i] = abs(self.residual_scores[i])
         self.updates += 1
         self.edge_exposures += len(self.edges)
         self.message_count += int(has_message)
@@ -135,7 +141,8 @@ class LocalReadout:
         return (len(self.weights) == FEATURES
                 and all(math.isfinite(x) and -4.0 <= x <= 4.0
                         for x in self.weights)
-                and all(math.isfinite(x) for x in self.residual_scores)
+                and all(math.isfinite(x) for x in self.residual_scores.values())
+                and all(math.isfinite(x) for x in self.proposal_messages.values())
                 and self.edge_exposures == self.updates)
 
 
@@ -241,7 +248,8 @@ def paired(seed, episodes=600, eval_per_stratum=40):
             ), 7)
             for composition in COMPOSITIONS for intervention in INTERVENTIONS
         }
-        state_scalars = len(model.weights) + len(model.residual_scores) + 2
+        state_scalars = (len(model.weights) + len(model.residual_scores)
+                         + len(model.proposal_messages) + 2)
         results[strategy] = {
             **overall,
             "groups": groups,
@@ -254,7 +262,7 @@ def paired(seed, episodes=600, eval_per_stratum=40):
             "exploration_events": model.proposal_events,
             "candidate_evaluations": model.candidate_evaluations,
             "logical_operation_units_estimate": (
-                episodes * (3 * FEATURES + 3 * N_REGIONS)
+                episodes * (3 * FEATURES + 3 * len(PROPOSAL_SENDERS))
                 + model.candidate_evaluations * 3
             ),
             "state_scalars": state_scalars,
@@ -269,7 +277,7 @@ def paired(seed, episodes=600, eval_per_stratum=40):
             "updates_per_strategy": episodes,
             "active_contacts_per_update": 1,
             "exploration_events_per_strategy": episodes // EXPLORATION_PERIOD,
-            "candidate_evaluations_per_event": N_REGIONS - 1,
+            "candidate_evaluations_per_event": len(PROPOSAL_SENDERS),
         },
         "training_distribution": "AND, observational",
         "holdout_compositions": list(COMPOSITIONS),

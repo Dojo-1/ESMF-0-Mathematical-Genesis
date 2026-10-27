@@ -13,7 +13,9 @@ empirical results; only saved run output supports a measured claim.
 ## Frozen task and paired controls
 
 - Each paired seed supplies the identical AND/observational training stream and
-  independent held-out streams to every condition.
+  independent held-out streams to every condition. Observational causes share
+  a latent common cause; randomized `do(A)` / `do(B)` assignments break that
+  dependence while retaining the other cause's natural mechanism.
 - The held-out factorial includes AND and XOR outcomes, observation and `do(A)`
   / `do(B)` interventions, and both appearance values. Latent causes and
   composition names are evaluator-only; appearance independently recodes both
@@ -25,7 +27,9 @@ empirical results; only saved run output supports a measured claim.
   2. `random_one_edge`: one seeded random fixed contact.
   3. `scripted_edge`: one contact moved on a fixed node/event schedule.
   4. `residual_driven`: one contact proposed from local activity/residual
-     correlation, with one bounded proposal event per 20 updates.
+     correlation at the readout's two physical neighbors, with one bounded
+     proposal event per 20 updates. Each neighbor sends its local residual
+     correlation as a proposal message; no other region enters this scan.
 - The only prediction is at region 1. It uses region 1's local observation and
   appearance plus explicit messages arriving over its incident contact; it
   never sums all region outputs. The label is used for local prediction error,

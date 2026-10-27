@@ -2,8 +2,8 @@ import random
 import unittest
 
 from esmf.controls import (
-    LocalReadout, READOUT, _diagnostics, observation_gram, paired, sample,
-    signed_laplacian,
+    LocalReadout, PROPOSAL_SENDERS, READOUT, _diagnostics, observation_gram,
+    paired, sample, signed_laplacian,
 )
 
 
@@ -43,7 +43,8 @@ class TestControls(unittest.TestCase):
             cues[READOUT] = (i // 2) % 2
             model.update(cues, int(cues[0] and cues[READOUT]), 0)
         self.assertEqual(model.proposal_events, 1)
-        self.assertEqual(model.candidate_evaluations, 11)
+        self.assertEqual(model.candidate_evaluations, len(PROPOSAL_SENDERS))
+        self.assertIn(next(iter(model.edges))[0], PROPOSAL_SENDERS)
         self.assertTrue(model.valid())
 
     def test_holdout_has_novel_compositions_interventions_and_appearance_strata(self):
@@ -55,6 +56,17 @@ class TestControls(unittest.TestCase):
         self.assertEqual(row["holdout_interventions"], ["observe", "do_a", "do_b"])
         self.assertFalse(row["models"]["fixed_informative"]["diagnostics"]["used_for_learning"])
         self.assertFalse(row["z_plus"]["implemented"])
+
+    def test_interventions_break_observational_cause_dependence(self):
+        observed_rng = random.Random(12)
+        intervened_rng = random.Random(13)
+        observed = [sample(observed_rng, appearance=0) for _ in range(1000)]
+        intervened = [sample(intervened_rng, intervention="do_a", appearance=0)
+                      for _ in range(1000)]
+        observed_agreement = sum(x[0][0] == x[0][1] for x in observed) / len(observed)
+        intervened_agreement = sum(x[0][0] == x[0][1] for x in intervened) / len(intervened)
+        self.assertGreater(observed_agreement, 0.65)
+        self.assertAlmostEqual(intervened_agreement, 0.5, delta=0.06)
 
     def test_diagnostics_are_external_and_symmetric(self):
         observations = [[0] * 12, [1] * 12]
