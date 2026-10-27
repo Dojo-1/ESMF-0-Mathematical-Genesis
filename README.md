@@ -131,6 +131,25 @@ python -m esmf.orientation_seam_w
 python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-AC · Calibrated reflex versus auditor
+
+[G0-AC](esmf/reflex_auditor_ac.py) tests a budgeted, hysteretic credible-consequence gate between compiled partial-sensor circuits and a costly learned return-map auditor. The hidden state is an arbitrary full Mat₂(R) matrix with noncommuting left/right SL₂ transport families, three overlapping rank-two local sensors, and causal forward/inverse/rest interventions. Reversible transport, reset, gradual drift, dissipation and independent replacement are separate tasks. No learner sees true states, injected test sections, chart adapters or reset labels.
+
+The bounded real recurrent ensemble supports fast continuity, slower hazard updates and temporary model-slot budding/pruning with provenance and reserved undo costs. FIXED_FOCUS, FIXED_QUIET, random, equal-capacity real recurrent/IMM, no-slow, no-budding, blinded-sensor-ID and exact equivalent-real controls share sensors and budget caps. Temperature calibration uses only development seeds 512–527; the [pre-implementation registration](research/G0_AC_PREREGISTRATION.json) reserves fresh seeds 4096–4127.
+
+Every post-burn-in tick is scored, including abstentions and energy exhaustion. Reports separate nonnegative simulated metabolic cost, RLS arithmetic proxies, wall/CPU time and **unmeasured hardware joules (`null`)**. Common energy caps are not equal actual spend: frontier comparisons require no greater comparator spend/RLS work, and promotion additionally requires no greater measured comparator CPU cost. Return maps are lossy diagnostics, not topological gluing certificates; “false confident gluing” measures local predictive-continuity declarations across real resets. The gate's value is a conservative risk proxy, not an identified causal value of information.
+
+From the repository root (artifacts refuse overwriting; freeze calibration before evaluation):
+
+```bash
+python -m unittest discover -s tests -p 'test_reflex_auditor_ac.py'
+python -m research.run_g0_ac_heldout calibrate --output /tmp/g0-ac-calibration.json
+python -m research.run_g0_ac_heldout smoke --calibration /tmp/g0-ac-calibration.json --output /tmp/g0-ac-smoke.json
+python -m research.run_g0_ac_heldout evaluate --calibration /tmp/g0-ac-calibration.json --output /tmp/g0-ac-heldout.json
+```
+
+This is computational morphology, not physical growth, a reconstructed adaptive neutral connection, or coupling to G0-Q's nonorientable cylinder. **No sentience, biology, unique geometric advantage or physical energy-efficiency claim.** The extra controller remains exception-triggered unless the registered predictive/calibration/compute comparisons pass.
+
 ## G0-AC0 · A genuinely adaptive neutral connection (new)
 
 [G0-AC0](esmf/adaptive_connection_ac0.py) lifts adaptation from G0-AB's scalar observation quotient into a **rank-four real neutral (2,2) vector bundle connection** over a cylindrical base. The connection `A_t=a_tX dtheta + b_tY dz` now learns its two coefficients from *two partial sensor readings* of injected test sections; it remains compatible with three nonorthogonal position-dependent local frames, the neutral metric, nonzero curvature and the orientation-reversing global seam. [Mathematical and numerical audit](research/results/G0_AC0_2026-10-25.md), [frozen pre-run protocol](research/G0_AC0_ADAPTIVE_CONNECTION_PROTOCOL.md), [replay driver](research/run_g0_ac0_heldout.py).
