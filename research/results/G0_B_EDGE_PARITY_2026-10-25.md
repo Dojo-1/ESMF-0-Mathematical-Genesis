@@ -22,3 +22,15 @@ Fixed informative edge beats scripted growth on every seed. This null/negative r
 **Status of main hypotheses:** H1 and H2 untested. No real local graph growth, no concepts, no Z+, no independent semantic representation, no creative generalization. The experiment's value is the successful remote pipeline and detection of a weak comparator.
 
 **Next design decision:** The next baseline should force signal mediation via a local readout region (rather than a global linear sum), and select candidate tendrils without privileged node IDs or information about the hidden cause. Establish path discovery separately from latent concept composition.
+
+## Follow-up implementation status
+
+The G0-B runner has since been replaced by a paired, local-readout protocol
+covering fixed 0↔1, seeded random one-edge, scripted-edge, and residual-driven
+topology with matched active-contact exposure, update, proposal, and accounting
+budgets. Its independent held-out matrix covers AND/XOR, observation/`do(A)`/
+`do(B)`, and appearance strata. See [the current protocol](../G0_PROTOCOL.md).
+
+This is an implementation update, **not a new measured result**. No new remote
+run or semantic-emergence claim is recorded here. Preserve every result,
+including null or negative outcomes, when the protocol is run.
