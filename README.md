@@ -14,7 +14,9 @@ ESMF-0 asks whether locally adaptive predictive relations, with bounded resource
 
 ## Current empirical finding
 
-**G0-A was a misleading comparator.** A scripted-edge model appeared better than an empty fixed graph. G0-B then added the missing one-edge fixed control: it slightly **outperformed scripted growth on all eight paired seeds**. The result does **not** establish endogenous learning; it corrects the causal interpretation of the earlier smoke test. See [G0-B's full negative-control record](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
+**Historical G0-A/G0-B were weak comparators.** A scripted-edge model appeared better than an empty fixed graph. The 2026-10-25 G0-B run added a fixed one-edge control and it slightly **outperformed scripted growth on all eight paired seeds**. This result does **not** establish endogenous learning and did not match contact exposure. See [the historical result and current implementation status](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
+
+The current [G0-B runner](esmf/controls.py) pairs a fixed 0↔1 edge, seeded random one-edge, scripted-edge, and residual-driven topology. All conditions have one active contact per update and matched update, exploration, logical-operation, and parameter-state budgets. The readout is local and receives only explicit messages. Held-out tests span AND/XOR, observation and `do(A)`/`do(B)` interventions, and appearance recoding. Signed-Laplacian and observation-Gram diagnostics run externally after learning. **The revised protocol has not been measured; it is not evidence of semantic emergence.** See the [frozen protocol and limits](research/G0_PROTOCOL.md).
 
 ## Developmental surrogate and gauge freedom
 
@@ -198,7 +200,7 @@ python -m esmf.experiment --seeds 0,1,2,3 --episodes 600
 python -m esmf.controls --seeds 0,1,2,3,4,5,6,7 --episodes 600
 ```
 
-Run defaults use standard Python, no GPU, no LM Studio, no remote LLM, no background services, and no filesystem write. The Kaggle machine is not used by Hugging Face-hosted Jobs.
+The controls runner can preserve its full paired-seed JSON output with `--output /path/to/g0b-run.json`. Defaults use standard Python, CPU only, no network, no background services, and no filesystem write. Remote replications, if separately authorized, must begin with bounded `cpu-basic`; the local Kaggle machine remains untouched.
 
 See [G0 protocol](research/G0_PROTOCOL.md) for fixed predictions, controls, falsifiers and what must be recorded before any claim promotion.
 
