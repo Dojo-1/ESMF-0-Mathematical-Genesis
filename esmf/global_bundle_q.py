@@ -11,12 +11,39 @@ This is a finite testbed, not a universal bundle framework or a learner.
 """
 import json
 import math
+from dataclasses import dataclass
 from .geometry_k import matmul,matvec,transpose,inverse,identity,bilinear
 from .bundle_p import ETA,plus,scaled,commutator,exponential,maxdiff,transport
 
 D=4
 TAU=2*math.pi
 TWIST=((-1.,0.,0.,0.),(0.,1.,0.,0.),(0.,0.,1.,0.),(0.,0.,0.,1.))
+
+
+@dataclass(frozen=True)
+class ChartTransition:
+    source: int
+    target: int
+    matrix: tuple
+
+    def __post_init__(self):
+        if self.source not in range(3) or self.target not in range(3):
+            raise ValueError("unknown chart")
+        if (len(self.matrix) != D or
+                any(len(row) != D for row in self.matrix)):
+            raise ValueError("transition must be a 4x4 map")
+        inverse(self.matrix)
+
+    def then(self, following):
+        if self.target != following.source:
+            raise ValueError("transition charts do not compose")
+        return ChartTransition(self.source, following.target,
+                               matmul(following.matrix, self.matrix))
+
+    def apply(self, vector):
+        if len(vector) != D:
+            raise ValueError("wrong fiber dimension")
+        return matvec(self.matrix, vector)
 
 
 def diag(v):
@@ -118,6 +145,9 @@ class NeutralCylinderBundle:
         Bb,_,_=self.frame(b,theta,z)
         return matmul(matmul(Bb,self.seam(a,b,theta)),inverse(Ba))
 
+    def typed_transition(self,a,b,theta,z):
+        return ChartTransition(a,b,self.transition(a,b,theta,z))
+
     def transition_derivative(self,a,b,theta,z,axis):
         g=self.transition(a,b,theta,z)
         _,at,az=self.frame(a,theta,z)
@@ -212,6 +242,9 @@ class NeutralCylinderBundle:
         g12=self.transition(1,2,p,z)
         g02=self.transition(0,2,p,z)
         out["triple_cocycle"]=maxdiff(matmul(g12,g01),g02)
+        typed=self.typed_transition(0,1,p,z).then(
+            self.typed_transition(1,2,p,z))
+        out["typed_triple_cocycle"]=maxdiff(typed.matrix,g02)
         broken=plus(g12,scaled(identity(D),.04))
         out["broken_cocycle_gap"]=maxdiff(matmul(broken,g01),g02)
         out["twist_det_sign"]=det_sign(self.transition(0,1,seam,z))
@@ -222,6 +255,7 @@ class NeutralCylinderBundle:
         assert out["broken_cocycle_gap"]>.03
 
         max_connection=max_curvature=max_metric=max_section=max_cov_section=0.
+        max_bad_gauge=0.
         max_numeric_curvature=0.
         min_naive_gap=1e6
         for theta in (p,seam):
@@ -238,6 +272,8 @@ class NeutralCylinderBundle:
                     dg=self.transition_derivative(a,b,theta,z,axis)
                     expected=plus(matmul(matmul(g,A0),gi),matmul(dg,gi),-1.)
                     max_connection=max(max_connection,maxdiff(A1,expected))
+                    wrong=matmul(matmul(g,A0),gi)
+                    max_bad_gauge=max(max_bad_gauge,maxdiff(A1,wrong))
                     h=self.metric(a,theta,z)
                     dh=self.metric_derivative(a,theta,z,axis)
                     compat=plus(dh,plus(matmul(transpose(A0),h),matmul(h,A0)),-1.)
@@ -260,10 +296,48 @@ class NeutralCylinderBundle:
                    metric_compatibility=max_metric,section_gluing=max_section,
                    covariant_section_gluing=max_cov_section,
                    numeric_curvature=max_numeric_curvature,
-                   naive_curvature_gap=min_naive_gap)
+                   naive_curvature_gap=min_naive_gap,
+                   omitted_gauge_derivative_gap=max_bad_gauge)
         assert max(max_connection,max_curvature,max_metric,max_section,max_cov_section)<1e-10
+        assert out["typed_triple_cocycle"]<1e-12
+        assert max_bad_gauge>1e-3
         assert max_numeric_curvature<1e-8
         assert min_naive_gap>1e-3
+
+        # A constant Euclidean base metric has zero Levi-Civita symbols and
+        # curvature. An arbitrary predictor is not Levi-Civita unless it is
+        # torsion-free and metric-compatible.
+        flat_gamma=[[[0. for _ in range(2)] for _ in range(2)]
+                    for _ in range(2)]
+        predicted_gamma=[[[0. for _ in range(2)] for _ in range(2)]
+                         for _ in range(2)]
+        predicted_gamma[0][0][0]=.2
+
+        def metric_compatibility_gap(gamma):
+            return max(abs(sum(
+                gamma[m][k][i]*(1. if m == j else 0.) +
+                gamma[m][k][j]*(1. if i == m else 0.)
+                for m in range(2)))
+                for k in range(2) for i in range(2) for j in range(2))
+
+        flat_compatibility=metric_compatibility_gap(flat_gamma)
+        predicted_compatibility=metric_compatibility_gap(predicted_gamma)
+        torsion=max(abs(predicted_gamma[m][i][j]-predicted_gamma[m][j][i])
+                    for m in range(2) for i in range(2) for j in range(2))
+        flat_lc_curvature=max(abs(sum(
+            flat_gamma[rho][mu][lam]*flat_gamma[lam][nu][sigma] -
+            flat_gamma[rho][nu][lam]*flat_gamma[lam][mu][sigma]
+            for lam in range(2)))
+            for rho in range(2) for sigma in range(2)
+            for mu in range(2) for nu in range(2))
+        out["flat_levi_civita_curvature"]=flat_lc_curvature
+        out["flat_levi_civita_compatibility"]=flat_compatibility
+        out["incompatible_christoffel_gap"]=predicted_compatibility
+        out["predicted_christoffel_torsion"]=torsion
+        assert flat_lc_curvature==0.
+        assert flat_compatibility==0.
+        assert torsion==0.
+        assert predicted_compatibility>.1
 
         W=self.winding_holonomy(seam,z)
         expected=self.analytic_winding(seam,z)
