@@ -17,7 +17,7 @@ import time
 
 from .geometry_k import identity,matmul,matvec,inverse,transpose,bilinear
 from .bundle_p import ETA,commutator,maxdiff,plus,scaled
-from .global_bundle_q import NeutralCylinderBundle,TWIST,det_sign
+from .global_bundle_q import NeutralCylinderBundle,TWIST,TAU,det_sign
 
 
 D=4
@@ -77,14 +77,16 @@ class PartialProbe:
     sensors_local:tuple # two dual vectors with local target coordinates
 
 
-def make_probe(rng,axis,bundle):
-    theta0=math.pi-rng.uniform(.095,.13)
+def make_probe(rng,axis,bundle,cross_seam=False):
+    if cross_seam and axis != 0:
+        raise ValueError("the cylinder seam can only be crossed by a theta probe")
+    theta_offset=rng.uniform(.095,.13)
     h=rng.uniform(.05,.085)
+    theta0=(TAU-.5*h if cross_seam else math.pi-theta_offset)
     theta1=theta0+h if axis==0 else theta0
     z0=rng.uniform(-.65,.65)
     z1=z0+h if axis==1 else z0
-    chart0=rng.randrange(3)
-    chart1=rng.randrange(3)
+    chart0,chart1=((0,1) if cross_seam else (rng.randrange(3),rng.randrange(3)))
     B0,_,_=bundle.frame(chart0,theta0,z0)
     B1,_,_=bundle.frame(chart1,theta1,z1)
     v=tuple(rng.gauss(0,.8) for i in range(D))
@@ -103,11 +105,17 @@ def predict(probe,coeff,bundle,gradient=False):
     B1,_,_=bundle.frame(probe.chart1,probe.theta1,probe.z1)
     vref=matvec(inverse(B0),probe.source_local)
     U=boost_transport(probe.axis,coeff,probe.h)
+    crossed_seam=(probe.axis==0 and
+                  math.floor(probe.theta0/TAU)!=math.floor(probe.theta1/TAU))
+    if crossed_seam:
+        U=matmul(TWIST,U)
     field=matvec(B1,matvec(U,vref))
     values=tuple(dot(c,field) for c in probe.sensors_local)
     if not gradient:
         return values
     dU=derivative_transport(probe.axis,coeff,probe.h)
+    if crossed_seam:
+        dU=matmul(TWIST,dU)
     derivative=matvec(B1,matvec(dU,vref))
     grads=tuple(dot(c,derivative) for c in probe.sensors_local)
     return values,grads

@@ -202,10 +202,17 @@ python -m unittest discover -s tests -p 'test_adaptive_ecology_ab.py'
 python -m research.run_g0_ab_heldout --start 128 --count 64
 ```
 
+An experimental follow-up now couples a finite-state reflex and novelty-triggered
+continuity audit to the full charted rank-four bundle with delayed partial
+sensing: [G0-AB reflex/bundle bridge](research/G0_AB_REFLEX_BUNDLE_BRIDGE.md). It is
+not held-out evidence and leaves the original G0-AB results unchanged. The
+bridge reports software runtime/memory only; it measures no physical joules.
+
 ## G0-Y/Z/AA · Complementary questions and evidence-gated continuity
 
 **Most consequential correction:** the old claim “even-winding observation gives no orientation information” only holds with a known/conditioned initial fiber. For an *unknown, shared* antisymmetric fiber contrast `D=F01-F10`, one scalar even observation `Y_e=D+noise` and one odd observation `Y_o=T D+noise` are each individually uninformative about balanced monodromy `T`, but their **joint covariance determines a likelihood for T**. No shared-D provenance, no such inference. [Mathematical corollary and 256-episode resource experiment](research/results/G0_Y_2026-10-25.md).
 
+- [G0-Y partial-observation embodied benchmark](esmf/embodied_y.py) adds delayed noisy sensors, action-conditioned cylinder dynamics, damage/recovery, positive resource accounting, four-parameter predictor controls, chart/seam ablations, and per-seed reproducibility. The protocol and raw 32-seed results are [here](research/G0_Y_EMBODIED_PROTOCOL.md) and [here](research/results/G0_Y_EMBODIED_2026-10-27.md). Its geometry row is an exact chart-aware relabeling control, **not an integrated 4D fiber learner**; resource/event counts are not watts.
 - [G0-Y active epistemics](esmf/active_epistemics_y.py): 256 episodes, a two-step information policy reached 77.3% classification coverage using 2.99 simulated resource units on average. A *fixed alternating-focused circuit* did **slightly better** at 79.7% coverage, with 3.14 units; the online policy cost ~**500×** more Python CPU time in this benchmark. An ordinary identically informed real Bayesian model ties the geometric interpretation.
 - [G0-Z provenance auditor](esmf/provenance_z.py): a three-hypothesis filter distinguishes one persistent D from independently replaced D; in 128 independent-replacement episodes, unsupported confident orientation claims fell from **71.9% to 10.9%**, with a small loss of confidence coverage on genuinely persistent cases. [Results](research/results/G0_Z_2026-10-25.md).
 - [G0-AA temporal repair](esmf/temporal_repair_aa.py): a finite 13-hypothesis filter additionally considers one unknown change boundary and can issue two **temporal Worldlet descriptors** when evidence justifies a split. It recovered the true K=3 boundary in only ~34% of all change-point episodes and sometimes proposed false splits; ~4.3× extra CPU over the simpler provenance filter. [Results and failures](research/results/G0_AA_2026-10-25.md).
