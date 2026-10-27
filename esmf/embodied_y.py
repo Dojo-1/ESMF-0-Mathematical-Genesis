@@ -18,6 +18,7 @@ ENERGY_FLOOR = 0.12
 HORIZON = 28
 TRAIN_EPISODES = 5
 TEST_EPISODES = 3
+AUTONOMIC_PERIOD = 2
 MODELS = ("recurrent", "kalman", "hierarchical", "chart_aware", "geometric")
 TAU = 2 * math.pi
 
@@ -38,7 +39,7 @@ SCENARIOS = (
     Scenario("noncommuting"),
     Scenario("commuting", dynamics="commuting", twist=False, chart_mode="fixed"),
     Scenario("dissipative", dynamics="dissipative"),
-    Scenario("out_of_family", dynamics="perturbed", chart_mode="false"),
+    Scenario("out_of_family", dynamics="perturbed", chart_mode="adaptive"),
     Scenario("no_regulatory_organs", regulators=False),
     Scenario("no_transport_remainder", remainder=False),
     Scenario("fixed_charts", chart_mode="fixed"),
@@ -46,6 +47,25 @@ SCENARIOS = (
     Scenario("hidden_seam_change", seam_change=True,
              no_winding_training=True),
 )
+
+
+def momentum_transition(momentum, angle, motor, damage, dynamics):
+    if dynamics == "commuting":
+        damping, drive, contextual = .82, .42, 0.0
+    elif dynamics == "dissipative":
+        damping, drive, contextual = .54, .37, .08
+    elif dynamics == "perturbed":
+        damping, drive, contextual = .63, .28, .23
+    else:
+        damping, drive, contextual = .82, .42, .11
+    return (damping * momentum + drive * motor * (1.0 - damage) +
+            contextual * math.sin(angle))
+
+
+def momentum_action_gradient(damage, dynamics):
+    drive = {"commuting": .42, "dissipative": .37,
+             "perturbed": .28}.get(dynamics, .42)
+    return drive * (1.0 - damage)
 
 
 @dataclass(frozen=True)
@@ -101,7 +121,9 @@ class AutonomicGate:
         self.focus = False
         self.last_surprise = 0.0
 
-    def update(self, observation, previous_momentum, reserve):
+    def update(self, observation, previous_momentum, reserve, tick):
+        if tick % AUTONOMIC_PERIOD:
+            return self.focus
         surprise = abs(observation.momentum - previous_momentum)
         self.last_surprise = surprise
         if self.regulated:
@@ -117,13 +139,18 @@ class AutonomicGate:
 class SpinalLoop:
     """Fast policy using only delayed observations, never hidden world state."""
     @staticmethod
-    def choose(observation, tick, no_winding=False, regulated=True):
-        if regulated and observation.reserve < .75:
-            return "rest"
+    def choose(observation, tick, no_winding=False, regulated=True,
+               heldout_composition=False):
+        if observation.reserve < .75:
+            return "rest" if regulated else "coast"
         if regulated and observation.damage > .55:
             return "repair"
         if no_winding and tick < HORIZON:
             return "coast"
+        if heldout_composition and tick % 8 == 4:
+            return "rest"
+        if heldout_composition and tick % 8 == 5 and observation.damage > .12:
+            return "repair"
         if observation.momentum > .16:
             return "left"
         if observation.momentum < -.16:
@@ -209,7 +236,7 @@ class CylinderWorld:
             raise ValueError("invalid action")
         before_winding = math.floor((self.angle + math.pi) / TAU)
         focus = self.gate.update(self.observe(), self.previous_momentum,
-                                 self.ledger.reserve)
+                                 self.ledger.reserve, self.tick)
         self.ledger.step(action, focus, self.scenario.regulators)
         motor = {"left": -1.0, "right": 1.0}.get(action, 0.0)
         if action == "repair":
@@ -220,20 +247,14 @@ class CylinderWorld:
             low_resource = self.ledger.reserve < 1.0
             self.damage = min(1.0, self.damage +
                               (.018 if low_resource else .004))
-        if self.scenario.dynamics == "commuting":
-            damping, drive, contextual = .82, .42, 0.0
-        elif self.scenario.dynamics == "dissipative":
-            damping, drive, contextual = .54, .37, .08
-        elif self.scenario.dynamics == "perturbed" and self.split == "test":
-            damping, drive, contextual = .63, .28, .23
-        else:
-            damping, drive, contextual = .82, .42, .11
-        physical_noise = .015 if self.scenario.dynamics == "dissipative" else .004
+        dynamics = self.scenario.dynamics
+        if dynamics == "perturbed" and self.split == "train":
+            dynamics = "noncommuting"
+        physical_noise = .015 if dynamics == "dissipative" else .004
         old_momentum = self.momentum
-        self.momentum = (damping * self.momentum +
-                         drive * motor * (1.0 - self.damage) +
-                         contextual * math.sin(self.angle) +
-                         self.rng.gauss(0.0, physical_noise))
+        self.momentum = (momentum_transition(
+            self.momentum, self.angle, motor, self.damage, dynamics) +
+            self.rng.gauss(0.0, physical_noise))
         self.angle += self.momentum
         self.previous_momentum = old_momentum
         self.tick += 1
@@ -261,7 +282,8 @@ def collect_trace(seed, scenario, split, episode_index, no_winding=False):
     for tick in range(HORIZON):
         action = SpinalLoop.choose(
             obs[-1], tick, no_winding=no_winding,
-            regulated=scenario.regulators)
+            regulated=scenario.regulators,
+            heldout_composition=(split == "test"))
         actions.append(action)
         obs.append(world.step(action))
     if world.ledger.reserve < ENERGY_FLOOR - 1e-10:
@@ -278,6 +300,7 @@ def collect_trace(seed, scenario, split, episode_index, no_winding=False):
 def feature_stream(trace, model, use_remainder=True):
     observations, actions = trace["observations"], trace["actions"]
     fast = slow = previous_p = 0.0
+    previous_chart_p = 0.0
     rows = []
     for i, action in enumerate(actions):
         obs = observations[i]
@@ -295,9 +318,12 @@ def feature_stream(trace, model, use_remainder=True):
             slow = .92 * slow + .08 * obs.momentum
             features = (1.0, fast, slow, motor)
         elif model in ("chart_aware", "geometric"):
-            canonical_momentum = (obs.momentum / max(.5, obs.chart_gain) +
-                                  .1 * residual)
-            features = (1.0, canonical_momentum, obs.reserve, motor)
+            canonical_momentum = obs.momentum / max(.5, obs.chart_gain)
+            chart_residual = (canonical_momentum - previous_chart_p
+                              if use_remainder else 0.0)
+            features = (1.0, canonical_momentum + .1 * chart_residual,
+                        obs.reserve, motor)
+            previous_chart_p = canonical_momentum
         else:
             raise ValueError("unknown model: " + model)
         rows.append((features, observations[i + 1].momentum))
@@ -338,20 +364,34 @@ def fit_model(traces, model, use_remainder=True):
             count += 1
     for i in range(4):
         gram[i][i] += 1e-6
-    return solve_linear(gram, cross), count
+    weights = solve_linear(gram, cross)
+    squared_errors = [
+        (dot(weights, features) - target) ** 2
+        for trace in traces
+        for features, target in feature_stream(trace, model, use_remainder)
+    ]
+    variance = max(1e-8, sum(squared_errors) / len(squared_errors))
+    return weights, count, variance
 
 
 def dot(weights, features):
     return sum(a * b for a, b in zip(weights, features))
 
 
-def evaluate(weights, traces, model, use_remainder=True):
+def evaluate(weights, traces, model, use_remainder=True,
+             predictive_variance=1.0):
     errors = []
+    episode_mse = []
     compute = 0
     for trace in traces:
+        trace_errors = []
         for features, target in feature_stream(trace, model, use_remainder):
-            errors.append(dot(weights, features) - target)
+            error = dot(weights, features) - target
+            errors.append(error)
+            trace_errors.append(error)
             compute += 4
+        episode_mse.append(sum(error ** 2 for error in trace_errors) /
+                           len(trace_errors))
     if not errors:
         raise ValueError("evaluation requires observations")
     variance = max(1e-8, sum(e * e for e in errors) / len(errors))
@@ -360,10 +400,33 @@ def evaluate(weights, traces, model, use_remainder=True):
         "transitions": len(errors),
         "rmse": rmse,
         "mean_squared_error": variance,
-        "gaussian_nll": .5 * (math.log(2 * math.pi * variance) + 1.0),
-        "nominal_90_coverage": sum(abs(e) <= 1.645 * rmse for e in errors) / len(errors),
+        "training_predictive_variance": predictive_variance,
+        "gaussian_nll": sum(
+            .5 * (math.log(2 * math.pi * predictive_variance) +
+                  e * e / predictive_variance) for e in errors) / len(errors),
+        "nominal_90_coverage": sum(
+            abs(e) <= 1.645 * math.sqrt(predictive_variance)
+            for e in errors) / len(errors),
+        "episode_mean_squared_errors": episode_mse,
         "compute_multiply_adds": compute,
     }
+
+
+@dataclass
+class ContextWorldlet:
+    family: str
+    weights: tuple = ()
+    transitions: int = 0
+    predictive_variance: float = 1.0
+
+    def fit(self, traces, use_remainder=True):
+        (self.weights, self.transitions,
+         self.predictive_variance) = fit_model(
+            traces, self.family, use_remainder)
+
+    def score(self, traces, use_remainder=True):
+        return evaluate(self.weights, traces, self.family, use_remainder,
+                        self.predictive_variance)
 
 
 def scenario_pair(seed, scenario):
@@ -395,8 +458,9 @@ def run_seed(seed, scenario):
     for model in MODELS:
         started = time.perf_counter()
         use_remainder = scenario.remainder
-        weights, train_transitions = fit_model(train, model, use_remainder)
-        metrics = evaluate(weights, test, model, use_remainder)
+        learner = ContextWorldlet(model)
+        learner.fit(train, use_remainder)
+        metrics = learner.score(test, use_remainder)
         elapsed = time.perf_counter() - started
         test_transitions = metrics.pop("transitions")
         result = {
@@ -404,8 +468,8 @@ def run_seed(seed, scenario):
             "scenario": scenario.name,
             "model": model,
             "parameters": 4,
-            "weights": weights,
-            "train_transitions": train_transitions,
+            "weights": learner.weights,
+            "train_transitions": learner.transitions,
             "test_transitions": test_transitions,
             "train_events": TRAIN_EPISODES * HORIZON,
             "test_events": TEST_EPISODES * HORIZON,
@@ -423,7 +487,7 @@ def run_seed(seed, scenario):
                 trace["ledger"]["closure_error"] for trace in train + test),
             "model_state_bytes": 4 * 8,
             "feature_matrix_payload_bytes_estimate": (
-                (train_transitions + test_transitions) * 4 * 8),
+                (learner.transitions + test_transitions) * 4 * 8),
             **metrics,
         }
         results.append(result)
@@ -448,6 +512,10 @@ def paired_results(seeds=32, start=0):
 def summaries(rows):
     out = []
     for scenario in SCENARIOS:
+        by_seed = {
+            row["seed"]: row["rmse"] for row in rows
+            if row["scenario"] == scenario.name and row["model"] == "chart_aware"
+        }
         for model in MODELS:
             group = [r for r in rows if r["scenario"] == scenario.name
                      and r["model"] == model]
@@ -460,6 +528,14 @@ def summaries(rows):
                                      for value in rmse_values) /
                                  (len(group) - 1) / len(group))
                        if len(group) > 1 else 0.0)
+            paired_deltas = [row["rmse"] - by_seed[row["seed"]]
+                             for row in group if row["seed"] in by_seed]
+            paired_mean = (sum(paired_deltas) / len(paired_deltas)
+                           if paired_deltas else 0.0)
+            paired_se = (math.sqrt(sum((value - paired_mean) ** 2
+                                       for value in paired_deltas) /
+                                   (len(paired_deltas) - 1) / len(paired_deltas))
+                         if len(paired_deltas) > 1 else 0.0)
             out.append({
                 "scenario": scenario.name,
                 "model": model,
@@ -468,6 +544,11 @@ def summaries(rows):
                 "rmse_normal_95_ci": [
                     max(0.0, rmse_mean - 1.96 * rmse_se),
                     rmse_mean + 1.96 * rmse_se,
+                ],
+                "paired_rmse_delta_vs_chart_aware": paired_mean,
+                "paired_delta_normal_95_ci": [
+                    paired_mean - 1.96 * paired_se,
+                    paired_mean + 1.96 * paired_se,
                 ],
                 "mean_nll": mean("gaussian_nll"),
                 "mean_90_coverage": mean("nominal_90_coverage"),

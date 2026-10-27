@@ -1,8 +1,10 @@
 import unittest
+from dataclasses import replace
 
 from esmf.embodied_y import (
-    HORIZON, MODELS, SCENARIOS, CylinderWorld, Scenario, collect_trace,
-    feature_stream, run_seed, scenario_pair,
+    HORIZON, MODELS, SCENARIOS, AutonomicGate, CylinderWorld, Observation,
+    Scenario, collect_trace, feature_stream, momentum_action_gradient,
+    momentum_transition, run_seed, scenario_pair,
 )
 
 
@@ -33,6 +35,13 @@ class TestEmbodiedY(unittest.TestCase):
         self.assertGreaterEqual(world.ledger.reserve, .12)
         self.assertLess(world.ledger_result()["closure_error"], 1e-10)
 
+    def test_autonomic_gate_runs_on_its_meso_clock(self):
+        gate = AutonomicGate()
+        observation = Observation(0.0, 1.0, 2.0, .0, 0, 1.0,
+                                 0, 0, 0, 0)
+        self.assertFalse(gate.update(observation, 0.0, 2.0, tick=1))
+        self.assertTrue(gate.update(observation, 0.0, 2.0, tick=2))
+
     def test_all_predictors_have_equal_capacity_and_same_traces(self):
         scenario = Scenario("matched")
         train_a, test_a = scenario_pair(8, scenario)
@@ -40,6 +49,8 @@ class TestEmbodiedY(unittest.TestCase):
         self.assertEqual(train_a, train_b)
         self.assertEqual(test_a, test_b)
         self.assertEqual(len(train_a[0]["actions"]), HORIZON)
+        self.assertIn("rest", test_a[0]["actions"])
+        self.assertNotEqual(train_a[0]["actions"], test_a[0]["actions"])
         for model in MODELS:
             self.assertEqual(
                 len(feature_stream(train_a[0], model, True)[0][0]), 4)
@@ -54,6 +65,38 @@ class TestEmbodiedY(unittest.TestCase):
         self.assertEqual(by_name["chart_aware"]["compute_multiply_adds"],
                          by_name["geometric"]["compute_multiply_adds"])
 
+    def test_chart_calibration_is_covariant_to_positive_rescaling(self):
+        trace = collect_trace(10, Scenario("chart_covariance"), "test", 0)
+        scaled = dict(trace)
+        scaled["observations"] = [
+            replace(obs, momentum=obs.momentum * 1.7,
+                    chart_gain=obs.chart_gain * 1.7)
+            for obs in trace["observations"]
+        ]
+        calibrated = feature_stream(trace, "chart_aware")
+        rescaled = feature_stream(scaled, "chart_aware")
+        for expected, actual in zip(calibrated, rescaled):
+            for expected_value, actual_value in zip(expected[0], actual[0]):
+                self.assertAlmostEqual(expected_value, actual_value, places=14)
+        self.assertNotEqual(
+            [row[0] for row in feature_stream(trace, "recurrent")],
+            [row[0] for row in feature_stream(scaled, "recurrent")])
+
+    def test_action_gradient_matches_finite_difference(self):
+        values = (.21, -.3, .4, .18)
+        eps = 1e-6
+        upper = momentum_transition(values[0], values[1],
+                                    values[2] + eps, values[3],
+                                    "noncommuting")
+        lower = momentum_transition(values[0], values[1],
+                                    values[2] - eps, values[3],
+                                    "noncommuting")
+        finite_difference = (upper - lower) / (2 * eps)
+        self.assertAlmostEqual(
+            finite_difference,
+            momentum_action_gradient(values[3], "noncommuting"),
+            places=8)
+
     def test_no_winding_training_leaves_seam_unknown(self):
         scenario = next(s for s in SCENARIOS
                         if s.name == "hidden_seam_change")
@@ -62,6 +105,14 @@ class TestEmbodiedY(unittest.TestCase):
         result = run_seed(11, scenario)
         self.assertTrue(all(row["seam_hypothesis"] == "unknown"
                             for row in result))
+
+    def test_all_control_scenarios_are_resource_bounded(self):
+        for scenario in SCENARIOS:
+            with self.subTest(scenario=scenario.name):
+                result = run_seed(13, scenario)
+                self.assertEqual(len(result), len(MODELS))
+                self.assertTrue(all(row["max_ledger_closure_error"] < 1e-9
+                                    for row in result))
 
     def test_seed_replay_and_matched_event_accounting(self):
         scenario = Scenario("replay")
