@@ -35,7 +35,17 @@ python -m esmf.gauge
 
 ```bash
 python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3
+python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3 --suite
+python -m esmf.mechanochemical --steps 300 --seeds 3 --continuum
 ```
+
+The follow-up runner reports paired chemistry, reversed-chemotaxis, nutrient-ablation
+and random-navigation controls. `--continuum` compares timestep halving, a CFL-stable
+2x grid refinement, and no-flux versus periodic boundaries at fixed physical time.
+It reports separate nutrient/ATP and material ledgers, actual paid branch length,
+edge lifespans, maturity, and validity residuals. These are surrogate bookkeeping
+checks; they do not establish thermodynamic consistency or biological viability.
+See the [G0-F follow-up audit](research/results/G0_F_2026-10-25.md#follow-up-audit-2026-10-27).
 
 ## Geometric anti-collapse audit — G0-K
 
