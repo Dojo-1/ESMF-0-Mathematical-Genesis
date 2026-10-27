@@ -150,6 +150,22 @@ python -m research.run_g0_ac_heldout evaluate --calibration /tmp/g0-ac-calibrati
 
 This is computational morphology, not physical growth, a reconstructed adaptive neutral connection, or coupling to G0-Q's nonorientable cylinder. **No sentience, biology, unique geometric advantage or physical energy-efficiency claim.** The extra controller remains exception-triggered unless the registered predictive/calibration/compute comparisons pass.
 
+### Frozen held-out outcome
+
+[Frozen calibration](research/results/G0_AC_CALIBRATION.json) was committed before [evaluation](research/results/G0_AC_HELDOUT.json): 32 fresh seeds × 5 worlds × 10 policies × 3 caps = **4,800 episodes**, with exact equivalent-real agreement. At cap 12 both controllers actually spent 12 simulated units; all-tick Brier (lower is better) was:
+
+| World | Adaptive | Fixed focus |
+|---|---:|---:|
+| Reversible | 0.140868 | 0.120074 |
+| Reset | 0.159021 | 0.157063 |
+| Drift | 0.141009 | 0.121869 |
+| Dissipation | 0.169159 | 0.154138 |
+| Independent | 0.277950 | 0.280884 |
+
+**Kill decision: no promotion; retain exception-triggered control only.** At caps 20 and 32 adaptive spent 16.68 versus fixed focus's 16.32 without a general predictive gain. Adaptive triggered **zero audits and zero buds across every held-out budget**, so this run supplies no empirical validation of structural growth/undo: bud precision is undefined and reset-task recall is zero. Unit tests exercise evidence-driven undo; random sensing exercises the actual auditor. Do not reinterpret a dormant gate as successful adaptation. Calibration/thresholds were not retuned after evaluation.
+
+The JSON includes every policy/cap, selective coverage/accuracy, Brier/logloss/MSE, local false-gluing counts, bud precision/recall, paired seed intervals, costs and limitations. The complete held-out evaluation, including comparisons/bootstrap, took **36.41 s wall / 36.40 s CPU** on the recorded environment. A development-only calibration replay reproduced the frozen artifact exactly and took **48.40 s wall / 48.39 s user+system CPU** (`/usr/bin/time -p`): approximately **84.81 s wall / 84.79 s CPU** for the two measured stages, excluding development attempts. These are computer costs, not joules or an efficiency result. The full 118-test suite and CodeQL passed (zero alerts). G0-Q/AC0 connection coupling and physical morphological growth remain open; this result does not justify closing those research requirements.
+
 ## G0-AC0 · A genuinely adaptive neutral connection (new)
 
 [G0-AC0](esmf/adaptive_connection_ac0.py) lifts adaptation from G0-AB's scalar observation quotient into a **rank-four real neutral (2,2) vector bundle connection** over a cylindrical base. The connection `A_t=a_tX dtheta + b_tY dz` now learns its two coefficients from *two partial sensor readings* of injected test sections; it remains compatible with three nonorthogonal position-dependent local frames, the neutral metric, nonzero curvature and the orientation-reversing global seam. [Mathematical and numerical audit](research/results/G0_AC0_2026-10-25.md), [frozen pre-run protocol](research/G0_AC0_ADAPTIVE_CONNECTION_PROTOCOL.md), [replay driver](research/run_g0_ac0_heldout.py).
