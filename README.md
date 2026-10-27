@@ -238,6 +238,7 @@ The first simulator is a deliberately small **engineering baseline**, not proof 
 
 ```bash
 python -m unittest discover -s tests -v
+python -m research.check_reproduction   # re-run stored G0-AC / G0-Y artifacts and diff
 python -m esmf.experiment --seeds 0,1,2,3 --episodes 600
 python -m esmf.controls --seeds 0,1,2,3,4,5,6,7 --episodes 600
 ```
