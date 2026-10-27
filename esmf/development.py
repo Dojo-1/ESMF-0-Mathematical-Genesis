@@ -10,7 +10,6 @@ Standard library only; bounded, seeded, CPU-only.
 """
 import argparse
 import json
-import math
 import random
 
 

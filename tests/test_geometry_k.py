@@ -1,7 +1,7 @@
 import unittest
 from esmf.geometry_k import (
     bilinear,change_frames,hyperbolic_distance,hyperboloid_point,
-    inverse,lorentz_boost,metric_signature_21,mismatch_energy,selfcheck
+    inverse,metric_signature_21,mismatch_energy,selfcheck
 )
 
 class TestGeometryK(unittest.TestCase):

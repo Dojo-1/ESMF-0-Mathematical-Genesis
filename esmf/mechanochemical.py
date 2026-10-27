@@ -170,7 +170,7 @@ class Organism:
         return self.initial_material+self.material_input-inventory
 
     def step(self):
-        s, dt = self.side, self.dt
+        dt = self.dt
         stim = [self.rng.random() < .20 for _ in range(self.n)]
         self.activity[:] = [.78*a+.22*float(b) for a, b in zip(self.activity, stim)]
         attract_sources, repulse_sources = {}, {}

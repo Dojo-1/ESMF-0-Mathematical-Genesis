@@ -16,8 +16,8 @@ import math
 import random
 import time
 
-from .active_epistemics_y import PROBE_BY_NAME,action_cost,sigma,entropy
-from .associated22_u import H,neutral_square,flatten
+from .active_epistemics_y import PROBE_BY_NAME,action_cost,sigma
+from .associated22_u import neutral_square,flatten
 from .orientation_seam_w import P
 from .geometry_k import matvec
 
@@ -210,7 +210,6 @@ class AdaptiveContinuityFilter:
             total=sum(s.weight for s in old)
             # Use model selection's existing reset component, but make the
             # next prediction more receptive to a new local context.
-            boost=.20*total
             old[0].weight*=.80
             old[1].weight*=.80
             old[2].weight=total-old[0].weight-old[1].weight

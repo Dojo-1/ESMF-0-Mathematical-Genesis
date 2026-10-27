@@ -1,7 +1,6 @@
 import unittest
 import random
-from esmf.monodromy_x import selfcheck,episode,select,run,simulate,run_alternate,ALT
-from esmf.causal_bundle_s import PI
+from esmf.monodromy_x import selfcheck,episode,select,run,run_alternate
 
 class TestMonodromyX(unittest.TestCase):
     def test_windings_and_identifiability(self):

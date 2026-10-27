@@ -3,7 +3,7 @@ import random
 import unittest
 
 from esmf.provenance_z import (
-    ProvenanceBelief,SCHEDULE,episode,selfcheck,summary
+    ProvenanceBelief,SCHEDULE,episode,selfcheck
 )
 from esmf.active_epistemics_y import Belief,ENERGY_CAP,ENERGY_FLOOR
 

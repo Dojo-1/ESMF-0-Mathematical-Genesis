@@ -1,7 +1,7 @@
 import unittest
 import math
 from esmf.global_bundle_q import ChartTransition,NeutralCylinderBundle,det_sign
-from esmf.bundle_p import maxdiff,scaled,identity
+from esmf.bundle_p import maxdiff
 
 class TestGlobalBundleQ(unittest.TestCase):
     def test_full_selfcheck(self):

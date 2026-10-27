@@ -5,7 +5,6 @@ equivalent predictions and losses. Only linear feature and readout transport.
 This does not demonstrate any neutral-geometry advantage.
 """
 import json
-import math
 import random
 from .geometry_k import matvec,transpose,inverse
 from .representations_n import draw,sigmoid

@@ -1,5 +1,5 @@
 import unittest
-from esmf.bundle_p import selfcheck,transition,charts,metric_compatible,generators
+from esmf.bundle_p import selfcheck,metric_compatible,generators
 
 class TestBundleP(unittest.TestCase):
     def test_bundle_invariants(self):

@@ -7,7 +7,7 @@ from esmf.temporal_repair_aa import (
 )
 from esmf.provenance_z import episode as old_episode
 from esmf.active_epistemics_y import (
-    Belief,ENERGY_CAP,ENERGY_FLOOR,PROBE_BY_NAME
+    Belief,ENERGY_CAP,ENERGY_FLOOR
 )
 
 
