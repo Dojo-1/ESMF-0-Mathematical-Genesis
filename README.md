@@ -14,7 +14,9 @@ ESMF-0 asks whether locally adaptive predictive relations, with bounded resource
 
 ## Current empirical finding
 
-**G0-A was a misleading comparator.** A scripted-edge model appeared better than an empty fixed graph. G0-B then added the missing one-edge fixed control: it slightly **outperformed scripted growth on all eight paired seeds**. The result does **not** establish endogenous learning; it corrects the causal interpretation of the earlier smoke test. See [G0-B's full negative-control record](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
+**Historical G0-A/G0-B were weak comparators.** A scripted-edge model appeared better than an empty fixed graph. The 2026-10-25 G0-B run added a fixed one-edge control and it slightly **outperformed scripted growth on all eight paired seeds**. This result does **not** establish endogenous learning and did not match contact exposure. See [the historical result and current implementation status](research/results/G0_B_EDGE_PARITY_2026-10-25.md).
+
+The current [G0-B runner](esmf/controls.py) pairs a fixed 0↔1 edge, seeded random one-edge, scripted-edge, and residual-driven topology. All conditions have one active contact per update and matched update, exploration, logical-operation, and parameter-state budgets. The readout is local and receives only explicit messages. Held-out tests span AND/XOR, observation and `do(A)`/`do(B)` interventions, and appearance recoding. Signed-Laplacian and observation-Gram diagnostics run externally after learning. **The revised protocol has not been measured; it is not evidence of semantic emergence.** See the [frozen protocol and limits](research/G0_PROTOCOL.md).
 
 ## Developmental surrogate and gauge freedom
 
@@ -35,7 +37,17 @@ python -m esmf.gauge
 
 ```bash
 python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3
+python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3 --suite
+python -m esmf.mechanochemical --steps 300 --seeds 3 --continuum
 ```
+
+The follow-up runner reports paired chemistry, reversed-chemotaxis, nutrient-ablation
+and random-navigation controls. `--continuum` compares timestep halving, a CFL-stable
+2x grid refinement, and no-flux versus periodic boundaries at fixed physical time.
+It reports separate nutrient/ATP and material ledgers, actual paid branch length,
+edge lifespans, maturity, and validity residuals. These are surrogate bookkeeping
+checks; they do not establish thermodynamic consistency or biological viability.
+See the [G0-F follow-up audit](research/results/G0_F_2026-10-25.md#follow-up-audit-2026-10-27).
 
 ## Geometric anti-collapse audit — G0-K
 
@@ -131,6 +143,41 @@ python -m esmf.orientation_seam_w
 python -m esmf.monodromy_x --seeds 0,1,2,3,4,5,6,7
 ```
 
+## G0-AC · Calibrated reflex versus auditor
+
+[G0-AC](esmf/reflex_auditor_ac.py) tests a budgeted, hysteretic credible-consequence gate between compiled partial-sensor circuits and a costly learned return-map auditor. The hidden state is an arbitrary full Mat₂(R) matrix with noncommuting left/right SL₂ transport families, three overlapping rank-two local sensors, and causal forward/inverse/rest interventions. Reversible transport, reset, gradual drift, dissipation and independent replacement are separate tasks. No learner sees true states, injected test sections, chart adapters or reset labels.
+
+The bounded real recurrent ensemble supports fast continuity, slower hazard updates and temporary model-slot budding/pruning with provenance and reserved undo costs. FIXED_FOCUS, FIXED_QUIET, random, equal-capacity real recurrent/IMM, no-slow, no-budding, blinded-sensor-ID and exact equivalent-real controls share sensors and budget caps. Temperature calibration uses only development seeds 512–527; the [pre-implementation registration](research/G0_AC_PREREGISTRATION.json) reserves fresh seeds 4096–4127.
+
+Every post-burn-in tick is scored, including abstentions and energy exhaustion. Reports separate nonnegative simulated metabolic cost, RLS arithmetic proxies, wall/CPU time and **unmeasured hardware joules (`null`)**. Common energy caps are not equal actual spend: frontier comparisons require no greater comparator spend/RLS work, and promotion additionally requires no greater measured comparator CPU cost. Return maps are lossy diagnostics, not topological gluing certificates; “false confident gluing” measures local predictive-continuity declarations across real resets. The gate's value is a conservative risk proxy, not an identified causal value of information.
+
+From the repository root (artifacts refuse overwriting; freeze calibration before evaluation):
+
+```bash
+python -m unittest discover -s tests -p 'test_reflex_auditor_ac.py'
+python -m research.run_g0_ac_heldout calibrate --output /tmp/g0-ac-calibration.json
+python -m research.run_g0_ac_heldout smoke --calibration /tmp/g0-ac-calibration.json --output /tmp/g0-ac-smoke.json
+python -m research.run_g0_ac_heldout evaluate --calibration /tmp/g0-ac-calibration.json --output /tmp/g0-ac-heldout.json
+```
+
+This is computational morphology, not physical growth, a reconstructed adaptive neutral connection, or coupling to G0-Q's nonorientable cylinder. **No sentience, biology, unique geometric advantage or physical energy-efficiency claim.** The extra controller remains exception-triggered unless the registered predictive/calibration/compute comparisons pass.
+
+### Frozen held-out outcome
+
+[Frozen calibration](research/results/G0_AC_CALIBRATION.json) was committed before [evaluation](research/results/G0_AC_HELDOUT.json): 32 fresh seeds × 5 worlds × 10 policies × 3 caps = **4,800 episodes**, with exact equivalent-real agreement. At cap 12 both controllers actually spent 12 simulated units; all-tick Brier (lower is better) was:
+
+| World | Adaptive | Fixed focus |
+|---|---:|---:|
+| Reversible | 0.140868 | 0.120074 |
+| Reset | 0.159021 | 0.157063 |
+| Drift | 0.141009 | 0.121869 |
+| Dissipation | 0.169159 | 0.154138 |
+| Independent | 0.277950 | 0.280884 |
+
+**Kill decision: no promotion; retain exception-triggered control only.** At caps 20 and 32 adaptive spent 16.68 versus fixed focus's 16.32 without a general predictive gain. Adaptive triggered **zero audits and zero buds across every held-out budget**, so this run supplies no empirical validation of structural growth/undo: bud precision is undefined and reset-task recall is zero. Unit tests exercise evidence-driven undo; random sensing exercises the actual auditor. Do not reinterpret a dormant gate as successful adaptation. Calibration/thresholds were not retuned after evaluation.
+
+The JSON includes every policy/cap, selective coverage/accuracy, Brier/logloss/MSE, local false-gluing counts, bud precision/recall, paired seed intervals, costs and limitations. The complete held-out evaluation, including comparisons/bootstrap, took **36.41 s wall / 36.40 s CPU** on the recorded environment. A development-only calibration replay reproduced the frozen artifact exactly and took **48.40 s wall / 48.39 s user+system CPU** (`/usr/bin/time -p`): approximately **84.81 s wall / 84.79 s CPU** for the two measured stages, excluding development attempts. These are computer costs, not joules or an efficiency result. The full 118-test suite and CodeQL passed (zero alerts). G0-Q/AC0 connection coupling and physical morphological growth remain open; this result does not justify closing those research requirements.
+
 ## G0-AC0 · A genuinely adaptive neutral connection (new)
 
 [G0-AC0](esmf/adaptive_connection_ac0.py) lifts adaptation from G0-AB's scalar observation quotient into a **rank-four real neutral (2,2) vector bundle connection** over a cylindrical base. The connection `A_t=a_tX dtheta + b_tY dz` now learns its two coefficients from *two partial sensor readings* of injected test sections; it remains compatible with three nonorthogonal position-dependent local frames, the neutral metric, nonzero curvature and the orientation-reversing global seam. [Mathematical and numerical audit](research/results/G0_AC0_2026-10-25.md), [frozen pre-run protocol](research/G0_AC0_ADAPTIVE_CONNECTION_PROTOCOL.md), [replay driver](research/run_g0_ac0_heldout.py).
@@ -189,7 +236,7 @@ python -m esmf.experiment --seeds 0,1,2,3 --episodes 600
 python -m esmf.controls --seeds 0,1,2,3,4,5,6,7 --episodes 600
 ```
 
-Run defaults use standard Python, no GPU, no LM Studio, no remote LLM, no background services, and no filesystem write. The Kaggle machine is not used by Hugging Face-hosted Jobs.
+The controls runner can preserve its full paired-seed JSON output with `--output /path/to/g0b-run.json`. Defaults use standard Python, CPU only, no network, no background services, and no filesystem write. Remote replications, if separately authorized, must begin with bounded `cpu-basic`; the local Kaggle machine remains untouched.
 
 See [G0 protocol](research/G0_PROTOCOL.md) for fixed predictions, controls, falsifiers and what must be recorded before any claim promotion.
 
