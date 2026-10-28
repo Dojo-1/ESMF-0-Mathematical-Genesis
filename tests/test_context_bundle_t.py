@@ -1,5 +1,4 @@
 import unittest
-import math
 from esmf.context_bundle_t import encode,decode,calibrate,gauge_check,chart_jac,run
 from esmf.causal_bundle_s import wrap
 

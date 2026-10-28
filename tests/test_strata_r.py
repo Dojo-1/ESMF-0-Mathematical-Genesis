@@ -1,5 +1,5 @@
 import unittest
-from esmf.strata_r import selfcheck,Stratum,Restriction,gluing_check
+from esmf.strata_r import selfcheck,Stratum,Restriction
 
 class TestStrataR(unittest.TestCase):
     def test_gluing_and_defect(self):

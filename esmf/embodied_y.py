@@ -521,7 +521,7 @@ def summaries(rows):
                      and r["model"] == model]
             if not group:
                 continue
-            mean = lambda key: sum(r[key] for r in group) / len(group)
+            mean = lambda key, group=group: sum(r[key] for r in group) / len(group)
             rmse_values = [r["rmse"] for r in group]
             rmse_mean = mean("rmse")
             rmse_se = (math.sqrt(sum((value - rmse_mean) ** 2

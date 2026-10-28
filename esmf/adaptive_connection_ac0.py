@@ -15,7 +15,7 @@ import math
 import random
 import time
 
-from .geometry_k import identity,matmul,matvec,inverse,transpose,bilinear
+from .geometry_k import identity,matmul,matvec,inverse,transpose
 from .bundle_p import ETA,commutator,maxdiff,plus,scaled
 from .global_bundle_q import NeutralCylinderBundle,TWIST,TAU,det_sign
 

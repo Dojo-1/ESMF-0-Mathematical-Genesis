@@ -1,11 +1,10 @@
-import math
 import random
 import unittest
 
 from esmf.active_epistemics_y import (
     Belief, PROBE_BY_NAME, ENERGY_CAP, ENERGY_FLOOR,
     MAX_EVENTS, CONFIDENCE, closed_form_pair, expected_information,
-    expected_pair_gain, numerical_selfcheck, simulate, sigma, run,
+    expected_pair_gain, numerical_selfcheck, simulate,
 )
 
 

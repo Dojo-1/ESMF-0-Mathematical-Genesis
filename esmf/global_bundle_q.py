@@ -13,7 +13,7 @@ import json
 import math
 from dataclasses import dataclass
 from .geometry_k import matmul,matvec,transpose,inverse,identity,bilinear
-from .bundle_p import ETA,plus,scaled,commutator,exponential,maxdiff,transport
+from .bundle_p import ETA,plus,scaled,commutator,exponential,maxdiff
 
 D=4
 TAU=2*math.pi
@@ -359,10 +359,6 @@ class NeutralCylinderBundle:
         assert out["signed_section_gap"]<1e-10 and out["positive_section_gap"]<1e-10
         assert p0>=0.
         return out
-
-
-def matzero():
-    return scaled(identity(D),0.)
 
 
 if __name__=="__main__":

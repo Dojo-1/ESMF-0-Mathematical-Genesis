@@ -7,9 +7,8 @@ from esmf.adaptive_ecology_ab import (
     ENERGY_CAP,ENERGY_FLOOR,HORIZON,POLICIES,WORLDS,
     AdaptiveContinuityFilter,AutonomicGate,ResourceLedger,
     transition_rows,neutral_invariant,fiber,fiber_transport,
-    latent_path,simulate,summary,
+    simulate,
 )
-from esmf.active_epistemics_y import PROBE_BY_NAME
 from esmf.causal_bundle_s import mm
 
 

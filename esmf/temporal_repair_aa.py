@@ -12,7 +12,6 @@ import argparse
 import json
 import math
 import random
-import time
 
 from .active_epistemics_y import (
     Belief, PRIOR_VAR, ENERGY_CAP, ENERGY_FLOOR,

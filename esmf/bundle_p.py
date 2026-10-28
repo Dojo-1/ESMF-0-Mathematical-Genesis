@@ -5,8 +5,7 @@ and noncommuting transport around a square. All computations use stdlib only.
 This is an algebraic bundle testbed, not yet a living/learning organism.
 """
 import json
-import math
-from .geometry_k import matmul, matvec, transpose, inverse, identity
+from .geometry_k import matmul, matvec, transpose, inverse, identity  # noqa: F401  (re-exported to bundle_o)
 
 N=4
 ETA=((1.,0.,0.,0.),(0.,1.,0.,0.),(0.,0.,-1.,0.),(0.,0.,0.,-1.))
@@ -79,7 +78,6 @@ def transport(Ax,Ay,h):
 
 
 def selfcheck():
-    C=charts()
     g01=transition(0,1);g12=transition(1,2);g02=transition(0,2)
     cocycle=maxdiff(matmul(g12,g01),g02)
     assert cocycle<1e-12

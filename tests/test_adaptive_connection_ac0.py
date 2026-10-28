@@ -4,12 +4,12 @@ import random
 import unittest
 
 from esmf.adaptive_connection_ac0 import (
-    D,X,Y,HORIZON,BURN_IN,WORLDS,MODEL_NAMES,
-    boost_transport,derivative_transport,make_probe,predict,
-    source_coefficients,curvature,math_checks,RLSConnection,simulate
+    WORLDS,MODEL_NAMES,
+    boost_transport,make_probe,predict,
+    source_coefficients,math_checks,RLSConnection,simulate
 )
-from esmf.global_bundle_q import NeutralCylinderBundle,TWIST,det_sign
-from esmf.bundle_p import ETA,commutator,maxdiff
+from esmf.global_bundle_q import NeutralCylinderBundle
+from esmf.bundle_p import ETA,maxdiff
 from esmf.geometry_k import identity,matmul,transpose
 
 
