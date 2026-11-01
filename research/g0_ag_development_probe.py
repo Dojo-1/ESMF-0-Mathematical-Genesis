@@ -17,7 +17,6 @@ import os
 import random
 import statistics
 import time
-from dataclasses import replace
 from pathlib import Path
 
 from esmf.glial_quaternion_ag import (
@@ -164,7 +163,8 @@ def simulate(model, start, arm, seed, horizon=.75, max_events=250):
         raise AssertionError("combined proxy energy ledger failed")
     if model.af.diagnostics(s.tissue)["material_balance_residual"] != 0:
         raise AssertionError("structural resource ledger failed")
-    counts = lambda prefix: sum(n.startswith(prefix) for n in names)
+    def count_prefix(prefix):
+        return sum(name.startswith(prefix) for name in names)
     return {
         "seed": seed,
         "arm": arm,
@@ -183,9 +183,9 @@ def simulate(model, start, arm, seed, horizon=.75, max_events=250):
             d.seen_same + d.seen_different
             for d in s.tissue.cognitive.distinctions
         ),
-        "encounters": counts("af/cognitive/encounter:"),
-        "extensions": counts("af/neurite_extend:"),
-        "connection_repairs": counts("fiber_connection_repair"),
+        "encounters": count_prefix("af/cognitive/encounter:"),
+        "extensions": count_prefix("af/neurite_extend:"),
+        "connection_repairs": count_prefix("fiber_connection_repair"),
         "energy_residual": model._energy_balance(s),
         "material_residual": model.af.diagnostics(s.tissue)[
             "material_balance_residual"
