@@ -9,6 +9,7 @@ import unittest
 
 from esmf.glial_quaternion_ag import (
     ONE, GlialQuaternionEcology,
+    observation_quaternion, reframe_sections,
     qmult, qconj, qnorm, qlength2, qerror, qdirection,
     qreframe, qinterpolate, qtransport_chain, qchain_discrepancy, selfcheck,
 )
@@ -80,6 +81,63 @@ class TestGlialQuaternionAG(unittest.TestCase):
         lifted = qtransport_chain((a_new, b_new), qmult(g0, ONE))
         for x, y in zip(lifted, qmult(g2, base)):
             self.assertAlmostEqual(x, y, places=12)
+
+    def test_full_observation_plasticity_respects_active_local_frames(self):
+        # Independent frame changes must co-transform *the learner's* sensor
+        # chart, not merely its post-hoc qerror metric.
+        s = find(self.m, self.seed, "af/neurite_extend:0:0").destination
+        s = find(self.m, s, "af/cognitive/encounter:0").destination
+        s = find(self.m, s, "af/metabolic_conversion:0").destination
+        f = s.fibers[0]
+        g0 = qdirection((1, 0, 0), .63)
+        g1 = qdirection((0, 1, 0), .78)
+        rotated = reframe_sections(f, (g0, g1))
+        reframed = replace(s, fibers=(rotated, s.fibers[1]))
+        self.assertTrue(self.m.valid(reframed))
+        self.assertAlmostEqual(qchain_discrepancy(f),
+                               qchain_discrepancy(rotated), places=11)
+        a = find(self.m, s, "fiber_experience_update")
+        b = find(self.m, reframed, "fiber_experience_update")
+        self.assertAlmostEqual(a.rate, b.rate, places=12)
+        new_a = a.destination.fibers[0]
+        new_b = b.destination.fibers[0]
+        for x, y in zip(new_b.phases[-1], qmult(g1, new_a.phases[-1])):
+            self.assertAlmostEqual(x, y, places=11)
+        self.assertAlmostEqual(qchain_discrepancy(new_a),
+                               qchain_discrepancy(new_b), places=11)
+        self.assertEqual(b.remainder[0], "[R]_memory_prior")
+        a_repaid = find(self.m, a.destination,
+                        "af/metabolic_conversion:0").destination
+        b_repaid = find(self.m, b.destination,
+                        "af/metabolic_conversion:0").destination
+        rep_a = find(self.m, a_repaid, "fiber_connection_repair")
+        rep_b = find(self.m, b_repaid, "fiber_connection_repair")
+        self.assertAlmostEqual(rep_a.rate, rep_b.rate, places=12)
+        Ua = rep_a.destination.fibers[0].forward[0]
+        Ub = rep_b.destination.fibers[0].forward[0]
+        expected = qmult(qmult(g1, Ua), qconj(g0))
+        for x, y in zip(Ub, expected):
+            self.assertAlmostEqual(x, y, places=11)
+
+    def test_zero_observation_abstains_without_crashing_joint_generator(self):
+        # The accepted environment can present a zero R4 vector; this
+        # cannot be normalized into a point of S3. Do not invent its phase.
+        self.assertIsNone(observation_quaternion((0., 0., 0., 0.)))
+        self.assertAlmostEqual(qlength2(qnorm((1e300, 1e300, 0., 0.))),
+                               1., places=12)
+        old_world = self.m.af.core.world
+        old_pair = old_world.probes[0][0]
+        replacement = replace(old_pair[0], target=(0., 0., 0., 0.))
+        probes = (( (replacement,) + old_pair[1:], old_world.probes[0][1]),
+                  old_world.probes[1])
+        self.m.af.core.world = replace(old_world, probes=probes)
+        encountered = find(self.m, self.seed,
+                           "af/cognitive/encounter:0").destination
+        self.assertTrue(self.m.valid(encountered))
+        self.assertNotIn("fiber_experience_update", names(self.m, encountered))
+        self.assertNotIn("fiber_connection_repair", names(self.m, encountered))
+        self.assertTrue(self.m.summary(encountered)[
+            "unrepresentable_active_observation"])
 
     def test_independent_unit_quaternion_frame_covariance(self):
         source = qdirection((1, 0, 0), .62)
