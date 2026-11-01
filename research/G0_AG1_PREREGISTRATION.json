@@ -1,0 +1,75 @@
+{
+  "id": "G0-AG1",
+  "title": "Glial-regulated continuous quaternion neurite transport, independent viability and contextual distinction",
+  "status": "proposed, not frozen, not executed, no held-out results",
+  "evidence_floor": "H",
+  "goal": "Evaluate whether resource-accounted glial participation and experience-updated continuous quaternionic tendril connections improve adaptation and viable growth under matched resource, information and compute budgets.",
+  "development_seeds": {
+    "start": 8100,
+    "end": 8163
+  },
+  "heldout_seeds": {
+    "start": 18100,
+    "end": 18227
+  },
+  "contexts": [
+    "local cue conflicts",
+    "partial sensory rotations",
+    "resource interruptions",
+    "glial transfer availability",
+    "new 3D guidance paths",
+    "drifted observational chart",
+    "false glial support signals"
+  ],
+  "controls": [
+    "G0-AF without glia under identical total external nutrient inflow",
+    "glial positive resource transfer only, no calcium tripartite modulation",
+    "pairwise hidden-state controller with matched storage (ternary reducibility null)",
+    "fixed-neurite topology with equal parameter and storage capacity",
+    "Q8-only inherited phases without continuous quaternionic repair",
+    "continuous quaternion model with transport phase randomization",
+    "exactly equivalent four-real-coordinate Hamilton-product implementation",
+    "ordinary real-valued state estimator with identical observation history",
+    "split-step numerical integrator converged to same full joint generator"
+  ],
+  "invariants": [
+    "zero G0-AF material ledger residual",
+    "zero total AF-plus-glial energy ledger residual with internal transfer subtracted",
+    "nonnegative finite chemical, substrate, ATP proxy, glial stores and bounded ranks",
+    "unit-quaternion norm and independent local left gauge covariance",
+    "pruned continuous section and old connection preserved as typed audit remainder",
+    "all CTMC offdiagonal rates >= 0 and outgoing row sum zero"
+  ],
+  "paired_metrics": [
+    "task-conditional false equivalence under heldout contexts",
+    "action quality conditional on available evidence",
+    "coverage, abstention and calibration",
+    "neurite growth utility rather than total length",
+    "persistent, useful contacts and recovery following simulated lesion",
+    "local transport mismatch across unseen frame changes",
+    "resource exhaustion, proxy spend and total tissue viability",
+    "wall/CPU time, measured peak RAM, simulated resource counts"
+  ],
+  "main_hypotheses": [
+    "Glial regulation improves resource-limited transport adaptation at equal external nutrient spending.",
+    "Continuous transport improves heldout context recovery compared with Q8-only at equal effective capacity.",
+    "Ternary support offers a discriminating benefit over a resource- and hidden-state-matched pairwise model."
+  ],
+  "kill_conditions": [
+    "No relative advantage once hidden-state pairwise controls have matching information and resources.",
+    "Equivalent 4-real-coordinate arithmetic ties: do not claim intrinsic quaternion speed or generalization advantage.",
+    "Transport repair fits seen pairs but fails unseen transformations or fresh frames.",
+    "Extra glial resources merely subsidize the model rather than deliver regulatory benefit.",
+    "False growth, resource exhaustion or abstention increases enough to negate task gain.",
+    "Any hidden evaluator-only semantic or transport-truth channel enters the learner."
+  ],
+  "no_claims": [
+    "biological astrocyte physiology",
+    "physical quantum coherence",
+    "indefinite causal order",
+    "general artificial intelligence or consciousness",
+    "measured hyperdimensional learning superiority"
+  ],
+  "dependency": "G0-AE -> G0-AF -> G0-AG (stacked draft PRs); earlier frozen G0-F/AC/Y results unchanged",
+  "promotion": "An independent, preregistered heldout experiment with matched controls and explicit uncertainty must exist before H can become M."
+}
