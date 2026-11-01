@@ -8,6 +8,10 @@ ESMF-0 explores whether a resource-bounded learner can do something analogous: d
 
 The aim is not a larger vector, a new name for a neural network, or geometry for its own sake. It is a place where **biology-inspired growth, geometry and semantic inquiry constrain one another**—and where we can tell when that idea fails.
 
+[![Enter the ESMF-0 Living Observatory: a navigable cosmos of tissue, geometry, meaning and evidence](docs/preview.svg)](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/)
+
+*Explore the [Living Observatory](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/) — a source-linked, interactive 3D architectural schematic, not a live simulation.*
+
 ## What lives here?
 
 The project is a family of small, executable research models. Its ingredients are coupled questions, not a processing pipeline:
