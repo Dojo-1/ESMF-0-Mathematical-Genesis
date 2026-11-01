@@ -167,7 +167,7 @@ function draw(frame) {
     const center = t.members.reduce((acc,id) => acc.add(pos(state.cells[id].soma)),
       new THREE.Vector3()).multiplyScalar(1/t.members.length);
     const shell = new THREE.Mesh(
-      new THREE.SphereGeometry(2.0,.17 ? 18 : 18,14),
+      new THREE.SphereGeometry(2.0,18,14),
       new THREE.MeshBasicMaterial({
         color:'#9c9de8',wireframe:true,transparent:true,
         opacity:t.calcium ? .18 : .075,depthWrite:false
