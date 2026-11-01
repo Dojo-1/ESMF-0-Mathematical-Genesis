@@ -214,6 +214,10 @@ class TestTelosJointAE(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.m.trajectory(self.start, -1.)
         with self.assertRaises(ValueError):
+            self.m.trajectory(self.start, 1., max_events=0)
+        with self.assertRaises(RuntimeError):
+            self.m.trajectory(self.start, 100., max_events=1)
+        with self.assertRaises(ValueError):
             self.m.distribution(self.start, -1.)
         self.assertTrue(self.m.viable(replace(self.start, resource=0)))
         self.assertEqual(identity(4), I4)
