@@ -140,6 +140,33 @@ class TestObservatorySite(unittest.TestCase):
         self.assertIn("not randomly sampled", ui.lower())
         self.assertNotIn("eval(", ui)
 
+    def test_g0_ah_microscope_is_recorded_not_an_anatomical_claim(self):
+        self.assertIn("compartments", {n["id"] for n in self.data["nodes"]})
+        node=next(n for n in self.data["nodes"] if n["id"]=="compartments")
+        self.assertEqual(node["evidence"], "M")
+        self.assertIn("ordinary", node["detail"].lower())
+        cards={finding["id"]:finding for finding in self.data["findings"]}
+        self.assertIn("ah-d0",cards)
+        self.assertIn("ordinary",cards["ah-d0"]["label"].lower())
+        page=(DOCS / "neurite.html").read_text()
+        script=(DOCS / "neurite.js").read_text()
+        parser=_HTML()
+        parser.feed(page)
+        for local in parser.local_assets:
+            self.assertTrue((DOCS / local).exists(),local)
+        for required in ("run","cell","frame","viewport","fallback",
+                         "detail","remainder","hash","focus"):
+            self.assertIn(required,parser.ids)
+        self.assertIn("./neurite.js",parser.scripts)
+        self.assertIn('href="./neurite.html"',(DOCS / "index.html").read_text())
+        self.assertIn("not drawn from a stochastic generator",(
+            ROOT / "research/export_g0_ah_microscope.py").read_text())
+        self.assertIn("selected",script)
+        self.assertIn("not a stochastic event",page.lower() + script.lower())
+        self.assertNotIn("eval(",script)
+        workflow=(ROOT / ".github/workflows/observatory-pages.yml").read_text()
+        self.assertIn("python -m research.export_g0_ah_microscope",workflow)
+
     def test_merged_research_is_shown_as_main_source_not_as_validated_science(self):
         self.assertNotIn("draft", {n["stage"] for n in self.data["nodes"]})
         for node in self.data["nodes"]:
