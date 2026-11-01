@@ -33,4 +33,4 @@ Three.js is imported at a pinned version via a public CDN; all architecture cont
 
 ## Design boundaries
 
-The architecture contains committed `main` elements and *unmerged* draft elements from G0-AD through D1a. Draft status is visible in the inspector and in direct PR source links. Neither D0 nor D1a proves biological realism or general intelligence. No holographic, topological, hypercomplex or quantum interpretation is inferred from the aesthetic rendering.
+The G0-AD through D1a modules are now merged into **`main`**. An inspector label of **SOURCE ON MAIN** means the code, research note or synthetic study is present in the default branch; it does **not** mean the underlying learning, physiological or semantic claim has been established. H and S evidence tags remain visibly provisional. Historical review and corrections survive in the six merged pull requests. Neither D0 nor D1a proves biological realism or general intelligence. No holographic, topological, hypercomplex or quantum interpretation is inferred from the aesthetic rendering.

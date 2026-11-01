@@ -12,13 +12,16 @@
 | **When the same observations can support different stories** | [Source provenance](esmf/provenance_z.py) · [Temporal repair](esmf/temporal_repair_aa.py) |
 | **Whether experiments can be trusted** | [Frozen protocols](research/G0_PROTOCOL.md) · [Regression/reproduction check](research/check_reproduction.py) · [Full research chronicle](RESEARCH_CHRONICLE.md) |
 
-## Research still on experimental branches
+## The integrated experimental organism
 
-A more explicitly coupled biological–geometric–semantic ecology is being studied in the [stacked draft PRs](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pulls). They are **not automatically part of the default branch**:
+The G0-AD → G0-AG chain is now on **`main`**. Its source files are the canonical starting point; the six merged PRs retain the older review discussion and commit ancestry.
 
-- [Neurite tissue and joint dynamics](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/17), [glia-inspired support and quaternionic transports](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/18). These are synthetic mechanisms, not validated biological physiology or quantum hardware.
-- [D0 rate-ablation controls](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/19) produced no clear developmental advantage on their short, conditioned synthetic probe.
-- [D1a interrogative-memory comparison](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/20) found that question-conditioned ordinary memory outperformed context-pooled memory on a small synthetic future-response task. This reveals a typed-information loss, **not** a general intelligence result.
+- **Relational inquiry:** [G0-AD](esmf/relational_genesis_ad.py) explores conditional recognition and questions inspired by Rosenblatt, Noether, Llull and Trasgo. Its [research note](research/G0_AD_RELATIONAL_GENESIS.md) keeps historical and mathematical analogies separate.
+- **Joint dynamics:** [G0-AE](esmf/telos_joint_ae.py) models competing synthetic cognitive events in one stochastic law rather than treating biological, geometric and semantic updates as a prescribed pipeline.
+- **Developing tissue:** [G0-AF](esmf/hypercomplex_tissue_af.py) and [G0-AG](esmf/glial_quaternion_ag.py) link paid neurite growth, local quaternionic sections, transport defects, chemical guidance and glia-inspired resources. These are bounded **synthetic mechanisms**, not biological tissue physiology or quantum hardware.
+- **What the controls actually found:** [D0](research/G0_AG_D0_RESULTS.md) saw **no clear developmental advantage** in its short, conditioned rate-ablation experiment; [D1a](research/G0_AG_D1A_RESULTS.md) found that an ordinary question-conditioned memory outperformed the context-pooled memory on a small synthetic future-response task. The [D1a experimental code](research/g0_ag_d1a_memory_probe.py) is an **offline evaluator**, not a deployed embodied organ.
+
+The absence of a confirmed cognitive advantage is an important result, not a missing piece to cover with another geometric adjective. For the audit history, see [G0-AG's CI and covariance review](research/G0_AG_CI_AND_COVARIANCE_AUDIT.md) and the [draft-era research chronicle](RESEARCH_CHRONICLE_DRAFTS.md).
 
 ## Reading the evidence
 

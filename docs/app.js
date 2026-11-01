@@ -86,7 +86,7 @@ function updateInspector() {
   target.append(el('p', 'inspector-summary', node.summary));
   const meta = el('div', 'inspector-meta');
   meta.append(el('span', 'meta-chip is-evidence', node.evidence + ' / ' + evidenceNames[node.evidence]));
-  meta.append(el('span', 'meta-chip', node.stage === 'main' ? 'BASE BRANCH' : node.stage === 'draft' ? 'DRAFT RESEARCH' : 'DESIGN FRAME'));
+  meta.append(el('span', 'meta-chip', node.stage === 'main' ? 'SOURCE ON MAIN' : node.stage === 'draft' ? 'DRAFT RESEARCH' : 'DESIGN FRAME'));
   target.append(meta);
   target.append(el('p', 'inspector-more', node.detail));
   target.append(repoLink(node.source, 'Read the corresponding research  \u2197', 'source-link'));

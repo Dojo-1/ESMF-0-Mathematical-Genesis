@@ -23,7 +23,7 @@ The project is a family of small, executable research models. Its ingredients ar
 | **Memory & recognition** | What deserves to be retained, revised, doubted or forgotten without merging genuinely different experiences? |
 | **Tissue & resources** | What can grow, connect, dissipate or be pruned when every observation and structural change has a cost? |
 
-The code experiments with local geometric frames, neutral \((2,2)\) forms, nontrivial bundle transitions, partial observations, chemical guidance, paid morphology and evidence-gated adaptation. More recent *draft branches* investigate a joint neurite/glia-inspired system with continuous quaternionic transport. **The 2D/3D tissue grids are numerical substrates, not a claim that thought lives in two or three Euclidean dimensions.**
+The code experiments with local geometric frames, neutral \((2,2)\) forms, nontrivial bundle transitions, partial observations, chemical guidance, paid morphology and evidence-gated adaptation. The G0-AD → G0-AG research modules are now integrated on **`main`**, including the joint neurite/glia-inspired simulator and continuous quaternionic transport. The newer experimental components remain hypotheses about learning, not demonstrated biological or cognitive advantages. **The 2D/3D tissue grids are numerical substrates, not a claim that thought lives in two or three Euclidean dimensions.**
 
 ## What have we actually learned?
 
@@ -48,7 +48,7 @@ python -m esmf.mechanochemical --steps 300 --seeds 0,1,2,3
 
 For the organism's initial interaction model, see [the executable baseline](esmf/experiment.py). For the deeper geometric and biological questions, follow the map rather than reading a chronological log.
 
-**[Explore the research by question](RESEARCH_MAP.md)** · **[Open the original research chronicle](RESEARCH_CHRONICLE.md)** · **[Browse experimental pull requests](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pulls)**
+**[Explore the research by question](RESEARCH_MAP.md)** · **[Revisit the original research chronicle](RESEARCH_CHRONICLE.md)** · **[See the merged research history](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pulls?q=is%3Apr+is%3Amerged)**
 
 ## The boundary we keep
 
