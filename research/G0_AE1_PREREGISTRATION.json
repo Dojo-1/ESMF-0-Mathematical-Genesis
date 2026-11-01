@@ -1,0 +1,64 @@
+{
+  "experiment": "G0-AE1",
+  "title": "Telos-native joint generator versus matched sequential and conventional inference",
+  "status": "proposed protocol; not frozen, not run, no result",
+  "evidence_floor": "H",
+  "purpose": "Test whether coupled endogenous resource/geometry/interrogation/memory/morphogenesis dynamics improve downstream distinctions at matched viability and compute, separately from exact CTMC order-independence.",
+  "scope": {
+    "organism": "finite synthetic Worldlets and two geometric candidates only",
+    "environment": "withheld-context switch, appearance recoding, response noise and drift; no hidden semantics given to learner",
+    "previous_results": "all G0-AB, G0-AC and G0-Y artifacts are frozen and remain unchanged"
+  },
+  "precommit": {
+    "development_seeds": [
+      600,
+      663
+    ],
+    "heldout_seeds": [
+      6000,
+      6127
+    ],
+    "frozen_before_evaluation": true,
+    "model_params_locked_before_heldout": true
+  },
+  "comparators": [
+    "G0-AE coupled-generator model",
+    "Lie-Trotter stage-split approximation with decreasing timestep",
+    "symmetric Strang splitting approximation",
+    "real-valued capacity- and history-matched context estimator",
+    "static morphology and static interrogation ablations",
+    "shuffled relation/channel control",
+    "equivalent classical real implementation"
+  ],
+  "invariants": [
+    "positive energy and material",
+    "finite state boundedness",
+    "invariance under independent GL(4) frame reexpression",
+    "preserved raw witness counts",
+    "monotone accumulated history",
+    "generator probability normalization and nonnegative offdiagonal"
+  ],
+  "metrics": [
+    "heldout predictive action utility",
+    "false equivalence rate conditioned on attempted declarations",
+    "coverage/abstention",
+    "false buds and valid bud recoveries",
+    "recovery under drift and context changes",
+    "resource exhaustion",
+    "mean and max material expenditure",
+    "actual CPU wall and peak traced memory",
+    "stochastic and step-size convergence",
+    "roundtrip geometric defect",
+    "unmeasured physical joules null"
+  ],
+  "parity": "Match sensing observations, history access, data, capacity, structure budgets, random seed streams, CPU/memory where practical; equal caps are not equal spend",
+  "kill_rules": [
+    "No cognitive advantage claim if conventional estimator ties or wins at comparable resource cost and coverage",
+    "No concurrency benefit claim if splitting converges to same joint process as timestep decreases",
+    "No useful morphology claim if bud precision is insufficient or improves only on leaked labels",
+    "No special geometry claim if chart-aware real implementation ties",
+    "Never infer quantum advantage from a diagonal Lindblad embedding"
+  ],
+  "availability": "CPU-only, stdlib-only, no GPU, no network access from model, no external job scheduling",
+  "authority": "Generated or validated tests do not self-promote claims: only independent held-out witness may change H to M"
+}
