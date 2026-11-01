@@ -4,6 +4,21 @@
 
 ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
 
+## G0-AF — Variable-rank quaternionic neurite tissue (experimental draft)
+
+[G0-AF](research/G0_AF_QUATERNIONIC_NEURITE_TISSUE.md) couples ESMF-0's existing G0-AE cognitive state and generator to a finite mechanochemical **tissue CTMC**, inspired by G0-F's paid neurite growth. Each soma carries two distinct local structures: a four-real-coordinate neutral Mat₂(R) block and a variable number of quaternionic sections. The implemented phases lie in the genuine noncommutative eight-element subgroup Q8; when a tissue branch is *paid for*, one quaternionic section is added, raising that soma's formal real carrier dimension by four. Retraction loses the section with a typed, retained record. This is a discrete experimental substrate, **not** continuous quaternionic neural dynamics, 3D tissue or demonstrated semantic understanding.
+
+Chemotactic packets, substrate-to-ATP conversion, physical material, contact creation and return, interrogative events, contextual memory and anatomical growth are channels of **one state-dependent stochastic generator**, rather than a prescribed biological → geometric → semantic pipeline. The two-dimensional numerical lattice is an extracellular spatial discretization, not the cognitive carrier. No observer acquires evaluator-only semantic truth. Exact proxy ledgers must close at every event; no indefinite geometric quadratic is used as positive energy.
+
+[Code](esmf/hypercomplex_tissue_af.py) · [Tests](tests/test_hypercomplex_tissue_af.py) · [Proposed (unrun) held-out protocol](research/G0_AF1_PREREGISTRATION.json).
+
+```bash
+python -m esmf.hypercomplex_tissue_af
+python -m unittest discover -s tests -p 'test_hypercomplex_tissue_af.py' -v
+```
+
+The G0-F finite-volume simulator, its original results, the G0-AC/Y held-out records, and their reproduction guard remain unchanged. The bridge is subject to capacity-matched real/Abelian controls; increased rank alone is not a cognitive advantage. No physical quantum computation or biological equivalence is claimed.
+
 ## Telos-native orientation — G0-AE (experimental draft)
 
 ESMF-0's **internal telos** is viable, revisable development: through its own encounters and interventions, the organism acquires distinctions and capacities for action without being handed the evaluator's hidden causal/semantic categories. This is a **plural viability condition**, not a single globally optimized meaning score. Material, metabolic, relational and geometric constraints are constitutive of what the organism can learn, not post-hoc taxes on a separate inference engine.
