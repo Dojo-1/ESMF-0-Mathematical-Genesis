@@ -171,6 +171,9 @@ class TestGlialQuaternionAG(unittest.TestCase):
         # The accepted environment can present a zero R4 vector; this
         # cannot be normalized into a point of S3. Do not invent its phase.
         self.assertIsNone(observation_quaternion((0., 0., 0., 0.)))
+        self.assertIsNone(observation_quaternion((1e308, 1e308, 1e308, 1e308)))
+        with self.assertRaises(ValueError):
+            qnorm((1e308, 1e308, 1e308, 1e308))
         self.assertAlmostEqual(qlength2(qnorm((1e300, 1e300, 0., 0.))),
                                1., places=12)
         old_world = self.m.af.core.world
