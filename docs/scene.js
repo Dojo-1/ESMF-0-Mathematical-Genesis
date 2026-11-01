@@ -234,10 +234,37 @@ export function createScene(viewport, labelsRoot, data, onSelect) {
     );
     traceRoot.add(line);
   }
+  function traceQuaternionFrame(at, q) {
+    // Faithful S3 -> SO(3) display projection only: q and -q yield the
+    // same orientation. Neither physical neurite rotation nor proof.
+    const group = new THREE.Group();
+    group.position.copy(tracePosition(at));
+    group.quaternion.set(q[1], q[2], q[3], q[0]).normalize();
+    const axes = [
+      {end: [.29, 0, 0], color: '#d5a1f4'},
+      {end: [0, .29, 0], color: '#8cf1e3'},
+      {end: [0, 0, .29], color: '#f3c489'},
+    ];
+    for (const axis of axes) {
+      const line = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0), point(axis.end)
+        ]),
+        new THREE.LineBasicMaterial({
+          color: axis.color, transparent: true, opacity: .74,
+          depthWrite: false
+        })
+      );
+      group.add(line);
+    }
+    traceRoot.add(group);
+  }
   function clearTraceObjects() {
     for (const child of [...traceRoot.children]) {
-      child.geometry?.dispose();
-      child.material?.dispose();
+      child.traverse(object => {
+        object.geometry?.dispose();
+        object.material?.dispose();
+      });
       traceRoot.remove(child);
     }
   }
@@ -258,6 +285,7 @@ export function createScene(viewport, labelsRoot, data, onSelect) {
         previous = voxel;
       }
       traceDot(previous, .13, color);
+      traceQuaternionFrame(previous, cell.tip_quaternion);
     }
     for (const field of ['attract', 'repel']) {
       for (const entry of snapshot.chemical[field]) {
