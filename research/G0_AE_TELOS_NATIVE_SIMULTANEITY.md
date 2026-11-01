@@ -56,6 +56,8 @@ Channels in the present surrogate:
 - paid Worldlet budding, requiring **simultaneously** active positive and negative response witnesses, nontrivial geometric mismatch, and sufficient material and energy;
 - conditional pruning, which salvages only one of the two originally paid material units without erasing witness history.
 
+Budding requires at least **two currently salient witnesses of each opposing response type** plus the geometric and resource guards; one contradictory observation cannot itself authorize a bud. This remains vulnerable to repeated sensor noise and is not a source-continuity proof.
+
 The channels are coupled in both directions. A bud changes the rate of future local encounters **and** increases maintenance demand; maintenance can prevent an interrogation; an observation changes the geometric-repair and budding opportunities; questions change observation probabilities. Nothing in the generator requires the organism to finish "semantic processing" before chemical activity can resume.
 
 ### The three nontrivial guards
@@ -102,6 +104,12 @@ its diagonal agrees exactly with the classical master equation. This is a **stan
 The desired stronger *quantum* extension would require genuine coherent operations, physically admissible tensor-product locality, instruments for environmental observations, nontrivial off-diagonal evolution, and causal/no-signalling tests. A classical joint process does not supply those.
 
 ### Why summation rather than mandatory commutativity?
+
+The implementation includes a conditional generator-bracket diagnostic. At the zero-resource boundary, the observable number of witnessed different responses has
+
+    [L_supply, L_encounter] f = 0.70 × 0.55 × 0.85 = 0.32725
+
+for the specified illustrative query and sensor distribution. Feeding first can enable an encounter; an encounter cannot happen first at the depleted boundary. This nonzero bracket is **classical causal order sensitivity**, not quantum coherence.
 
 There is no requirement that all channel generators commute. Resource-consuming interrogation and resource-consuming growth may not commute, particularly at a viability boundary. Declaring them commutative would erase real causal competition. A globally *specified* joint generator remains meaningful even when conditional local operations do not commute. The proper criterion is causal consistency, not order-independence of every hypothetical intervention.
 
