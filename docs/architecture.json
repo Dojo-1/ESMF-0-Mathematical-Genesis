@@ -1,6 +1,6 @@
 {
   "schema": "esmf-observatory/v1",
-  "version": "G0-AH D0 implemented · ordinary memory still wins · evidence unchanged",
+  "version": "G0-AI D0 · stochastic local rule rewrite measured negative · P1 odd symmetry",
   "updated": "2026-11-01",
   "kind": "architectural-schematic",
   "disclaimer": "A navigable depiction of code and research claims, not live ESMF-0 telemetry or a biological simulation. Motion illustrates declared relationships; it does not replay empirical events.",
@@ -340,6 +340,22 @@
       "summary": "Sixteen synthetic cells support up to four paid, genuine tree branches each; the ordinary cue-conditioned comparator scored better.",
       "detail": "G0-AH is a separate event-sourced operator reference, not the G0-AG CTMC. Question-and-cue-specific dendritic witnesses, delayed inhibitory/excitatory contacts, glia-gated slow consolidation and explicit ATP/material ledgers are implemented. Its first 14-seed task showed no prediction benefit: 0.185 Brier versus 0.177 for the simpler tabular estimator; glial consolidation and its ablation tied. The 3D chart is not brain anatomy.",
       "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/compartmental_ah.py"
+    },
+    {
+      "id": "telosfield",
+      "label": "Telos / role-free substrate",
+      "domain": "biology",
+      "position": [
+        -4.55,
+        -1.65,
+        -1.9
+      ],
+      "size": 0.3,
+      "evidence": "M",
+      "stage": "main",
+      "summary": "A weakly differentiated synthetic tissue rewrites local plasticity mixtures and connectivity, but performs worse than its fixed recurrent control.",
+      "detail": "G0-AI begins with 20 exchangeable role-free sites and local 3D contact constraints. Activity, slow novelty and resource cues change local rule mixtures and permit stochastic contact growth/pruning; no cell is preassigned a question or organ. The 12-seed noisy delayed-cue experiment measured Brier 0.2696 for the adaptive tissue and 0.2614 for the fixed same-dimensional reference. Contacts and rule variability did emerge; task competence did not. A conditional P1 sign-equivariance theorem explains a representation obstruction, not the entire finite result. The 3D film is a recorded synthetic process, not biological cognition or quantum computation.",
+      "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/telos_substrate_ai.py"
     }
   ],
   "links": [
@@ -504,6 +520,24 @@
       "to": "compartments",
       "type": "metabolic",
       "label": "slow eligibility gate"
+    },
+    {
+      "from": "tissue",
+      "to": "telosfield",
+      "type": "morphogenesis",
+      "label": "undifferentiated developmental alternative"
+    },
+    {
+      "from": "resources",
+      "to": "telosfield",
+      "type": "metabolic",
+      "label": "exact physical-proxy budgets"
+    },
+    {
+      "from": "telosfield",
+      "to": "compartments",
+      "type": "morphogenesis",
+      "label": "test developmental bias against hand-assigned roles"
     }
   ],
   "hyperedges": [
@@ -564,6 +598,16 @@
       "footnote": "14 synthetic development seeds; 16 somas, 64 paid branches. Glial consolidation tied its ablation. No biological or hypercomplex advantage.",
       "evidence": "M",
       "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AH_D0_RESULTS.md"
+    },
+    {
+      "id": "ai-d0",
+      "name": "AI / Telos-nudged development",
+      "label": "Growth made prediction worse",
+      "value": "0.261 vs 0.270",
+      "unit": "Brier loss, fixed recurrent control vs growing rule-plastic tissue",
+      "footnote": "12 development seeds. Morphology and rule mixture differentiated, but the fixed control did better; no biological, semantic or hypercomplex advantage established.",
+      "evidence": "M",
+      "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AI_D0_RESULTS.md"
     }
   ],
   "clockNames": [
