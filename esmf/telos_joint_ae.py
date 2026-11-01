@@ -453,6 +453,8 @@ class JointGenesis:
         """
         if not self.viable(initial) or not math.isfinite(horizon) or horizon < 0:
             raise ValueError("invalid trajectory")
+        if not isinstance(max_events, int) or max_events < 1:
+            raise ValueError("positive event bound required")
         rng = random.Random(seed)
         t = 0.
         state = initial
@@ -476,6 +478,10 @@ class JointGenesis:
             t += waiting
             state = selected.destination
             trace.append((t, selected.name, state))
+        else:
+            # Resource/time limits are visible failures, not silent evidence
+            # truncations that could bias measured claims.
+            raise RuntimeError("trajectory reached max_events before horizon")
         return state, tuple(trace)
 
 
