@@ -56,6 +56,50 @@ A locally observed four-coordinate target from G0-AE can trigger a *paid* experi
 
 Normalized linear interpolation is used as a modest \(S^3\) update operator. The antipodal zero case is rejected, not silently clipped or projected. This operation is left-gauge equivariant when the two quaternions share the same frame. Do not infer it is gauge equivariant for distinct endpoints without applying the separate connection operator.
 
+## Audit correction: a learned transport is not yet a gauge-invariant learner
+
+The first G0-AG revision tested \(\|q_t-Uq_s\|^2\) under gauge changes, but the
+**actual sensory-learning update** projected the raw G0-AE four-vector
+directly into \(S^3\), without transporting the observer's coordinate frame.
+Consequently, changing the neurite chart could change the sensory target and
+the learner's effective update. A correct standalone discrepancy identity
+did **not** establish a covariant *joint learning law*.
+
+The corrected carrier now includes an **explicit, assumed observer frame**
+\(C_i\in S^3\). For a canonical synthetic four-vector observation \(y\neq0\),
+
+\[
+\Phi_i(y)=C_i\frac{y}{\|y\|},\qquad
+C_i'=g_iC_i,\quad q_i'=g_iq_i.
+\]
+
+Thus the projection and the experience-updated phase transform together
+under the same left-unit gauge. Directed transports still co-transform as
+\(U_{ij}'=g_jU_{ij}g_i^{-1}\). A new metamorphic regression test applies
+independent frames **before the learning event**, then checks the event's
+hazard, its updated phase and the separately paid repair event.
+
+This \( \Phi_i \) is an **A-tagged chosen map**, not a canonical algebra
+isomorphism from \(\operatorname{Mat}_2(\mathbb R)\) to \(\mathbb H\):
+they are four-dimensional *real vector spaces*, but their algebraic
+multiplications are different (in particular, quaternions form a division
+algebra and 2×2 real matrices do not). It is also not a semantic-equivalence
+oracle. Multiplying \(y\) by any positive scalar leaves \(\Phi_i(y)\)
+unchanged: the observation's amplitude is lost at this projection and must
+remain visible as an untransported distinction in subsequent evaluations.
+
+If \(y=0\), there is no point in \(S^3\) corresponding to its normalized
+direction. The generator now **abstains from experience-based phase and
+connection repair** for that unrepresentable sighting; the summary flags it.
+A previously valid observation is not allowed to crash every local hazard
+calculation because a projection was undefined. The raw sighting remains
+available through the synthetic observation event reference.
+
+The current metamorphic contract covers *live active sections*. Historical
+phase-revision/scar records do not yet carry independently transported chart
+identifiers, so no full provenance-equivariance theorem is asserted.
+No biological or semantic performance claim is promoted by these fixes.
+
 ## Ordered tendril transport now changes the growth hazard
 
 The ordered, gauge-aware transport of the whole existing neurite is
