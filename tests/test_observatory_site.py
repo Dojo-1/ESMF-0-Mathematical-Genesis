@@ -114,6 +114,30 @@ class TestObservatorySite(unittest.TestCase):
         self.assertNotIn("eval(", ui)
         self.assertNotIn("eval(", scene)
 
+    def test_recorded_replay_controls_are_explicitly_not_live(self):
+        html = (DOCS / "index.html").read_text()
+        ui = (DOCS / "trace-player.js").read_text()
+        scene = (DOCS / "scene.js").read_text()
+        workflow = (ROOT / ".github/workflows/observatory-pages.yml").read_text()
+        parser = _HTML()
+        parser.feed(html)
+        for item in ("trace-toggle", "trace-controls", "trace-run", "trace-range",
+                     "trace-back", "trace-play", "trace-next", "trace-phase",
+                     "trace-snapshot", "trace-source", "trace-download",
+                     "trace-payload-id"):
+            self.assertIn(item, parser.ids)
+        self.assertTrue((DOCS / "trace-player.js").exists())
+        self.assertIn("initializeTracePlayer", (DOCS / "app.js").read_text())
+        self.assertIn("conditioned", ui)
+        self.assertIn("sampled", ui)
+        self.assertIn("not live", ui.lower())
+        self.assertIn("setReplay", scene)
+        self.assertIn("clearReplay", scene)
+        self.assertIn("python -m research.export_observatory_trace", workflow)
+        self.assertIn("actions/deploy-pages@", workflow)
+        self.assertIn("not randomly sampled", html.lower())
+        self.assertNotIn("eval(", ui)
+
     def test_merged_research_is_shown_as_main_source_not_as_validated_science(self):
         self.assertNotIn("draft", {n["stage"] for n in self.data["nodes"]})
         for node in self.data["nodes"]:
