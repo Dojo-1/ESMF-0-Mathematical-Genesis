@@ -1,6 +1,6 @@
 {
   "schema": "esmf-observatory/v1",
-  "version": "G0-AG D1a integrated on main · empirical status unchanged",
+  "version": "G0-AH D0 implemented · ordinary memory still wins · evidence unchanged",
   "updated": "2026-11-01",
   "kind": "architectural-schematic",
   "disclaimer": "A navigable depiction of code and research claims, not live ESMF-0 telemetry or a biological simulation. Motion illustrates declared relationships; it does not replay empirical events.",
@@ -324,6 +324,22 @@
       "summary": "Relations not yet transportable should remain explicit, not silently flattened.",
       "detail": "Semantic source continuity, arbitrary context induction and physically grounded biological validity remain open bridges.",
       "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/RESEARCH_CHRONICLE.md"
+    },
+    {
+      "id": "compartments",
+      "label": "Local dendritic compartments",
+      "domain": "biology",
+      "position": [
+        -4.37,
+        -1.75,
+        -0.6
+      ],
+      "size": 0.33,
+      "evidence": "M",
+      "stage": "main",
+      "summary": "Sixteen synthetic cells support up to four paid, genuine tree branches each; the ordinary cue-conditioned comparator scored better.",
+      "detail": "G0-AH is a separate event-sourced operator reference, not the G0-AG CTMC. Question-and-cue-specific dendritic witnesses, delayed inhibitory/excitatory contacts, glia-gated slow consolidation and explicit ATP/material ledgers are implemented. Its first 14-seed task showed no prediction benefit: 0.185 Brier versus 0.177 for the simpler tabular estimator; glial consolidation and its ablation tied. The 3D chart is not brain anatomy.",
+      "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/compartmental_ah.py"
     }
   ],
   "links": [
@@ -470,6 +486,24 @@
       "to": "tissue",
       "type": "morphogenesis",
       "label": "proposed changes"
+    },
+    {
+      "from": "tissue",
+      "to": "compartments",
+      "type": "morphogenesis",
+      "label": "tree instead of linear path"
+    },
+    {
+      "from": "compartments",
+      "to": "typedmemory",
+      "type": "transport",
+      "label": "question-indexed local witness"
+    },
+    {
+      "from": "glia",
+      "to": "compartments",
+      "type": "metabolic",
+      "label": "slow eligibility gate"
     }
   ],
   "hyperedges": [
@@ -520,6 +554,16 @@
       "footnote": "14 synthetic development streams, eight bounded slots each. Ordinary memory did better; not an embodied result.",
       "evidence": "M",
       "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AG_D1A_RESULTS.md"
+    },
+    {
+      "id": "ah-d0",
+      "name": "AH / Compartmental neurites",
+      "label": "Ordinary estimator still wins",
+      "value": "0.177 vs 0.185",
+      "unit": "Brier loss, ordinary cue table vs G0-AH",
+      "footnote": "14 synthetic development seeds; 16 somas, 64 paid branches. Glial consolidation tied its ablation. No biological or hypercomplex advantage.",
+      "evidence": "M",
+      "source": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AH_D0_RESULTS.md"
     }
   ],
   "clockNames": [
