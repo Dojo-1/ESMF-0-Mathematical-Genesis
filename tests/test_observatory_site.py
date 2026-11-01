@@ -133,6 +133,8 @@ class TestObservatorySite(unittest.TestCase):
         self.assertIn("not live", ui.lower())
         self.assertIn("setReplay", scene)
         self.assertIn("clearReplay", scene)
+        self.assertIn("traceQuaternionFrame", scene)
+        self.assertIn("S3 -> SO(3)", scene)
         self.assertIn("python -m research.export_observatory_trace", workflow)
         self.assertIn("actions/deploy-pages@", workflow)
         self.assertIn("not randomly sampled", ui.lower())
