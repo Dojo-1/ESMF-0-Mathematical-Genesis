@@ -5,17 +5,24 @@ on:
     branches: [main]
     paths:
       - "docs/**"
+      - "esmf/glial_quaternion_ag.py"
+      - "esmf/hypercomplex_tissue_af.py"
+      - "research/export_observatory_trace.py"
+      - "research/g0_ag_development_probe.py"
+      - "tests/test_observatory_*.py"
       - ".github/workflows/observatory-pages.yml"
-      - "tests/test_observatory_site.py"
   pull_request:
     paths:
       - "docs/**"
+      - "esmf/glial_quaternion_ag.py"
+      - "esmf/hypercomplex_tissue_af.py"
+      - "research/export_observatory_trace.py"
+      - "tests/test_observatory_*.py"
       - ".github/workflows/observatory-pages.yml"
-      - "tests/test_observatory_site.py"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -26,7 +33,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 7
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,23 +42,47 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Validate source-linked architecture and fallback assets
-        run: python -m unittest discover -s tests -p 'test_observatory_site.py' -v
+      - name: Export deterministic genuine G0-AG event states
+        run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
+      - name: Validate source-linked architecture and recorded event provenance
+        run: python -m unittest discover -s tests -p 'test_observatory_*.py' -v
       - name: Syntax-check interactive modules
-        run: node --check docs/app.js && node --check docs/scene.js
+        run: |
+          node --check docs/app.js
+          node --check docs/scene.js
+          node --check docs/trace-player.js
+
   deploy:
     if: github.event_name != 'pull_request'
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Configure GitHub Pages (must be enabled in repository settings)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Record exact Python generator states with commit provenance
+        run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
+      - name: Keep the replay artifact committed on main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/traces/g0_ag_model.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data(observatory): preserve deterministic G0-AG trace [skip ci]"
+            git push origin HEAD:main
+          else
+            echo "Replay artifact already matches this recorded generator revision"
+          fi
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Upload static observatory
+      - name: Upload source-linked observatory and recorded trace
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs
