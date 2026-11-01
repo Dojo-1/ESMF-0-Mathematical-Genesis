@@ -321,7 +321,13 @@ class GlialQuaternionEcology:
                 i, direction = int(i), int(direction)
                 f = fibers[i]
                 delta = self.af.directions[direction]
-                rotation = qdirection(delta)
+                # Spatial directions are expressed first in an ASSUMED
+                # canonical motor chart. Transport the action into the
+                # current neurite tip frame before multiplying the phase.
+                canonical_rotation = qdirection(delta)
+                rotation = qmult(
+                    qmult(f.observer_frame, canonical_rotation),
+                    qconj(f.observer_frame))
                 q_new = qnorm(qmult(rotation, f.phases[-1]))
                 U = qnorm(qmult(q_new, qconj(f.phases[-1])))
                 fibers[i] = replace(
