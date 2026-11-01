@@ -1,0 +1,40 @@
+# G0-AI · Conditions for genesis, rather than instructions for its final anatomy
+
+**Evidence floor:** S (biological analogy), H (endogenous organization or useful adaptive rule dynamics), A (chosen numerical substrate), P only for exact conditional bookkeeping identities, M only for executed bounded synthetic tests. **G0-AI is not a new brain and does not supersede G0-AH's negative D0.**
+
+## The methodological correction
+
+Our G0-AH implementation supplied every cell with a designated context/question, four predefined cue-specialized branches and prescribed glial pulses; its evaluation then asked whether this anatomical choice outperformed an ordinary conditional table. It did not. The critique preserved in the 1 November discussion is material: we must study the *conditions in which organization can appear*, not pre-install the organization and call it emergence.
+
+The primary biological inspiration is Moore et al., *Stimulation modulates gene-linked cell assemblies in the human brain*, Nature (2026), DOI: 10.1038/s41586-026-10879-9. Its reported stimulation-associated assembly and gene-regulatory changes motivate local feedback between activity and later plasticity; they **do not prove** that regulatory changes cause all assembly strengthening, nor supply a synthetic learning algorithm. We introduce no fake DNA or biological gene expression claims.
+
+## G0-AI D0 object
+
+Twenty initially **role-undifferentiated** local sites are placed in a continuous 3D numerical chart, with exchangeable random stimulus projections and a sparse, geometrically allowable seed scaffold. No site is assigned an interrogative mode, output label, astrocyte identity, memory class or destined organ. All sites begin with the same adaptation rate, gain, regulatory mixture, material stock and metabolic proxy. Their slight random sensor/position differences constitute initial perturbations, **not a claim of perfect homogeneity**.
+
+The fixed *substrate primitives* are deliberately modest: bounded activation; fast and slower traces; sparse directed pairwise contacts; local lagged covariation; a three-observable regulatory repertoire (surprise, neighbor disagreement, material pressure); and two exact integer resource accounts. Local regulatory **mixture weights**, rates and gains evolve according to their local activity histories, without access to the task's outcome labels. Contact nucleation opportunities arise stochastically, with event hazard depending on the local novelty/regulatory field, and contacts are allocated using local lagged covariation rather than a predefined cell role. Growth consumes real *synthetic tokens* of ATP/material; capacity-driven pruning returns material and records **[R]_pruned_contact** with lost weight and attribution.
+
+**Unavoidable model assumptions:** the primitive vocabulary, clocks, boundary conditions, correlation instrument, 3D candidate cutoff and metabolic conversion are still programmed by us. An adaptive mixture over three fixed observables is **not spontaneous invention of arbitrary learning laws**. A sparse geometric contact is not a biological neurite. No quaternion/hypercomplex advantage is claimed: previous G0-AF/AG mathematical carriers remain available, but are not decorative prerequisites here. This subtest must discover a reason to lift its geometry rather than assume one.
+
+The only supervised term is a **shared ordinary trainable output readout**, trained *after* the external outcome becomes available. Tissue local rules and topology are label-invariant for identical stimulus streams; label invariance is checked by a direct counterworld test. The readout has equal dimension, learning rate, input stream and initialization in the four tissue arms. Energy and structural budgets are conserved exactly, but resource expenditure between a growing and non-growing morphology is not artificially declared identical.
+
+## D0 executable task and controls
+
+This document freezes the D0 code/seed/horizon before *multi-seed* execution. One seed (93100) was used locally for **exploratory smoke tests** before this freeze; the multi-seed study is therefore *development only*, never described as fully preregistered independent verification.
+
+- **Development streams:** seeds 93100–93111 inclusive (12 paired runs); 94100–94131 are **reserved** and must not be accessed or tuned against within D0.
+- **Observations:** 720 steps per stream. Four bipolar sensory channels, one nuisance Markov channel. The external world's hidden phase reverses at steps **240 and 480**, without emitting a phase/context label to the organism.
+- **Future outcome:** a noisy Bernoulli response to the exclusive-or relation between stimulus channel 0 at *t−1* and channel 1 at *t−2*, reversed during the hidden middle phase. The world evaluator uses `P=0.88` or `0.12`. Its generating law is available only to the evaluator and reporting code, not to local-cell regulation. Every model predicts before seeing that step's response.
+- **Primary instrument:** per-step prequential Brier loss, after 20 warmup events, and by each of the three phases. Descriptive paired 95% normal intervals across development seeds (not confirmatory inference).
+- **Tissue arms:** (i) `adaptive` local law-mixture + topology; (ii) `plastic_no_growth` local rewrite but fixed topology; (iii) `fixed` same initial units/scaffold/readout with frozen local regulatory law and contacts; (iv) `shuffled` local rewrite and comparable opportunities but randomly chosen contact targets rather than coactivity-ranked targets.
+- **Strong comparator:** a conventional fading-memory table whose designer is told *which cue channels and lags matter*. It receives no regime label and the same outcomes, but has a **privileged task-specific prior** and is not compute/parameter/ATP-matched. It is an important sanity reference, not evidence that all ordinary recurrent models are beaten.
+- **Resource observables:** integer energy/material residuals, actual waste, contact growth/pruning, graph size, variation of local plasticity rates and regulatory mixtures. Branch count and heterogeneity are **not** scored as intelligence.
+- **Structural causality controls:** label-opposite experiment must leave all local rule changes and topology unchanged, apart from the supervised readout; shuffled morphology must run on the same stimulus streams. Low-level failure conditions must not mutate an event state silently. A full correction ledger is retained.
+
+### Falsification / claim retirement
+
+If adaptive topology does not improve predictive behavior against the *fixed same-dimensional reservoir*, retire the D0 claim that this simple coactivity-driven morphogenesis is useful for this delayed noisy task. If increasing local regulatory variety fails to change a relevant behavioral observable, it remains a representation, not a new cognitive property. A model beating its shuffled version but losing to fixed is **not** an overall success. Do not modify the seeds, world, readout learning rule, parameter values or test horizon *after seeing the full D0 results*. Negative outcomes must be published with their per-seed raw evidence and exact source commit.
+
+This test is not matched for contact count, wall time, metabolic cost or true state capacity after morphological changes. No compute-normalized superiority is available without a later experiment controlling these quantities. A final independent comparison against conventional history-aware recurrent models remains **H**, as does any emergent organ, semantic discovery or causal biological regulome interpretation.
+
+**Proposed follow-up if D0 fails:** let local law-bases themselves diversify under mechanochemical/relational constraints, with genuinely partially observed inputs and multiple interacting observers. Require out-of-distribution behavioral recovery and independently discovered stable task-specific assemblies, while keeping the ancestral simpler models as unfrozen *controls but frozen archived artifacts*. Avoid inventing extra hypercomplex dimensions to redeem a failed ordinary forecast.
