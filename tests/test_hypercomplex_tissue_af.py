@@ -242,7 +242,9 @@ class TestHyperNeuriteAF(unittest.TestCase):
                 in capped.channels(grown)))
 
     def test_three_dimensional_tissue_chart_keeps_local_highdim_carrier(self):
-        model = HyperNeuriteEcology(side=8, spatial_dims=3, max_sections=96)
+        model = HyperNeuriteEcology(
+            side=8, spatial_dims=3, max_sections=96,
+            max_nutrient_input=256, max_material_input=128, max_scars=128)
         start = model.seed()
         self.assertTrue(model.valid(start))
         self.assertEqual(start.cells[0].soma, (0, 0, 0))
