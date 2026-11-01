@@ -1,6 +1,7 @@
 """G0-AG: continuous quaternionic neurite transport with local glial support.
 
-Finite, small, synthetic CTMC. Extends G0-AF instead of replacing its paid
+Bounded-channel synthetic pure-jump Markov process with continuous S^3
+state (NOT a mathematically finite-state CTMC). Extends G0-AF's paid
 3-D/2-D neurite path, Q8, Mat2 neutral carrier or historical measurements.
 
 The new continuous S^3 unit-quaternion connection is a DISTINCT fiber
@@ -120,6 +121,7 @@ class Ecology:
     glial_waste: int = 0
     fiber_scars: tuple = ()
     repairs: tuple = ()
+    phase_history: tuple = ()  # (cell, segment, old, new, observed_event)
 
 
 @dataclass(frozen=True)
@@ -131,7 +133,7 @@ class Event:
 
 
 class GlialQuaternionEcology:
-    """Joint generator: local glial supply, fiber plasticity, AF tissue dynamics.
+    """Joint bounded-channel generator: glial support, continuous S3, AF tissue.
 
     The organism has *two* physically accountable energy compartments.
     AF's nutrient_input is the inflow to its energy subledger, including
@@ -201,7 +203,8 @@ class GlialQuaternionEcology:
         if (s.glial_input > self.max_glial_input or
                 s.glial_to_tissue > s.tissue.nutrient_input or
                 len(s.fiber_scars) > self.max_fiber_records or
-                len(s.repairs) > self.max_fiber_records):
+                len(s.repairs) > self.max_fiber_records or
+                len(s.phase_history) > self.max_fiber_records):
             return False
         for i, fiber in enumerate(s.fibers):
             if (not isinstance(fiber, ContinuousSections) or
@@ -217,6 +220,9 @@ class GlialQuaternionEcology:
                    for r in s.fiber_scars):
             return False
         if not all(isinstance(r, tuple) and len(r) == 5 for r in s.repairs):
+            return False
+        if not all(isinstance(r, tuple) and len(r) == 5
+                   for r in s.phase_history):
             return False
         return self._energy_balance(s) == 0
 
@@ -294,14 +300,19 @@ class GlialQuaternionEcology:
             add("glia_supply", .27,
                 replace(s, glia=replace(g, substrate=g.substrate + 1),
                         glial_input=s.glial_input + 1))
+        if g.substrate:
+            add("glia_maintenance", .07 + (.03 if g.tripartite else 0.),
+                replace(s, glia=replace(g, substrate=g.substrate - 1),
+                        glial_waste=s.glial_waste + 1))
         if g.substrate and g.transferable < self.max_support:
             add("glia_convert", .39,
                 replace(s, glia=replace(
                     g, substrate=g.substrate - 1,
                     transferable=g.transferable + 1)))
-        activity = (s.tissue.cognitive.last is not None
-                    or bool(s.tissue.links)
-                    or any(d.active_conflict
+        # A historical last observation is not ongoing activity: salience
+        # must still be present, or a current contact must exist.
+        activity = (bool(s.tissue.links)
+                    or any(d.live_same or d.live_different
                            for d in s.tissue.cognitive.distinctions))
         if g.substrate and g.calcium < 2 and activity:
             add("glia_calcium_pulse", .23,
@@ -368,15 +379,20 @@ class GlialQuaternionEcology:
             if parent.atp:
                 observed = qnorm(sight.target)
                 discrepancy = qerror(f.phases[-1], observed)
-                if discrepancy > 1e-8:
+                if discrepancy > 1e-8 and len(s.phase_history) < self.max_fiber_records:
                     updated = qinterpolate(f.phases[-1], observed, .30)
+                    record = (neuron_i, len(f.phases) - 1,
+                              f.phases[-1], updated,
+                              s.tissue.cognitive.last)
                     target = replace(s,
                         fibers=self._put_phase(s, neuron_i, replace(
                             f, phases=f.phases[:-1] + (updated,))),
-                        tissue=self._tissue_paid(s.tissue, neuron_i))
+                        tissue=self._tissue_paid(s.tissue, neuron_i),
+                        phase_history=s.phase_history + (record,))
                     add("fiber_experience_update",
                         .19 * discrepancy / (1. + discrepancy)
-                        * (1. + .2 * g.calcium), target)
+                        * (1. + .2 * g.calcium), target,
+                        ("[R]_memory_prior", record))
 
                 # A connection is independently mutable; update does not
                 # overwrite the earlier correspondence without an audit.
@@ -461,6 +477,7 @@ class GlialQuaternionEcology:
             },
             "fiber_removals_recorded": len(s.fiber_scars),
             "connection_repairs_recorded": len(s.repairs),
+            "phase_revisions_recorded": len(s.phase_history),
             "joint_energy_residual": self._energy_balance(s),
             "af_tissue_balance": self.af.diagnostics(s.tissue)[
                 "material_balance_residual"],
