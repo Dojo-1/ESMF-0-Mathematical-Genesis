@@ -123,6 +123,10 @@ class TestGlialQuaternionAG(unittest.TestCase):
         self.assertEqual(s1.glial_input, 1)
         self.assertEqual(s1.glia.substrate, 3)
         self.assertEqual(self.m._energy_balance(s1), 0)
+        upkeep = find(self.m, self.seed, "glia_maintenance").destination
+        self.assertEqual(upkeep.glia.substrate, 1)
+        self.assertEqual(upkeep.glial_waste, 1)
+        self.assertEqual(self.m._energy_balance(upkeep), 0)
         s2 = find(self.m, self.seed, "glia_convert").destination
         self.assertEqual((s2.glia.substrate, s2.glia.transferable), (1, 2))
         self.assertEqual(self.m._energy_balance(s2), 0)
@@ -148,6 +152,11 @@ class TestGlialQuaternionAG(unittest.TestCase):
         relaxed = find(self.m, pulsed, "glia_calcium_relax").destination
         self.assertEqual(relaxed.glia.calcium, 0)
         self.assertEqual(self.m._energy_balance(relaxed), 0)
+        # Persistent last-event provenance is not itself active calcium drive.
+        faded = find(self.m, engaged,
+                     "af/cognitive/dissipation:0").destination
+        self.assertIsNotNone(faded.tissue.cognitive.last)
+        self.assertNotIn("glia_calcium_pulse", names(self.m, faded))
 
     def test_glial_secretion_is_local_and_resource_accounted(self):
         seen = find(self.m, self.seed, "af/cognitive/encounter:0").destination
@@ -202,6 +211,10 @@ class TestGlialQuaternionAG(unittest.TestCase):
         self.assertGreater(qerror(f.phases[0], f.phases[-1],
                                   f.forward[-1]), 1e-8)
         self.assertEqual(len(s.repairs), 0)
+        self.assertEqual(len(s.phase_history), 1)
+        self.assertEqual(update.remainder[0], "[R]_memory_prior")
+        self.assertEqual(s.phase_history[0][2],
+                         update.remainder[1][2])
         self.assertEqual(s.tissue.cells[0].atp, 0)
         s = find(self.m, s, "af/metabolic_conversion:0").destination
         repaired = find(self.m, s, "fiber_connection_repair")
@@ -210,8 +223,18 @@ class TestGlialQuaternionAG(unittest.TestCase):
         self.assertAlmostEqual(qerror(f.phases[0], f.phases[-1],
                                        f.forward[-1]), 0., places=12)
         self.assertEqual(len(s.repairs), 1)
+        self.assertEqual(len(s.phase_history), 1)
         self.assertEqual(repaired.remainder[0], "[R]_transport_prior")
         self.assertTrue(self.m.valid(s))
+
+    def test_phase_history_exhaustion_blocks_unlogged_updates(self):
+        capped = GlialQuaternionEcology(max_fiber_records=0)
+        a = find(capped, capped.seed(), "af/neurite_extend:0:0").destination
+        b = find(capped, a, "af/cognitive/encounter:0").destination
+        c = find(capped, b, "af/metabolic_conversion:0").destination
+        self.assertNotIn("fiber_experience_update", names(capped, c))
+        self.assertEqual(c.tissue.cells[0].atp, 1)
+        self.assertEqual(len(c.phase_history), 0)
 
     def test_context_switch_does_not_see_unobserved_target(self):
         self.assertNotIn("fiber_experience_update", names(self.m, self.seed))
@@ -233,6 +256,9 @@ class TestGlialQuaternionAG(unittest.TestCase):
             GlialQuaternionEcology(max_support=0)
         with self.assertRaises(ValueError):
             GlialQuaternionEcology(max_glial_input=-1)
+        with self.assertRaises(ValueError):
+            self.m.channels(replace(self.seed,
+                phase_history=((0, 0, ONE, ONE, (0, 0, 0)),) * 33))
         bad = replace(self.seed.fibers[0],
                       phases=(qnorm((1., 1., 1., 1.))[:-1],))
         self.assertFalse(self.m.valid(
