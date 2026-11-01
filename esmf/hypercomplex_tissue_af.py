@@ -8,7 +8,7 @@ A soma carries Mat2(R)'s neutral (2,2) form AND a separate direct sum of
 Hamilton-quaternion sections (discretized to its noncommutative subgroup Q8).
 Each paid neurite extension ADDS a section and four real carrier dimensions;
 pruning deletes that section with an explicitly recorded [R]_transport.
-The 2D voxel lattice models *extracellular substrate*, not cognition.
+The 2D/3D voxel lattice models *extracellular substrate*, not cognition.
 """
 from dataclasses import dataclass, replace
 import json
@@ -137,7 +137,7 @@ class HyperNeuriteEcology:
                  max_nutrient_input=16, max_material_input=16, max_scars=16):
         if (type(side) is not int or not 4 <= side <= 8 or
                 type(spatial_dims) is not int or spatial_dims not in (2, 3) or
-                type(max_sections) is not int or not 2 <= max_sections <= 16 or
+                type(max_sections) is not int or not 2 <= max_sections <= 128 or
                 type(max_field) is not int or not 1 <= max_field <= 6 or
                 type(max_nutrient_input) is not int or max_nutrient_input < 0 or
                 type(max_material_input) is not int or max_material_input < 0 or
