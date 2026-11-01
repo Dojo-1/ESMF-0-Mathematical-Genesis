@@ -135,7 +135,8 @@ def append_frame(frames, model, state, *, phase, event, time, rate=None,
         "selected_rate": rate,
         "outgoing_rate_sum": total_rate,
         "typed_remainder": (
-            {"type": remainder[0], "payload": remainder[1]}
+            {"type": remainder[0], "payload": json.loads(json.dumps(
+                remainder[1], allow_nan=False))}
             if remainder else None
         ),
         "state": represented,
