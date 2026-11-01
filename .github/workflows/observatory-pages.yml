@@ -6,18 +6,24 @@ on:
     paths:
       - "docs/**"
       - "esmf/glial_quaternion_ag.py"
+      - "esmf/compartmental_ah.py"
       - "esmf/hypercomplex_tissue_af.py"
       - "research/export_observatory_trace.py"
+      - "research/export_g0_ah_microscope.py"
       - "research/g0_ag_development_probe.py"
       - "tests/test_observatory_*.py"
+      - "tests/test_g0_ah_microscope.py"
       - ".github/workflows/observatory-pages.yml"
   pull_request:
     paths:
       - "docs/**"
       - "esmf/glial_quaternion_ag.py"
+      - "esmf/compartmental_ah.py"
       - "esmf/hypercomplex_tissue_af.py"
       - "research/export_observatory_trace.py"
+      - "research/export_g0_ah_microscope.py"
       - "tests/test_observatory_*.py"
+      - "tests/test_g0_ah_microscope.py"
       - ".github/workflows/observatory-pages.yml"
   workflow_dispatch:
 
@@ -44,13 +50,18 @@ jobs:
           node-version: "22"
       - name: Export deterministic genuine G0-AG event states
         run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
+      - name: Export source-linked, deliberately selected G0-AH neurite states
+        run: python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
       - name: Validate source-linked architecture and recorded event provenance
-        run: python -m unittest discover -s tests -p 'test_observatory_*.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_observatory_*.py' -v
+          python -m unittest discover -s tests -p 'test_g0_ah_microscope.py' -v
       - name: Syntax-check interactive modules
         run: |
           node --check docs/app.js
           node --check docs/scene.js
           node --check docs/trace-player.js
+          node --check docs/neurite.js
 
   deploy:
     if: github.event_name != 'pull_request'
@@ -67,13 +78,15 @@ jobs:
           python-version: "3.12"
       - name: Record exact Python generator states with commit provenance
         run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
+      - name: Record exact G0-AH branching states with commit provenance
+        run: python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
       - name: Keep the replay artifact committed on main
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/traces/g0_ag_model.json
+          git add docs/traces/g0_ag_model.json docs/traces/g0_ah_microscope.json
           if ! git diff --cached --quiet; then
             git commit -m "data(observatory): preserve deterministic G0-AG trace [skip ci]"
             git push origin HEAD:main
