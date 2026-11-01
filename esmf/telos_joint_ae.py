@@ -323,7 +323,9 @@ class JointGenesis:
         # The organism cannot bud merely because a scalar surprise peaked.
         # Distinct response witnesses AND presently unresolved geometric
         # mismatch AND the structural material and resource must coexist.
-        if (not state.buds[c] and d.active_conflict and
+        if (not state.buds[c] and
+                min(d.seen_same, d.seen_different,
+                    d.live_same, d.live_different) >= 2 and
                 defect is not None and defect > .10 and
                 state.resource >= 2 and state.material >= 2):
             add("worldlet_bud", .17 + .20 * min(1., defect),
@@ -340,6 +342,35 @@ class JointGenesis:
                     replace(state, material=min(self.material_cap, state.material + 1),
                             buds=_replace_at(state.buds, j, False)))
         return tuple(out)
+
+    def operator_action(self, state, family, observable):
+        """Conditional generator on a scalar TEST observable, not a utility.
+
+        Families select a named event or colon-delimited family of events;
+        the observed scalar is only an audit probe of the CTMC dynamics.
+        """
+        if not self.viable(state):
+            raise ValueError("invalid operator state")
+        initial = observable(state)
+        return math.fsum(
+            ch.rate * (observable(ch.destination) - initial)
+            for ch in self.channels(state)
+            if ch.name == family or ch.name.startswith(family + ":")
+        )
+
+    def operator_bracket(self, state, first, second, observable):
+        """The CTMC generator commutator [L_first, L_second] f at state.
+
+        Interacting channels need NOT commute. This is a classical causal
+        order-sensitivity diagnostic, not quantum noncommutativity.
+        """
+        a = self.operator_action(
+            state, first,
+            lambda s: self.operator_action(s, second, observable))
+        b = self.operator_action(
+            state, second,
+            lambda s: self.operator_action(s, first, observable))
+        return a - b
 
     def row(self, state, reverse=False):
         """Off-diagonal rate Q(s,t); diagonal = -sum of all off-diagonal.
@@ -460,7 +491,7 @@ def example_world(source_chart=I4, target_chart=I4):
     b = (2., -1., .25, 3.)
     bp = matvec(P, b)
     return EncounterWorld(
-        ("glyph", "object"),
+        ("sensor-context-0", "sensor-context-1"),
         (
             (
                 (EncounterView("six", "nine", a, ap, .85),
