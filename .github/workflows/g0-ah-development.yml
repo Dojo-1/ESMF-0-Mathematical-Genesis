@@ -1,0 +1,41 @@
+name: G0-AH Compartmental Neurite D0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "esmf/compartmental_ah.py"
+      - "research/g0_ah_probe.py"
+      - "tests/test_compartmental_ah.py"
+      - "tests/test_g0_ah_probe.py"
+      - "research/G0_AH_DESIGN_AND_PROTOCOL.md"
+      - ".github/workflows/g0-ah-development.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify branching tissue and registered comparator
+        run: |
+          python -m unittest discover -s tests -p 'test_compartmental_ah.py' -v
+          python -m unittest discover -s tests -p 'test_g0_ah_probe.py' -v
+      - name: Generate all registered paired D0 outcomes
+        run: python -m research.g0_ah_probe --out g0_ah_d0_results.json
+      - name: Checksum and preserve raw source-bound observations
+        run: sha256sum g0_ah_d0_results.json | tee g0_ah_d0_results.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: g0-ah-d0-compartmental-development
+          path: |
+            g0_ah_d0_results.json
+            g0_ah_d0_results.sha256
+          if-no-files-found: error
