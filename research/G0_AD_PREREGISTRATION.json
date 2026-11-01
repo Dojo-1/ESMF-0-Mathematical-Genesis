@@ -1,0 +1,49 @@
+{
+  "experiment": "G0-AD1",
+  "status": "proposal—not frozen or run",
+  "history": "G0-AB/AC results are historical, not validation",
+  "development_seeds": [
+    1000,
+    1031
+  ],
+  "heldout_seeds": [
+    5000,
+    5031
+  ],
+  "context_tasks": [
+    "numeral-versus-object rotation",
+    "context reversal",
+    "response noise",
+    "shared transform novel objects",
+    "context boundary drift"
+  ],
+  "learner_inputs": "Only local observations, action commands, declared context IDs, and observed responses; no semantic ground truth, hidden symmetry labels, geometric audit or test oracle.",
+  "policies": [
+    "G0-AD relational grammar",
+    "same-capacity conventional context-conditional learner",
+    "context-shuffled null",
+    "frozen relations",
+    "no question generation",
+    "equivalent real implementation"
+  ],
+  "matched_budget": "Control equal observations, parameters, updates, split attempts, CPU time and actual simulated resource spending; report mismatches.",
+  "metrics": [
+    "false confident invariant merges",
+    "valid distinction recall",
+    "coverage and abstention",
+    "Brier if probabilistic calibration added",
+    "split proposal precision and recall",
+    "adaptation to drift",
+    "measured CPU and memory",
+    "simulated energy ledger",
+    "physical joules unmeasured"
+  ],
+  "gates": [
+    "Do not claim superiority if coverage collapses",
+    "No promotion unless paired held-out reductions in false merges with comparable coverage and no greater compute are independently demonstrated",
+    "Hypothesis generation and semantic truth separated",
+    "Real-implementation tie refutes geometric advantage"
+  ],
+  "environment": "CPU-only standard library; no external process; no retuning using held-out seeds",
+  "evidence": "H; not a completed result"
+}
