@@ -7,23 +7,29 @@ on:
       - "docs/**"
       - "esmf/glial_quaternion_ag.py"
       - "esmf/compartmental_ah.py"
+      - "esmf/telos_substrate_ai.py"
       - "esmf/hypercomplex_tissue_af.py"
       - "research/export_observatory_trace.py"
       - "research/export_g0_ah_microscope.py"
+      - "research/export_g0_ai_film.py"
       - "research/g0_ag_development_probe.py"
       - "tests/test_observatory_*.py"
       - "tests/test_g0_ah_microscope.py"
+      - "tests/test_g0_ai_film.py"
       - ".github/workflows/observatory-pages.yml"
   pull_request:
     paths:
       - "docs/**"
       - "esmf/glial_quaternion_ag.py"
       - "esmf/compartmental_ah.py"
+      - "esmf/telos_substrate_ai.py"
       - "esmf/hypercomplex_tissue_af.py"
       - "research/export_observatory_trace.py"
       - "research/export_g0_ah_microscope.py"
+      - "research/export_g0_ai_film.py"
       - "tests/test_observatory_*.py"
       - "tests/test_g0_ah_microscope.py"
+      - "tests/test_g0_ai_film.py"
       - ".github/workflows/observatory-pages.yml"
   workflow_dispatch:
 
@@ -52,16 +58,20 @@ jobs:
         run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
       - name: Export source-linked, deliberately selected G0-AH neurite states
         run: python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
+      - name: Export observed G0-AI stochastic morphogenesis and its controls
+        run: python -m research.export_g0_ai_film --out docs/traces/g0_ai_film.json
       - name: Validate source-linked architecture and recorded event provenance
         run: |
           python -m unittest discover -s tests -p 'test_observatory_*.py' -v
           python -m unittest discover -s tests -p 'test_g0_ah_microscope.py' -v
+          python -m unittest discover -s tests -p 'test_g0_ai_film.py' -v
       - name: Syntax-check interactive modules
         run: |
           node --check docs/app.js
           node --check docs/scene.js
           node --check docs/trace-player.js
           node --check docs/neurite.js
+          node --check docs/genesis.js
 
   deploy:
     if: github.event_name != 'pull_request'
@@ -80,6 +90,8 @@ jobs:
         run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
       - name: Record exact G0-AH branching states with commit provenance
         run: python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
+      - name: Record G0-AI role-free stochastic developmental states
+        run: python -m research.export_g0_ai_film --out docs/traces/g0_ai_film.json
       - name: Archive replay files without mutating main
         uses: actions/upload-artifact@v4
         with:
@@ -87,6 +99,7 @@ jobs:
           path: |
             docs/traces/g0_ag_model.json
             docs/traces/g0_ah_microscope.json
+            docs/traces/g0_ai_film.json
           if-no-files-found: error
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
