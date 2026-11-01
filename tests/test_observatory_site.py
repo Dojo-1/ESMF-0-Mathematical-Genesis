@@ -167,6 +167,34 @@ class TestObservatorySite(unittest.TestCase):
         workflow=(ROOT / ".github/workflows/observatory-pages.yml").read_text()
         self.assertIn("python -m research.export_g0_ah_microscope",workflow)
 
+    def test_source_bound_g0_ai_telos_development_film(self):
+        nodes={node["id"]:node for node in self.data["nodes"]}
+        self.assertIn("telosfield",nodes)
+        self.assertEqual(nodes["telosfield"]["evidence"],"M")
+        self.assertIn("0.2696",nodes["telosfield"]["detail"])
+        findings={card["id"]:card for card in self.data["findings"]}
+        self.assertIn("ai-d0",findings)
+        self.assertIn("worse",findings["ai-d0"]["label"].lower())
+        page=(DOCS/"genesis.html").read_text()
+        js=(DOCS/"genesis.js").read_text()
+        parser=_HTML()
+        parser.feed(page)
+        for relative in parser.local_assets:
+            self.assertTrue((DOCS/relative).exists(),relative)
+        for required in ("viewport","fallback","mode","cell","frame",
+                         "previous","play","next","detail","ledger","loss",
+                         "remainder","hash","source"):
+            self.assertIn(required,parser.ids)
+        self.assertIn("./genesis.js",parser.scripts)
+        self.assertIn('href="./genesis.html"',(DOCS/"index.html").read_text())
+        self.assertIn("actual",js.lower() + page.lower())
+        self.assertIn("stochastic",js.lower() + page.lower())
+        self.assertIn("not biological",page.lower() + js.lower())
+        self.assertNotIn("eval(",js)
+        workflow=(ROOT/".github/workflows/observatory-pages.yml").read_text()
+        self.assertIn("research.export_g0_ai_film",workflow)
+        self.assertIn("node --check docs/genesis.js",workflow)
+
     def test_merged_research_is_shown_as_main_source_not_as_validated_science(self):
         self.assertNotIn("draft", {n["stage"] for n in self.data["nodes"]})
         for node in self.data["nodes"]:
