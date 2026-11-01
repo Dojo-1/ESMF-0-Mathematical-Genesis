@@ -29,7 +29,7 @@ def event_names(model, state):
 
 class TestHyperNeuriteAF(unittest.TestCase):
     def setUp(self):
-        self.model = HyperNeuriteEcology()
+        self.model = HyperNeuriteEcology(spatial_dims=2)
         self.state = self.model.seed()
 
     def test_contract_and_state_viability(self):
@@ -112,7 +112,7 @@ class TestHyperNeuriteAF(unittest.TestCase):
         self.assertEqual(pruned.cells[0].material, 2)
         self.assertEqual(pruned.cells[0].fiber_real_dimension, 8)
         self.assertTrue(self.model.valid(pruned))
-        frozen = HyperNeuriteEcology(max_scars=0)
+        frozen = HyperNeuriteEcology(spatial_dims=2, max_scars=0)
         g = event(frozen, frozen.seed(), "neurite_extend:0:0").destination
         self.assertNotIn("neurite_prune:0", event_names(frozen, g))
 
@@ -234,12 +234,32 @@ class TestHyperNeuriteAF(unittest.TestCase):
             self.model.trajectory(self.state, 1, max_events=0)
         with self.assertRaises(RuntimeError):
             self.model.trajectory(self.state, 100., max_events=1)
-        capped = HyperNeuriteEcology(max_sections=2)
+        capped = HyperNeuriteEcology(spatial_dims=2, max_sections=2)
         grown = event(capped, capped.seed(),
                       "neurite_extend:0:0").destination
         self.assertFalse(
             any(e.name.startswith("neurite_extend:0:") for e
                 in capped.channels(grown)))
+
+    def test_three_dimensional_tissue_chart_keeps_local_highdim_carrier(self):
+        model = HyperNeuriteEcology(spatial_dims=3, max_sections=96)
+        start = model.seed()
+        self.assertTrue(model.valid(start))
+        self.assertEqual(start.cells[0].soma, (0, 0, 0))
+        self.assertEqual(len(start.attract), 4 ** 3)
+        self.assertEqual(model.site(model.index((1, 2, 3))), (1, 2, 3))
+        lifted = event(model, start, "neurite_extend:0:4").destination
+        self.assertTrue(model.valid(lifted))
+        self.assertEqual(lifted.cells[0].path, ((0, 0, 1),))
+        self.assertEqual(lifted.cells[0].sections, (0, 3))
+        self.assertEqual(lifted.cells[0].fiber_real_dimension, 12)
+        self.assertEqual(lifted.cells[0].neutral, start.cells[0].neutral)
+        # Theoretical dynamic-capacity bound, not achieved neural rank.
+        self.assertEqual(4 + 4 * model.max_sections, 388)
+        with self.assertRaises(ValueError):
+            model.index((1, 2))
+        with self.assertRaises(ValueError):
+            model.site(64)
 
     def test_short_replay_is_deterministic_and_valid(self):
         final, trace = self.model.trajectory(
