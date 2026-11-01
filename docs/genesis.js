@@ -176,6 +176,9 @@ async function init(){
   if(!res.ok)throw Error('Recorded G0-AI states were not published');
   data=validate(await res.json());
   $('#hash').textContent=data.payload_sha256.slice(0,18);
+  $('#raw-trace').href=TRACE;
+  $('#raw-trace').setAttribute('download','g0_ai_film.json');
+  $('#raw-trace').removeAttribute('target');
   if(/^[a-f0-9]{40}$/.test(data.source_commit)){
     $('#source').href=REPO+'/blob/'+data.source_commit+'/'+data.source;
     $('#source').textContent='Python state producer at '+data.source_commit.slice(0,10)+' ↗';
