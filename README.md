@@ -6,16 +6,16 @@ ESMF-0 asks whether locally adaptive predictive relations, with bounded resource
 
 ## G0-AG — Astroglial support and continuously transported neurites (experimental draft)
 
-The telos-native [G0-AG experiment](research/G0_AG_GLIAL_CONTINUOUS_NEURITE.md) extends G0-AF rather than restarting the architecture. Each paid neurite segment now owns a continuous unit-quaternion phase and a separately modifiable unit-quaternion connection *in addition to* the inherited discrete Q8/neutral structures. An experience update may alter a local phase and expose a transport defect; any later connection repair is separately resource-paid and retains the displaced connection as a typed remainder. A new **glia-inspired** support Worldlet carries finite substrate, transferable resources, a calcium-like gate and an optional three-party contact state. Glial support, neuronal sensing, AF chemical diffusion, structural changes and continuous transport evolve under one coupled Markov generator with a closed combined energy ledger. Neither glia nor the quaternionic carrier is assumed necessary for intelligence.
+The telos-native [G0-AG experiment](research/G0_AG_GLIAL_CONTINUOUS_NEURITE.md) extends G0-AF rather than restarting the architecture. Each paid neurite segment now owns a continuous unit-quaternion phase and a separately modifiable unit-quaternion connection *in addition to* the inherited discrete Q8/neutral structures. An experience update is ATP-paid and records the displaced phase; any later connection repair separately spends ATP and retains the displaced connection as a typed remainder. Ordered, noncommuting chain transport now modulates the subsequent physical neurite-extension rate through a frame-invariant endpoint discrepancy. A new **glia-inspired** support Worldlet carries finite substrate, transferable resources, a calcium-like gate and an optional three-party contact state. Glial support, neuronal sensing, AF chemical diffusion, structural changes and continuous transport evolve under one coupled Markov generator with a closed combined energy ledger. Neither glia nor the quaternionic carrier is assumed necessary for intelligence.
 
 [Implementation](esmf/glial_quaternion_ag.py) · [contract tests](tests/test_glial_quaternion_ag.py) · [proposed, unrun matched-control protocol](research/G0_AG1_PREREGISTRATION.json)
 
-\`\`\`bash
+```bash
 python -m esmf.glial_quaternion_ag
 python -m unittest discover -s tests -p 'test_glial_quaternion_ag.py' -v
-\`\`\`
+```
 
-G0-AG does **not** claim realistic astrocyte physiology, endogenous semantic context discovery, quantum coherence, or a measured learning benefit. The experiment still contains two artificial neurons and one fixed-voxel support cell in a synthetic 2D/3D extracellular lattice; the continuous quaternion transport does **not yet** drive spatial growth choices. It is to be compared with no-glia, glia-without-tripartite, real arithmetic, fixed-morphology and resource-matched pairwise controls. All earlier frozen measurements and their reproduction guards remain untouched.
+G0-AG does **not** claim realistic astrocyte physiology, endogenous semantic context discovery, quantum coherence, or a measured learning benefit. The experiment still contains two artificial neurons and one fixed-voxel support cell in a synthetic 2D/3D extracellular lattice; the continuous quaternion transport now affects whether another structural extension is likely, **not** which spatial direction is chosen. It is to be compared with no-glia, glia-without-tripartite, real arithmetic, fixed-morphology and resource-matched pairwise controls. All earlier frozen measurements and their reproduction guards remain untouched.
 
 ## G0-AF — Variable-rank quaternionic neurite tissue (experimental draft)
 
