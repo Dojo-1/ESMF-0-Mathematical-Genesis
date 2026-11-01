@@ -24,8 +24,10 @@ from .telos_joint_ae import JointGenesis, Organism, example_world
 # Multiplicative subgroup Q8 of the Hamilton quaternions:
 # 1, i, j, k, -1, -i, -j, -k. Its multiplication is noncommutative.
 Q8_NAMES = ("1", "i", "j", "k", "-1", "-i", "-j", "-k")
-DIRECTIONS = ((1, 0), (0, 1), (-1, 0), (0, -1))
-DIRECTION_PHASE = (1, 2, 5, 6)
+DIRECTIONS_2 = ((1, 0), (0, 1), (-1, 0), (0, -1))
+DIRECTIONS_3 = ((1, 0, 0), (0, 1, 0), (-1, 0, 0), (0, -1, 0),
+                (0, 0, 1), (0, 0, -1))
+DIRECTION_PHASE = (1, 2, 5, 6, 3, 7)
 
 
 def q8_mul(a, b):
@@ -131,9 +133,10 @@ class HyperNeuriteEcology:
     future sensing affordances; salience conflict modulates tissue growth.
     """
 
-    def __init__(self, *, side=4, max_sections=8, max_field=3,
+    def __init__(self, *, side=4, spatial_dims=3, max_sections=8, max_field=3,
                  max_nutrient_input=16, max_material_input=16, max_scars=16):
         if (type(side) is not int or not 4 <= side <= 8 or
+                type(spatial_dims) is not int or spatial_dims not in (2, 3) or
                 type(max_sections) is not int or not 2 <= max_sections <= 16 or
                 type(max_field) is not int or not 1 <= max_field <= 6 or
                 type(max_nutrient_input) is not int or max_nutrient_input < 0 or
@@ -142,6 +145,8 @@ class HyperNeuriteEcology:
             raise ValueError("invalid finite tissue capacity")
         self.core = JointGenesis(example_world())
         self.side = side
+        self.spatial_dims = spatial_dims
+        self.directions = DIRECTIONS_3 if spatial_dims == 3 else DIRECTIONS_2
         self.max_sections = max_sections
         self.max_field = max_field
         self.max_nutrient_input = max_nutrient_input
@@ -152,35 +157,52 @@ class HyperNeuriteEcology:
         self.max_material = 6
         self.orig_energy = 8    # two neurons, each substrate 2 and ATP 2
         self.orig_material = 4  # two neurons, material 2
-        self.soma = ((0, 0), (side // 2, 0))
+        self.soma = ((0,) * spatial_dims,
+                     (side // 2,) + (0,) * (spatial_dims - 1))
 
     def seed(self):
         cells = tuple(
             Neuron(pos, (), (phase,), (1., .5, -.5, 1.), 2, 2, 2)
             for pos, phase in zip(self.soma, (0, 1)))
+        count = self.side ** self.spatial_dims
         return TissueState(Organism.seed(self.core.world), cells,
-                           (0,) * (self.side ** 2), (0,) * (self.side ** 2))
+                           (0,) * count, (0,) * count)
 
     def index(self, point):
-        x, y = point
-        return x * self.side + y
+        if len(point) != self.spatial_dims or any(
+                type(v) is not int or not 0 <= v < self.side for v in point):
+            raise ValueError("voxel does not belong to the tissue chart")
+        result = 0
+        for value in point:
+            result = result * self.side + value
+        return result
+
+    def site(self, index):
+        if type(index) is not int or not 0 <= index < self.side ** self.spatial_dims:
+            raise ValueError("voxel index outside tissue")
+        values = [0] * self.spatial_dims
+        for j in reversed(range(self.spatial_dims)):
+            values[j] = index % self.side
+            index //= self.side
+        return tuple(values)
 
     def move(self, point, direction):
-        dx, dy = DIRECTIONS[direction]
-        return ((point[0] + dx) % self.side, (point[1] + dy) % self.side)
+        shift = self.directions[direction]
+        return tuple((x + d) % self.side for x, d in zip(point, shift))
 
     def touches(self, i, j, cells):
         # This does not claim a synapse: only adjacency of paid branches.
         return (any(self.move(loc, k) == cells[j].soma or loc == cells[j].soma
-                    for loc in cells[i].path for k in range(4)) or
+                    for loc in cells[i].path for k in range(len(self.directions))) or
                 any(self.move(loc, k) == cells[i].soma or loc == cells[i].soma
-                    for loc in cells[j].path for k in range(4)))
+                    for loc in cells[j].path for k in range(len(self.directions))))
 
     def valid(self, state):
         if not isinstance(state, TissueState) or not self.core.viable(state.cognitive):
             return False
-        if len(state.cells) != 2 or len(state.attract) != self.side ** 2 or \
-                len(state.repel) != self.side ** 2:
+        nvoxels = self.side ** self.spatial_dims
+        if len(state.cells) != 2 or len(state.attract) != nvoxels or \
+                len(state.repel) != nvoxels:
             return False
         if (type(state.nutrient_input) is not int or
                 not 0 <= state.nutrient_input <= self.max_nutrient_input or
@@ -199,14 +221,17 @@ class HyperNeuriteEcology:
                     len(cell.sections) > self.max_sections or
                     any(type(q) is not int or not 0 <= q < 8 for q in cell.sections)):
                 return False
-            if (any(type(v) is not int or not 0 <= v < self.side
-                    for loc in cell.path for v in loc) or
+            if (any(not isinstance(loc, tuple) or
+                    len(loc) != self.spatial_dims or
+                    any(type(v) is not int or not 0 <= v < self.side
+                        for v in loc) for loc in cell.path) or
                     len(set(cell.path)) != len(cell.path) or
                     cell.soma in cell.path):
                 return False
             before = cell.soma
             for step in cell.path:
-                if step not in (self.move(before, k) for k in range(4)):
+                if step not in (self.move(before, k)
+                                for k in range(len(self.directions))):
                     return False
                 before = step
             if (len(cell.neutral) != 4 or
@@ -227,7 +252,8 @@ class HyperNeuriteEcology:
         for scar in state.scars:
             if (not isinstance(scar, tuple) or len(scar) != 3 or
                     type(scar[0]) is not int or scar[0] not in (0, 1) or
-                    not isinstance(scar[1], tuple) or len(scar[1]) != 2 or
+                    not isinstance(scar[1], tuple) or
+                    len(scar[1]) != self.spatial_dims or
                     any(type(v) is not int or not 0 <= v < self.side
                         for v in scar[1]) or
                     type(scar[2]) is not int or not 0 <= scar[2] < 8):
@@ -332,8 +358,8 @@ class HyperNeuriteEcology:
             if (neuron.atp and neuron.material and
                     len(neuron.sections) < self.max_sections):
                 tip_phase = neuron.sections[-1]
-                compass = (tip_phase % 4 + 2 * (tip_phase // 4)) % 4
-                for direction in range(4):
+                compass = (tip_phase % 4 + 2 * (tip_phase // 4)) % len(self.directions)
+                for direction in range(len(self.directions)):
                     dest_pos = self.move(neuron.tip, direction)
                     if dest_pos == neuron.soma or dest_pos in neuron.path:
                         continue
@@ -393,13 +419,11 @@ class HyperNeuriteEcology:
 
         for field_name in ("attract", "repel"):
             field = getattr(state, field_name)
-            for x in range(self.side):
-                for y in range(self.side):
-                    pos = (x, y)
-                    ix = self.index(pos)
+            for ix in range(self.side ** self.spatial_dims):
+                    pos = self.site(ix)
                     if not field[ix]:
                         continue
-                    for direction in range(4):
+                    for direction in range(len(self.directions)):
                         target = self.index(self.move(pos, direction))
                         if field[target] >= self.max_field:
                             continue
