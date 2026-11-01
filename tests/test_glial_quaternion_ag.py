@@ -138,6 +138,16 @@ class TestGlialQuaternionAG(unittest.TestCase):
         self.assertNotIn("fiber_connection_repair", names(self.m, encountered))
         self.assertTrue(self.m.summary(encountered)[
             "unrepresentable_active_observation"])
+        self.assertEqual(self.m.summary(encountered)[
+            "R_transport_observation_norm"], 0.)
+
+        # Normalizing R4 as H is intentionally non-injective: amplitude
+        # distinctions must not be silently promoted to equivalence.
+        a = observation_quaternion((1., 2., 3., 4.))
+        b = observation_quaternion((3., 6., 9., 12.))
+        for x, y in zip(a, b):
+            self.assertAlmostEqual(x, y, places=12)
+        self.assertNotEqual((1., 2., 3., 4.), (3., 6., 9., 12.))
 
     def test_independent_unit_quaternion_frame_covariance(self):
         source = qdirection((1, 0, 0), .62)
