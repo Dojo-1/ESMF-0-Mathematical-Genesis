@@ -10,7 +10,7 @@ import unittest
 from esmf.glial_quaternion_ag import (
     ONE, GlialQuaternionEcology,
     qmult, qconj, qnorm, qlength2, qerror, qdirection,
-    qreframe, qinterpolate, selfcheck,
+    qreframe, qinterpolate, qtransport_chain, qchain_discrepancy, selfcheck,
 )
 
 
@@ -60,6 +60,25 @@ class TestGlialQuaternionAG(unittest.TestCase):
             self.assertAlmostEqual(x, y, places=13)
         result = qmult(a, qconj(a))
         for x, y in zip(result, ONE):
+            self.assertAlmostEqual(x, y, places=12)
+
+    def test_ordered_connection_composition_retains_gauge_structure(self):
+        i = (0., 1., 0., 0.)
+        j = (0., 0., 1., 0.)
+        k = (0., 0., 0., 1.)
+        self.assertEqual(qtransport_chain((i, j), ONE),
+                         tuple(-x for x in k))
+        self.assertEqual(qtransport_chain((j, i), ONE), k)
+        a = qdirection((1, 0, 1), .6)
+        b = qdirection((0, 1, 1), .5)
+        g0 = qdirection((1, 0, 0), .4)
+        g1 = qdirection((0, 1, 0), .7)
+        g2 = qdirection((0, 0, 1), .9)
+        base = qtransport_chain((a, b), ONE)
+        a_new = qmult(qmult(g1, a), qconj(g0))
+        b_new = qmult(qmult(g2, b), qconj(g1))
+        lifted = qtransport_chain((a_new, b_new), qmult(g0, ONE))
+        for x, y in zip(lifted, qmult(g2, base)):
             self.assertAlmostEqual(x, y, places=12)
 
     def test_independent_unit_quaternion_frame_covariance(self):
@@ -212,6 +231,7 @@ class TestGlialQuaternionAG(unittest.TestCase):
                                   f.forward[-1]), 1e-8)
         self.assertEqual(len(s.repairs), 0)
         self.assertEqual(len(s.phase_history), 1)
+        self.assertGreater(qchain_discrepancy(s.fibers[0]), 1e-8)
         self.assertEqual(update.remainder[0], "[R]_memory_prior")
         self.assertEqual(s.phase_history[0][2],
                          update.remainder[1][2])
@@ -223,9 +243,32 @@ class TestGlialQuaternionAG(unittest.TestCase):
         self.assertAlmostEqual(qerror(f.phases[0], f.phases[-1],
                                        f.forward[-1]), 0., places=12)
         self.assertEqual(len(s.repairs), 1)
+        self.assertAlmostEqual(qchain_discrepancy(s.fibers[0]), 0., places=11)
         self.assertEqual(len(s.phase_history), 1)
         self.assertEqual(repaired.remainder[0], "[R]_transport_prior")
         self.assertTrue(self.m.valid(s))
+
+    def test_continuous_transport_disagreement_modulates_growth(self):
+        # One paid physical section permits a nontrivial transport defect.
+        s = find(self.m, self.seed, "af/neurite_extend:0:0").destination
+        s = find(self.m, s, "af/cognitive/encounter:0").destination
+        s = find(self.m, s, "af/metabolic_conversion:0").destination
+        s = find(self.m, s, "fiber_experience_update").destination
+        s = find(self.m, s, "af/metabolic_conversion:0").destination
+        mismatch = qchain_discrepancy(s.fibers[0])
+        self.assertGreater(mismatch, 0.)
+        slowed = find(self.m, s, "af/neurite_extend:0:0").rate
+        repaired = find(self.m, s, "fiber_connection_repair").destination
+        # Repair itself costs ATP; compare growth at the same ATP level.
+        repaired = find(self.m, repaired, "af/nutrient_supply:0").destination
+        repaired = find(self.m, repaired,
+                        "af/metabolic_conversion:0").destination
+        self.assertAlmostEqual(qchain_discrepancy(repaired.fibers[0]),
+                               0., places=11)
+        restored = find(self.m, repaired, "af/neurite_extend:0:0").rate
+        self.assertAlmostEqual(restored / slowed,
+                               1. + .25 * mismatch, places=11)
+        self.assertTrue(self.m.valid(repaired))
 
     def test_phase_history_exhaustion_blocks_unlogged_updates(self):
         capped = GlialQuaternionEcology(max_fiber_records=0)
