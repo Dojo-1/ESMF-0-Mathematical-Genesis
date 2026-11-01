@@ -48,7 +48,7 @@
         <div class="group-label space-top"><span>03</span> EVIDENCE FILTER</div>
         <div class="evidence-controls" id="evidence-controls" role="group" aria-label="Filter evidence labels"></div>
         <p class="filter-note">P conditional proof &middot; A assumption &middot; M bounded measurement &middot; H hypothesis &middot; S semantic framing</p>
-        <p class="tiny-note"><span class="inline-spark" aria-hidden="true"></span> Browser animation is conceptual. It is not running the Python organism or replaying its CI trajectories.</p>
+        <p class="tiny-note"><span class="inline-spark" aria-hidden="true"></span> The architectural atlas is conceptual. A separate, clearly marked event replay can display recorded Python states, never live cognition or a browser simulation.</p>
       </section>
 
       <section class="visual-stage" aria-labelledby="view-title">
@@ -60,9 +60,44 @@
           <div class="stage-compass" aria-hidden="true"><span>ORBIT</span><b>XYZ</b><span>DRAG TO TURN</span></div>
         </div>
         <div class="stage-bottom">
-          <div class="morph-control"><div class="morph-title"><label for="morph-range">Morphology <span class="morph-sub">illustrative expansion</span></label><output id="morph-value" for="morph-range">72%</output></div><input id="morph-range" type="range" min="10" max="100" value="72" step="1"><div class="range-limits"><span>Nascent</span><span>Extended</span></div></div>
+          <div class="morph-control" id="morph-control"><div class="morph-title"><label for="morph-range">Morphology <span class="morph-sub">illustrative expansion</span></label><output id="morph-value" for="morph-range">72%</output></div><input id="morph-range" type="range" min="10" max="100" value="72" step="1"><div class="range-limits"><span>Nascent</span><span>Extended</span></div></div>
           <div class="stage-buttons"><button id="motion-toggle" type="button" aria-pressed="true" title="Pause or resume conceptual motion"><span id="motion-symbol" aria-hidden="true">&#10074;&#10074;</span><span id="motion-text">Pause</span></button><button id="reset-camera" type="button" title="Reset the orbiting viewpoint">Reset view</button></div>
         </div>
+        <section class="trace-panel" aria-labelledby="trace-heading">
+          <div class="trace-heading">
+            <span id="trace-heading">04 / RECORDED ORGANISM</span>
+            <button id="trace-toggle" type="button" aria-pressed="false" disabled>Load recorded trace</button>
+          </div>
+          <p id="trace-load-status">Loading the Python event recording…</p>
+          <div id="trace-controls" hidden>
+            <div class="trace-run-row">
+              <label for="trace-run">Source trajectory</label>
+              <select id="trace-run" aria-label="Select a recorded model trajectory"></select>
+            </div>
+            <p id="trace-run-note" class="trace-disclaimer"></p>
+            <div class="trace-transport" role="group" aria-label="Event replay controls">
+              <button id="trace-back" type="button" aria-label="Previous recorded event">←</button>
+              <button id="trace-play" type="button" aria-pressed="false">Play events</button>
+              <button id="trace-next" type="button" aria-label="Next recorded event">→</button>
+              <input id="trace-range" type="range" min="0" max="0" value="0" step="1" aria-label="Scrub recorded event sequence">
+              <output id="trace-position" for="trace-range">— / —</output>
+            </div>
+            <div class="trace-readout">
+              <div class="trace-event">
+                <strong id="trace-event">INITIAL STATE</strong>
+                <small id="trace-phase" aria-live="polite">No model clock yet.</small>
+                <small id="trace-remainder"></small>
+              </div>
+              <pre id="trace-snapshot" aria-live="off">No recorded state selected.</pre>
+            </div>
+            <div class="trace-links">
+              <a id="trace-source" target="_blank" rel="noopener noreferrer" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis">Python source ↗</a>
+              <a id="trace-download" href="#trace-heading">Inspect raw JSON ↗</a>
+              <span>Record <code id="trace-payload-id">—</code></span>
+            </div>
+            <p class="trace-disclaimer">Discrete states are exported from a synthetic G0-AG process. Playback speed is illustrative, not stochastic waiting time; chart coordinates are scaled only for display. No biological, semantic or quantum advantage is implied.</p>
+          </div>
+        </section>
       </section>
 
       <aside class="inspector" aria-label="Architecture inspector">
@@ -78,7 +113,7 @@
       </aside>
     </main>
 
-    <footer class="site-footer"><span>THE STRUCTURE IS NOT THE CLAIM.</span><span id="footer-model">SCHEMATIC &middot; NOT LIVE TELEMETRY</span><span>ESMF-0 / DOJO-1 &middot; 2026</span></footer>
+    <footer class="site-footer"><span>THE STRUCTURE IS NOT THE CLAIM.</span><span id="footer-model">SCHEMATIC &middot; REPLAY AVAILABLE &middot; NOT LIVE TELEMETRY</span><span>ESMF-0 / DOJO-1 &middot; 2026</span></footer>
   </div>
   <noscript><div class="noscript">This site requires JavaScript for interactive exploration. The repository and research map remain available from the links above.</div></noscript>
 </body>
