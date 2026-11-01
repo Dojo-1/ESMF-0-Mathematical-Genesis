@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Navigate recorded, resource-accounted G0-AH neuritic trees in 3D. All development is deliberately selected synthetic model operations, not real biological activity.">
+  <title>G0-AH / Inside a Neurite · ESMF-0</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./neurite.css">
+  <script type="importmap">
+    {"imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }}
+  </script>
+  <script type="module" src="./neurite.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="signature" href="./">ESMF <span>/</span> 0 <small>MATHEMATICAL GENESIS</small></a>
+    <div class="project">G0-AH <span class="lumen" aria-hidden="true"></span> NEURITE MICROSCOPE / 002</div>
+    <nav><a href="./">← Living Observatory</a><a href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AH_DESIGN_AND_PROTOCOL.md" target="_blank" rel="noopener noreferrer">Research protocol ↗</a></nav>
+  </header>
+  <main class="layout">
+    <section class="essay">
+      <p class="kicker">A CLOSER GEOMETRY</p>
+      <h1>A society<br>inside <em>one neurite.</em></h1>
+      <p class="lede">The organism is not a cloud of anonymous points. Its dendritic compartments can branch, remember different questions, accept or veto delayed signals and eventually be withdrawn.</p>
+      <p class="warning">These movements are <strong>recorded, deliberately selected operators</strong> of a synthetic Python model. They are neither stochastic developmental history nor real neuronal or glial physiology.</p>
+      <div class="section-label">01 / FOLLOW THE RECORD</div>
+      <label for="run">Recorded demonstration</label>
+      <select id="run"><option>Loading original model states…</option></select>
+      <div class="scrub">
+        <button id="previous" type="button" aria-label="Previous recorded state">←</button>
+        <button id="play" type="button" aria-pressed="false">Play</button>
+        <button id="next" type="button" aria-label="Next recorded state">→</button>
+        <output id="progress" for="frame">— / —</output>
+      </div>
+      <input id="frame" type="range" min="0" max="0" step="1" value="0" aria-label="Select recorded model event">
+      <p class="event" id="event" aria-live="polite">Awaiting source-bound trace…</p>
+      <p class="quiet" id="event-type">A chosen transition is not a random sample.</p>
+      <div class="section-label">02 / CHOOSE YOUR OBSERVER</div>
+      <label for="cell">Select a neuronal soma</label>
+      <select id="cell"><option value="0">Cell 00 · context 0 / question 0</option></select>
+      <div class="views">
+        <button id="focus" type="button">Enter selected soma</button>
+        <button id="whole" type="button">Whole tissue</button>
+      </div>
+      <p class="quiet">Drag to orbit · scroll to zoom · click a branch to inspect its stored question and evidence.</p>
+      <div class="section-label">03 / EVIDENCE BOUNDARY</div>
+      <p class="quiet">G0-AH D0: the ordinary conditional estimator achieved <strong>0.177 Brier</strong>, versus <strong>0.185</strong> for the branching model. Glial consolidation did not improve this score. The more complex architecture did not win the current task.</p>
+      <a class="source-link" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_AH_DESIGN_AND_PROTOCOL.md" target="_blank" rel="noopener noreferrer">Read the falsification protocol ↗</a>
+    </section>
+    <section class="stage" aria-label="Three-dimensional view of recorded dendritic compartments">
+      <div class="stage-top"><span>RECORDED MORPHOLOGY / 3D</span><span>NUMERIC VOXEL CHART · NOT ANATOMICAL SCALE</span></div>
+      <div id="viewport"></div>
+      <div class="fallback" id="fallback" hidden><strong>3D unavailable</strong><p>The recorded state remains accessible through the observer controls and inspector. This browser cannot display WebGL here.</p></div>
+      <div class="legend" aria-label="Color legend"><span><i class="disc somatic"></i>Soma</span><span><i class="disc compartment"></i>Local branches</span><span><i class="disc glial"></i>Glial territory (schematic)</span><span><i class="disc inhibitory"></i>Inhibitory axon</span></div>
+    </section>
+    <aside class="inspector">
+      <p class="kicker">STRUCTURE / INSPECTOR</p>
+      <h2 id="selection">Compartmental genesis</h2>
+      <p id="selection-description">Select a soma, branch or model event to inspect its recorded state.</p>
+      <div class="split"><span>FAST / SLOW CLOCK</span><strong id="clocks">— / —</strong></div>
+      <div class="split"><span>RECORDED BRANCHES</span><strong id="branches">—</strong></div>
+      <div class="split"><span>ENERGY / MATERIAL RESIDUAL</span><strong id="ledger">—</strong></div>
+      <div class="details">
+        <div class="section-label">LOCAL STATE</div>
+        <pre id="detail" tabindex="0" aria-label="Recorded branch or cell state">Waiting for a source record…</pre>
+      </div>
+      <div class="details"><div class="section-label">PROVENANCE AND LOSS</div><pre id="remainder">No recorded remainder.</pre></div>
+      <p class="quiet">Every state is read from the Python trace, not generated by the browser. Branch trees and soma positions are model voxels; glial territories are conceptual membership overlays. Quaternion phase is not a physical neurite orientation.</p>
+      <p class="quiet"><a id="source" class="source-link" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/compartmental_ah.py" target="_blank" rel="noopener noreferrer">Verified Python model source ↗</a></p>
+      <p class="quiet"><a class="source-link" href="./traces/g0_ah_microscope.json" download>Download the underlying recorded trace ↗</a></p>
+      <p class="footer">EVIDENCE: M / EXECUTABLE SYNTHETIC STATE ONLY <span id="hash">—</span></p>
+    </aside>
+  </main>
+</body>
+</html>
