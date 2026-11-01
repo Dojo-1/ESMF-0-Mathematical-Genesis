@@ -1,0 +1,31 @@
+name: G0-AG D1a development-only behavior probe
+
+on:
+  pull_request:
+    paths:
+      - "research/g0_ag_d1a_memory_probe.py"
+      - "tests/test_g0_ag_d1a_memory_probe.py"
+      - "research/G0_AG_D1_BEHAVIORAL_PROTOCOL.md"
+      - ".github/workflows/g0-ag-d1a-memory.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Evaluate precommitted predictions on fresh synthetic outcomes
+        run: python -m research.g0_ag_d1a_memory_probe --out g0_ag_d1a_results.json
+      - name: Preserve training events, predictions, and future outcomes
+        uses: actions/upload-artifact@v4
+        with:
+          name: g0-ag-d1a-memory-results
+          path: g0_ag_d1a_results.json
+          if-no-files-found: error
