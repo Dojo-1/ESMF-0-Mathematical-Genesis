@@ -1,0 +1,34 @@
+# G0-AH — Compartmental Neurite Genesis
+
+**Status: scoped, preregistered engineering study.** The biological inspiration is S; the architecture and behavioral advantage are H. Conditional resource/gauge identities are candidate P after explicit checking. Synthetic software measurements may become M only for the exact code, seeds and task. The G0-AF/AG and D0/D1a negatives are not revised or replaced.
+
+The old G0-AG reference has two cells with single-path neurites, a glia-like compartment and a bounded-channel stochastic generator. G0-AH is **a distinct, discrete, event-sourced reference kernel**, not a silent replacement or a 16-neuron version of that CTMC. The first implementation will have sixteen somatic cells in a 3D **nonperiodic** numeric substrate, four paid branching compartments per soma, four glial resource/eligibility territories, sparse directed and delayed excitatory/inhibitory axonal contacts and locally question-indexed evidence. All of this is synthetic: no membrane voltages, real ATP chemistry, spike biophysics, biological morphology, or quantum computation is claimed.
+
+## What could be different from an enlarged scalar network?
+
+Each compartment has a parent, a 3D voxel, a two-cue conjunction gate, two clocks of bounded same/different evidence, an eligibility state and a typed frame/connection on S³. The soma arbitrates active compartments rather than globally pooling all evidence; it is not assumed to know the label before prediction. A glia-like territorial calcium gate controls *slow consolidation* rather than every fast sensing event. An axonal packet has a direction, type and fast-clock delivery delay. Morphogenesis consumes integer ATP/material proxies; pruning returns structural material but preserves \`[R]_memory_pruned\`. Frame reparameterization of a parent/child co-transforms the observed quaternion phase and edge connection.
+
+**A fundamental restriction:** two binary cues allow only four distinct cue-specialized compartments per (context, question) soma in this first protocol. A declared higher branch cap does not imply 16 meaningful local functions. The proposed 16-compartment regime needs a larger sensory alphabet, different branch roles or additional timing structure, and separate evidence.
+
+## Nonflattening versus representation controls
+
+The four parts should be ablated independently: branching versus flat query-indexed memory; branch-specific nonlinear coincidence versus a lookup table; glial slow eligibility versus fixed retention; and delay/inhibition versus an untyped static link. The ordinary fully indexed estimator is the **primary comparator**. A quaternion may be written as four real coordinates without information loss; G0-AH cannot claim special arithmetic benefit merely by writing Hamilton products as H. Tree edges alone cannot establish nontrivial gauge cycle holonomy. Negative controls include cue-label shuffling, opposite frame gauges with co-transported observations, glial shutdown, identical preallocated morphology and a delayed inhibitory veto.
+
+## G0-AH D0 protocol — freeze before measurement
+
+* Development seeds: **8300–8313 inclusive**, 14 paired streams.
+* **Six observed training encounters for each (context, question, cue-pair)** cell, with four contexts, four questions and the four 2-bit cue pairs, giving **384 observations per stream**.
+* Synthetic evaluator, private to the scoring harness, not the learner: 
+  \`P(change|c,q,cue)=0.85\` when \`cue[0] XOR cue[1] == ((c+q) mod 2)\`, otherwise \`0.15\`; for the ambiguous modes \`(c+q)%4==3\`, replace these with \`0.55\` and \`0.45\`.
+* At each training encounter every model predicts **before** its label is drawn. The same observed label is then supplied to every model, with the same context/question/cues and order. G0-AH may grow a branch from *public cues alone* before the first prediction; its structural costs are recorded.
+* Test **32 fresh responses per four-way cell** after committing all predictions, **2,048 future events per seed**. Never use development outcomes to select a new evaluator or adjust the schedule. Do not touch G0-AG1 heldout seeds 18100–18227. This D0 is not that benchmark.
+* Arm A: G0-AH with paid branches and slow glial consolidation. Arm B: identical G0-AH with exactly the same glial pulses and resource expenditure but *consolidation disabled*. Arm C: ordinary (context, question, cue)-indexed Beta(1,1) counter with maximum six same/six changed witnesses per cell, on the **same** data. Arm D: context-and-question-only pooled estimator with the same labels but no cue indexing; **weak comparator**, not a matched fairness claim.
+* Each G0-AH arm gets the same branch growth schedule, observation opportunities and material/ATP costs; the glial arm pair receives the same calcium pulses and support consumption, even if only one uses those pulses for consolidation. Report their final ledger, actual resource expenditures and morphology. The conventional estimator does **not** incur the same simulated biological budget and has much smaller state: compare predictive competence but **never** infer an energy-normalized architecture win from its Brier.
+* Primary outcomes: future-response Brier per seed and per context/question; paired descriptive intervals, not p-values. Secondary: event/resource counts, live branches, tissue viability, cap collisions \`[R]_witness_cap\`, lost consolidation records, per-run CPU time, and 3D tree parent integrity.
+* **Known-answer null:** a lookup model that retains precisely (c,q,cue) is already sufficient to represent the evaluator's conditional Bernoulli distributions. A dendritic advantage over an equally informed, well-resourced tabular model is **not** predicted. Negative or tied results must be preserved.
+* A separate directed-contact/inhibitory-delay regression is a mechanism test; it is **not enabled in the offline forecasting task**, so a successful Brier result cannot be credited to axonal inhibition.
+* Keep raw per-seed outcomes, deterministic seeds, source commit and the program's own measured limits. No researcher-driven seed selection or undocumented retries.
+
+**Falsification:** If G0-AH ties or loses to the ordinary conditional estimator, retire the particular claim that branching morphology itself improves this task. Do not rescue by adding octonions or dimensions. The next required experiment would need time-dependent, partially unobserved relations where dendritic **local integration** adds explanatory power beyond equal-information ordinary sequential models, plus independently validated spatial and metabolic costs.
+
+**Deployment rule:** keep one \`main\` branch and do not replace G0-AG's source, rewrite D0/D1a, or promote G0-AH neural/semantic benefit to P. New Observatory views must label simulated neuron/branch events separately from decorative architecture and show any raw source trace provenance.
