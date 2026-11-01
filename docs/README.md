@@ -9,6 +9,7 @@ From the repository root:
 ```bash
 python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
 python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
+python -m research.export_g0_ai_film --out docs/traces/g0_ai_film.json
 python -m http.server 8000 --directory docs
 ```
 
@@ -31,6 +32,10 @@ On a `main` deployment, GitHub Actions generates both model traces from the chec
 The separate [3D neurite microscope](neurite.html) depicts **actual selected operations** of [G0-AH](../esmf/compartmental_ah.py). [Its source-bound exporter](../research/export_g0_ah_microscope.py) records one sixteen-stage focused neurite demonstration (branching, question-indexed witnesses, glial slow gate, pruning, a delayed inhibitory contact and fast-clock delivery) and one sixteen-cell/64-branch population demonstration. Unlike G0-AG's Gillespie suffix, **neither G0-AH recording is a stochastic developmental sample**: the operator sequence was selected to exhibit valid behavior. Glial territorial shells depict cell membership, not measured astrocyte positions. The 3D voxels are nonperiodic numerical locations, not anatomy.
 
 The [G0-AH D0 forecasting study](../research/G0_AH_D0_RESULTS.md) was independently scored against an ordinary cue-indexed counter. That conventional baseline achieved **lower Brier loss**, and glial slow consolidation did not change the G0-AH scores. Passing resource conservation and quaternionic gauge tests cannot reverse that negative cognitive result.
+
+## G0-AI: development without assigned organs
+
+[Conditions for Genesis](genesis.html) shows **recorded model-selected** stochastic contact changes of 20 initially role-free local units, with history-adapted regulatory mixtures and exact synthetic energy/material balances. The [film exporter](../research/export_g0_ai_film.py) reproduces the declared development seed 93101, and tracks adaptive, frozen and shuffled-topology variants on the **same** stimulus stream. The site renders subsampled recorded states; its playback speed is not simulation time, and its chart is not biological 3D tissue. No organ types or biological glial classes arise by assertion. The [D0 results](../research/G0_AI_D0_RESULTS.md) showed worse prediction than the simpler fixed control, and the [conditional P1 obstruction](../research/G0_AI_P1_SYMMETRY_OBSTRUCTION.md) identifies a precise odd-symmetry restriction of its local observation algebra. Neither result is evidence for emergent intelligence.
 
 ## GitHub Pages
 
