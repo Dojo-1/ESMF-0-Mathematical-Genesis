@@ -8,6 +8,8 @@ on:
       - 'research/g0_ai_probe.py'
       - 'tests/test_telos_substrate_ai.py'
       - 'tests/test_g0_ai_probe.py'
+      - 'tests/test_g0_ai_symmetry.py'
+      - 'research/G0_AI_P1_SYMMETRY_OBSTRUCTION.md'
       - 'research/G0_AI_TELOS_NUDGED_PROTOCOL.md'
       - '.github/workflows/g0-ai-development.yml'
   workflow_dispatch:
@@ -28,6 +30,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_telos_substrate_ai.py' -v
           python -m unittest discover -s tests -p 'test_g0_ai_probe.py' -v
+          python -m unittest discover -s tests -p 'test_g0_ai_symmetry.py' -v
       - name: Execute frozen 12-seed development test with all predictions recorded
         run: python -m research.g0_ai_probe --out g0_ai_d0_results.json
       - name: Seal unfiltered development evidence and archive raw predictions
