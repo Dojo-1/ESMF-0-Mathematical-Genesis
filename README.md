@@ -14,6 +14,8 @@ The aim is not a larger vector, a new name for a neural network, or geometry for
 
 **[Enter the G0-AH Neurite Microscope](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/neurite.html)** to inspect executable 3D branch growth, local evidence, glial gating and delayed inhibition. Its events are deliberately selected source recordings, not evidence of neural cognition.
 
+**[Watch G0-AI develop without assigned organs](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/genesis.html)** — a real synthetic 3D contact history, including its failed advantage against a fixed recurrent control.
+
 ## What lives here?
 
 The project is a family of small, executable research models. Its ingredients are coupled questions, not a processing pipeline:
