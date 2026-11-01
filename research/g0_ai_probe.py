@@ -102,10 +102,14 @@ def run_seed(seed: int):
     scores={key:[[], [], []] for key in (*MODES,'lagged_table')}
     cost=[]
     evidence=[]
+    prequential=[]
     for t, cues, label, hidden_phase, pworld in stream:
         predictions={arm: m.predict(cues) for arm,m in models.items()}
         predictions['lagged_table']=ordinary.predict(history)
         # The world label is withheld until every arm commits a prediction.
+        prequential.append({'t':t,'cue':list(cues), 'label':label,
+                           'hidden_phase_for_audit':hidden_phase,
+                           'predictions_before_label':predictions})
         if t >= 20:
             for arm,p in predictions.items():
                 scores[arm][t//BLOCK].append(brier(p,label))
@@ -124,6 +128,7 @@ def run_seed(seed: int):
                 'blocks':[mean(x) for x in blocks]}
            for arm,blocks in scores.items()}
     return {'seed':seed,'scores':stats,'cost':cost,'evidence':evidence,
+            'prequential':prequential,
             'world_events':STEPS,'initial_units':len(base.s.units),
             'initial_contacts':initial_contacts,
             'final_edges':{k:len(m.s.contacts) for k,m in models.items()},
