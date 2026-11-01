@@ -8,10 +8,11 @@ From the repository root:
 
 ```bash
 python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
+python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
 python -m http.server 8000 --directory docs
 ```
 
-Open `http://localhost:8000/`. WebGL requires a browser with GPU/WebGL enabled and access to the pinned Three.js module CDN. If WebGL or external modules fail, the static constellation and searchable source-linked node directory remain available. There is no server, account, tracking, telemetry or user-data upload.
+Open `http://localhost:8000/` for the architectural atlas or `http://localhost:8000/neurite.html` for the recorded G0-AH neurite microscope. WebGL requires a browser with GPU/WebGL enabled and access to the pinned Three.js module CDN. If WebGL or external modules fail, the static constellation and searchable source-linked node directory remain available. There is no server, account, tracking, telemetry or user-data upload.
 
 ## Provenance-bearing replay
 
@@ -23,7 +24,13 @@ The exporter is [`research/export_observatory_trace.py`](../research/export_obse
 
 Each snapshot is fingerprinted with SHA-256. The complete exported file records the **exact source commit SHA** used to generate it, deterministic seeds, model horizon, sampling mode and the export source path. The HTML viewer verifies its shape and ledger closure; Python tests verify hashes, determinism, and the deliberate/sampled distinction. The replay is **not live telemetry** and the 1-second event playback interval is **not physical or Gillespie time**. Unit-quaternion tip states appear as SO(3) frame glyphs via the S³ double cover: the rendering identifies q and −q, and is neither a biological orientation nor a full rendering of quaternionic state.
 
-On a `main` deployment, GitHub Actions builds the replay JSON using the repository's Python model, validates the exported sequence, commits the resulting `docs/traces/g0_ag_model.json` to `main` and publishes the same file through Pages. The Actions-created data commit does not recursively start another Pages run.
+On a `main` deployment, GitHub Actions generates both model traces from the checked-out Python sources and publishes those generated files in the Pages artifact. It also archives the raw JSON files as a workflow artifact. **Deployment does not commit or push anything back to `main`**—this avoids non-fast-forward races during active research, while each trace retains the exact source checkout SHA. Tracked copies under `docs/traces/` may therefore represent an earlier audited snapshot; the deployed trace and its Actions artifact are authoritative for that published revision.
+
+## G0-AH Neurite Microscope
+
+The separate [3D neurite microscope](neurite.html) depicts **actual selected operations** of [G0-AH](../esmf/compartmental_ah.py). [Its source-bound exporter](../research/export_g0_ah_microscope.py) records one sixteen-stage focused neurite demonstration (branching, question-indexed witnesses, glial slow gate, pruning, a delayed inhibitory contact and fast-clock delivery) and one sixteen-cell/64-branch population demonstration. Unlike G0-AG's Gillespie suffix, **neither G0-AH recording is a stochastic developmental sample**: the operator sequence was selected to exhibit valid behavior. Glial territorial shells depict cell membership, not measured astrocyte positions. The 3D voxels are nonperiodic numerical locations, not anatomy.
+
+The [G0-AH D0 forecasting study](../research/G0_AH_D0_RESULTS.md) was independently scored against an ordinary cue-indexed counter. That conventional baseline achieved **lower Brier loss**, and glial slow consolidation did not change the G0-AH scores. Passing resource conservation and quaternionic gauge tests cannot reverse that negative cognitive result.
 
 ## GitHub Pages
 
