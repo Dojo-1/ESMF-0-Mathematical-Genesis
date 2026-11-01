@@ -28,7 +28,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -80,19 +80,14 @@ jobs:
         run: python -m research.export_observatory_trace --out docs/traces/g0_ag_model.json
       - name: Record exact G0-AH branching states with commit provenance
         run: python -m research.export_g0_ah_microscope --out docs/traces/g0_ah_microscope.json
-      - name: Keep the replay artifact committed on main
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/traces/g0_ag_model.json docs/traces/g0_ah_microscope.json
-          if ! git diff --cached --quiet; then
-            git commit -m "data(observatory): preserve deterministic G0-AG trace [skip ci]"
-            git push origin HEAD:main
-          else
-            echo "Replay artifact already matches this recorded generator revision"
-          fi
+      - name: Archive replay files without mutating main
+        uses: actions/upload-artifact@v4
+        with:
+          name: esmf-observatory-traces
+          path: |
+            docs/traces/g0_ag_model.json
+            docs/traces/g0_ah_microscope.json
+          if-no-files-found: error
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload source-linked observatory and recorded trace
