@@ -4,6 +4,14 @@
 
 ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
 
+## Telos-native orientation — G0-AE (experimental draft)
+
+ESMF-0's **internal telos** is viable, revisable development: through its own encounters and interventions, the organism acquires distinctions and capacities for action without being handed the evaluator's hidden causal/semantic categories. This is a **plural viability condition**, not a single globally optimized meaning score. Material, metabolic, relational and geometric constraints are constitutive of what the organism can learn, not post-hoc taxes on a separate inference engine.
+
+The proposed [G0-AE joint-generator bridge](research/G0_AE_TELOS_NATIVE_SIMULTANEITY.md) abandons the *pipeline ontology* (biology → geometry → semantics → memory → anatomy). Its finite classical continuous-time generator gives competing local energetic, interrogative, transport, distinction-memory and paid structural events one coupled dynamical law. Numerical sampling may serialize events, but that scheduling is not the definition of the dynamics. [Executable contract](esmf/telos_joint_ae.py) · [tests](tests/test_telos_joint_ae.py) · [proposed, unrun evaluation](research/G0_AE1_PREREGISTRATION.json).
+
+This is a **bounded synthetic research interface**, not a measured cognitive advantage, true tissue-scale integration, general learned semantics, or physical quantum implementation. A mathematical diagonal Lindblad embedding exists for finite Markov generators, but neither quantum coherence nor speedup follows. All earlier held-out negative controls and reproduction obligations remain in force.
+
 ## Evidence boundary
 
 - **P (conditional mathematics):** bounded projection; finite resource/accounting identities; predictive-equivalence quotient; Gram positive semidefiniteness under the stated assumptions.
