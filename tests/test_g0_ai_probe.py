@@ -34,6 +34,12 @@ class TestG0AIProbe(unittest.TestCase):
         self.assertTrue(result['all_ledgers_closed'])
         self.assertTrue(result['model_label_used_only_by_external_readout'])
         self.assertEqual(len(result['cost']),3)
+        self.assertEqual(len(result['prequential']),720)
+        for arm, scored in result['scores'].items():
+            rows=result['prequential'][20:]
+            independent=sum((r['predictions_before_label'][arm]-int(r['label']))**2
+                            for r in rows)/len(rows)
+            self.assertAlmostEqual(independent,scored['mean'],places=12)
         self.assertEqual(result['world_events'],720)
         for arm in result['scores']:
             item=result['scores'][arm]
