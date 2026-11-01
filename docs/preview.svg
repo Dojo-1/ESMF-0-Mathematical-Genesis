@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-label="ESMF-0 Living Observatory constellation">
+<defs><radialGradient id="bg"><stop stop-color="#173142"/><stop offset=".75" stop-color="#091923"/><stop offset="1" stop-color="#07121a"/></radialGradient><radialGradient id="g"><stop stop-color="#e9fff9"/><stop offset=".2" stop-color="#93dfc8" stop-opacity=".76"/><stop offset="1" stop-color="#6aa68f" stop-opacity="0"/></radialGradient><radialGradient id="v"><stop stop-color="#eff0ff"/><stop offset=".23" stop-color="#aaa4f2" stop-opacity=".67"/><stop offset="1" stop-color="#aaa4f2" stop-opacity="0"/></radialGradient><radialGradient id="o"><stop stop-color="#fff4da"/><stop offset=".22" stop-color="#f7c68c" stop-opacity=".70"/><stop offset="1" stop-color="#f7c68c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="480" fill="url(#bg)"/>
+<g opacity=".21" stroke="#a7d1c9" stroke-width="1" fill="none"><ellipse cx="789" cy="237" rx="280" ry="117" transform="rotate(33 789 237)"/><ellipse cx="790" cy="234" rx="270" ry="137" transform="rotate(-42 790 234)"/><ellipse cx="794" cy="236" rx="183" ry="195" transform="rotate(23 794 236)"/><path d="M575 155Q755 310 1018 158M573 298Q806 61 1064 317" stroke-dasharray="4 8"/></g>
+<circle cx="617" cy="275" r="103" fill="url(#g)"/><circle cx="951" cy="253" r="104" fill="url(#v)"/><circle cx="787" cy="122" r="99" fill="url(#o)"/><circle cx="809" cy="386" r="90" fill="url(#v)"/><circle cx="781" cy="246" r="76" fill="url(#g)"/>
+<g fill="#d9fff3"><circle cx="617" cy="275" r="7"/><circle cx="781" cy="246" r="8"/></g><g fill="#e4dffc"><circle cx="951" cy="253" r="6"/><circle cx="809" cy="386" r="5"/></g><circle cx="787" cy="122" r="6" fill="#ffe5ad"/>
+<text x="60" y="71" font-family="Arial,sans-serif" font-size="13" letter-spacing="5" fill="#8de2d0">MATHEMATICAL GENESIS</text>
+<text x="58" y="172" font-family="Georgia,serif" font-size="63" fill="#f3f6ef">A living</text>
+<text x="58" y="243" font-family="Georgia,serif" font-size="63" fill="#9ce0cd" font-style="italic">observatory.</text>
+<text x="61" y="298" font-family="Arial,sans-serif" font-size="16" fill="#9db7c0">Tissue / Geometry / Meaning / Evidence</text>
+<rect x="61" y="359" width="252" height="44" rx="5" stroke="#80cdb9" stroke-opacity=".6" fill="#80cdb9" fill-opacity=".10"/><text x="87" y="386" font-family="Arial,sans-serif" font-size="13" fill="#c3f5e7" letter-spacing="1">EXPLORE THE COSMOS</text><path d="M279 382h12m-5-5 5 5-5 5" stroke="#b5ebde" fill="none"/>
+<text x="1051" y="440" font-family="Arial,sans-serif" font-size="10" fill="#6d939a" letter-spacing="2">SCHEMATIC / NOT LIVE</text>
+</svg>

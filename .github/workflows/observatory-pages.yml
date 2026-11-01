@@ -1,0 +1,60 @@
+name: ESMF-0 Living Observatory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/observatory-pages.yml"
+      - "tests/test_observatory_site.py"
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/observatory-pages.yml"
+      - "tests/test_observatory_site.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: esmf-observatory-pages
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate source-linked architecture and fallback assets
+        run: python -m unittest discover -s tests -p 'test_observatory_site.py' -v
+      - name: Syntax-check interactive modules
+        run: node --check docs/app.js && node --check docs/scene.js
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure GitHub Pages (must be enabled in repository settings)
+        uses: actions/configure-pages@v5
+      - name: Upload static observatory
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./docs
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

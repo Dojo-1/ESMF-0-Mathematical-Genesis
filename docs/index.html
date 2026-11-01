@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Explore ESMF-0 Mathematical Genesis as a 3D architectural observatory: material tissue, local geometries, question-conditioned memory, and evidence. A schematic, not live telemetry.">
+  <title>ESMF-0 / Living Observatory</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {"imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }}
+  </script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis" target="_blank" rel="noopener noreferrer" aria-label="ESMF-0 repository">
+        <span class="brand-mark" aria-hidden="true"><svg width="31" height="31" viewBox="0 0 31 31"><circle cx="15.5" cy="15.5" r="12" fill="none" stroke="currentColor" stroke-width=".75" opacity=".5"/><path d="M6 18C11 5 22 5 25 18M6 18c8 10 18 6 19-2M15 3l1 25M3 15l25 2" fill="none" stroke="currentColor" stroke-width=".9"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg></span>
+        <span><strong>ESMF <i>/</i> 0</strong><small>MATHEMATICAL GENESIS</small></span>
+      </a>
+      <div class="header-center"><span class="status-dot" aria-hidden="true"></span> LIVING OBSERVATORY <span class="header-rule"></span> 001</div>
+      <div class="header-actions"><a href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/RESEARCH_MAP.md" target="_blank" rel="noopener noreferrer">Research map <span aria-hidden="true">&#8599;</span></a><a class="header-repo" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis" target="_blank" rel="noopener noreferrer">Repository <span aria-hidden="true">&#8599;</span></a></div>
+    </header>
+
+    <main class="workspace">
+      <section class="narrative-panel" aria-labelledby="heading">
+        <p class="eyebrow">AN EXPERIMENT IN BECOMING</p>
+        <h1 id="heading">A body made<br>of <em>questions.</em></h1>
+        <p class="intro">An evolving architecture where experience, local geometry, and material life constrain one another. Explore the relationships without confusing the visualization for the evidence.</p>
+        <div class="separator"></div>
+        <div class="group-label"><span>01</span> EXPLORE THE ORGANS</div>
+        <div id="domain-controls" class="domains" role="group" aria-label="Show or hide architectural domains">
+          <span class="loading-txt">Loading architecture...</span>
+        </div>
+        <div class="group-label space-top"><span>02</span> SHIFT YOUR OBSERVER</div>
+        <div class="views" role="group" aria-label="Camera views">
+          <button type="button" class="view-btn is-current" data-view="whole" aria-pressed="true">Whole</button>
+          <button type="button" class="view-btn" data-view="biology" aria-pressed="false">Tissue</button>
+          <button type="button" class="view-btn" data-view="geometry" aria-pressed="false">Transport</button>
+          <button type="button" class="view-btn" data-view="semantics" aria-pressed="false">Meaning</button>
+        </div>
+        <div class="group-label space-top"><span>03</span> EVIDENCE FILTER</div>
+        <div class="evidence-controls" id="evidence-controls" role="group" aria-label="Filter evidence labels"></div>
+        <p class="filter-note">P conditional proof &middot; A assumption &middot; M bounded measurement &middot; H hypothesis &middot; S semantic framing</p>
+        <p class="tiny-note"><span class="inline-spark" aria-hidden="true"></span> Browser animation is conceptual. It is not running the Python organism or replaying its CI trajectories.</p>
+      </section>
+
+      <section class="visual-stage" aria-labelledby="view-title">
+        <div class="stage-top"><span class="scene-kicker" id="view-title">ARCHITECTURAL COSMOS / 3D</span><span class="scene-ruler">ORTHOGONAL VIEWS &middot; PLURAL CLOCKS</span></div>
+        <div id="scene-viewport" class="scene-viewport" tabindex="0" aria-label="Interactive three-dimensional architecture; drag to rotate, scroll to zoom, select a visible node. Use the text directory if WebGL is unavailable.">
+          <div id="scene-fallback" class="scene-fallback"><img src="./fallback.svg" alt="Abstract constellation of interconnected architectural organs" width="960" height="680"><p id="render-state">Preparing the spatial view...</p></div>
+          <div id="floating-labels" class="floating-labels" aria-hidden="true"></div>
+          <div class="reticle" aria-hidden="true"><span></span><span></span></div>
+          <div class="stage-compass" aria-hidden="true"><span>ORBIT</span><b>XYZ</b><span>DRAG TO TURN</span></div>
+        </div>
+        <div class="stage-bottom">
+          <div class="morph-control"><div class="morph-title"><label for="morph-range">Morphology <span class="morph-sub">illustrative expansion</span></label><output id="morph-value" for="morph-range">72%</output></div><input id="morph-range" type="range" min="10" max="100" value="72" step="1"><div class="range-limits"><span>Nascent</span><span>Extended</span></div></div>
+          <div class="stage-buttons"><button id="motion-toggle" type="button" aria-pressed="true" title="Pause or resume conceptual motion"><span id="motion-symbol" aria-hidden="true">&#10074;&#10074;</span><span id="motion-text">Pause</span></button><button id="reset-camera" type="button" title="Reset the orbiting viewpoint">Reset view</button></div>
+        </div>
+      </section>
+
+      <aside class="inspector" aria-label="Architecture inspector">
+        <div class="inspector-header"><span>STRUCTURE INSPECTOR</span><span class="inspector-index" id="inspector-index">01 / 17</span></div>
+        <div id="inspector-content" aria-live="polite">
+          <p class="inspector-eyebrow">SELECT A WORLDLET</p><h2>Architecture,<br>in motion.</h2><p class="inspector-summary">Tap an organ or use the directory below to examine its role, the evidence behind it, and the unresolved interfaces.</p>
+        </div>
+        <div class="inspector-separator"></div>
+        <div class="findings-heading"><span>MEASURED / DEVELOPMENT ONLY</span><span class="small-round" aria-hidden="true">&#9711;</span></div>
+        <div id="findings" class="findings"></div>
+        <div class="directory"><details><summary>All structures <span aria-hidden="true">+</span></summary><div id="node-directory" class="node-directory"></div></details></div>
+        <a class="aside-footer" href="https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pulls" target="_blank" rel="noopener noreferrer">Explore the open research branches <span aria-hidden="true">&#8599;</span></a>
+      </aside>
+    </main>
+
+    <footer class="site-footer"><span>THE STRUCTURE IS NOT THE CLAIM.</span><span id="footer-model">SCHEMATIC &middot; NOT LIVE TELEMETRY</span><span>ESMF-0 / DOJO-1 &middot; 2026</span></footer>
+  </div>
+  <noscript><div class="noscript">This site requires JavaScript for interactive exploration. The repository and research map remain available from the links above.</div></noscript>
+</body>
+</html>
