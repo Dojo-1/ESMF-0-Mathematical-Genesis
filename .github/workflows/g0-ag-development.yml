@@ -1,0 +1,31 @@
+name: G0-AG D0 development-only causal probe
+
+on:
+  pull_request:
+    paths:
+      - "research/g0_ag_development_probe.py"
+      - "tests/test_g0_ag_development_probe.py"
+      - "research/G0_AG_D0_PROTOCOL.md"
+      - ".github/workflows/g0-ag-development.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run bounded D0 causal-rate comparison
+        run: python -m research.g0_ag_development_probe --out g0_ag_d0_results.json
+      - name: Preserve raw trajectories and descriptive uncertainty
+        uses: actions/upload-artifact@v4
+        with:
+          name: g0-ag-d0-development-results
+          path: g0_ag_d0_results.json
+          if-no-files-found: error
