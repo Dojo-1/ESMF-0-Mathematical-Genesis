@@ -8,7 +8,7 @@ import math
 import unittest
 
 from esmf.glial_quaternion_ag import (
-    ONE, ContinuousSections, GlialQuaternionEcology, Glia,
+    ONE, GlialQuaternionEcology,
     qmult, qconj, qnorm, qlength2, qerror, qdirection,
     qreframe, qinterpolate, selfcheck,
 )
