@@ -1,0 +1,68 @@
+{
+  "schema": "esmf-observatory/v1",
+  "version": "G0-AC main + G0-AD through D1a draft",
+  "updated": "2026-11-01",
+  "kind": "architectural-schematic",
+  "disclaimer": "A navigable depiction of code and research claims, not live ESMF-0 telemetry or a biological simulation. Motion illustrates declared relationships; it does not replay empirical events.",
+  "repo": "https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis",
+  "domains": [
+    {"id":"biology","name":"Material / tissue","color":"#7ad6b5","center":[-3.0,-0.85,0.3],"description":"Costs, local cues, growth and viable structural changes"},
+    {"id":"geometry","name":"Geometry / transport","color":"#a7a0f7","center":[2.5,-0.18,-0.4],"description":"Independent frames, loss-aware maps and changing carriers"},
+    {"id":"semantics","name":"Encounter / meaning","color":"#f7c68c","center":[0.0,2.55,0.0],"description":"Questions, contextual observations and revisable distinctions"},
+    {"id":"governance","name":"Evidence / continuity","color":"#9fcff5","center":[0.4,-2.55,0.1],"description":"Provenance, auditor, controls and typed remainder"}
+  ],
+  "nodes": [
+    {"id":"telos","label":"Viable genesis","domain":"biology","position":[-0.15,-0.05,0.05],"size":0.53,"evidence":"S","stage":"concept","title":"No global scalar telos","summary":"Viability and the ability to revise distinctions constrain the entire ecology.","detail":"An architectural orientation, not a proved scalar objective or conscious organism.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/README.md"},
+    {"id":"tissue","label":"Tissue / morphogenesis","domain":"biology","position":[-3.70,-0.60,0.5],"size":0.39,"evidence":"M","stage":"main","summary":"A synthetic mechanochemical model has priced growth, pruning and contact formation.","detail":"G0-F measured finite-volume/tissue behavior under synthetic conditions, including failure modes. It is not experimentally validated neuron physiology.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/mechanochemical.py"},
+    {"id":"resources","label":"Resources / clocks","domain":"biology","position":[-2.85,-1.65,1.10],"size":0.31,"evidence":"M","stage":"main","summary":"Positive resource accounting and distinct local clocks constrain adaptation.","detail":"Mechanochemical and autonomic analogues use synthetic resource budgets; the signed neutral form is not physical energy.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/adaptive_ecology_ab.py"},
+    {"id":"neurite","label":"Hypercomplex neurites","domain":"biology","position":[-4.06,0.08,-0.70],"size":0.36,"evidence":"H","stage":"draft","summary":"Paid neurite sections add variable-rank quaternionic carriers.","detail":"G0-AF makes each paid segment add a local quaternion section, with typed pruning remainder. Limited synthetic contracts; no learning advantage established.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/17"},
+    {"id":"glia","label":"Glia / tripartite support","domain":"biology","position":[-2.25,-0.3,-1.34],"size":0.32,"evidence":"H","stage":"draft","summary":"Glia-inspired local resource and tripartite contact modulation.","detail":"G0-AG adds a synthetic support compartment. D0 short-horizon ablations yielded no clear developmental benefit.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/18"},
+    {"id":"worldlets","label":"Local Worldlets","domain":"geometry","position":[1.90,1.14,0.80],"size":0.47,"evidence":"A","stage":"main","summary":"Different local representations carry different comparisons and boundaries.","detail":"A typed local-context metaphor realized through multiple geometry and bundle experiments. Not one universal latent vector.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/remainder.py"},
+    {"id":"transport","label":"Trasgo / transport","domain":"geometry","position":[3.48,0.30,0.30],"size":0.37,"evidence":"P","stage":"main","summary":"Frame-covariant comparison and explicit loss-aware correspondence.","detail":"Conditional algebraic covariance and typed transport remainder are tested. No theorem that a transported representation retains every semantic distinction.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/research/G0_L_TRANSPORT_REMAINDER.md"},
+    {"id":"neutral","label":"Neutral (2,2) carrier","domain":"geometry","position":[3.10,-1.22,-0.90],"size":0.31,"evidence":"P","stage":"main","summary":"A signed matrix fiber with a neutral determinant quadratic form.","detail":"The implemented Mat2(R) geometry retains non-positive and null directions. Its signed form is not a positive metabolic cost.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/neutral22.py"},
+    {"id":"holonomy","label":"Holonomy / seams","domain":"geometry","position":[2.00,-0.46,-1.80],"size":0.32,"evidence":"P","stage":"main","summary":"What survives transport around paths and nontrivial chart transitions?","detail":"Finite connection/monodromy and nontrivial bundle contracts are tested, with explicit assumptions. The orbit graphic is an illustrative cue, not calculated holonomy.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/global_bundle_q.py"},
+    {"id":"quaternion","label":"Quaternionic sections","domain":"geometry","position":[4.15,1.35,-0.87],"size":0.30,"evidence":"H","stage":"draft","summary":"Continuous unit-quaternion phases and ordered connection transport.","detail":"G0-AG uses S3 phases and gauge-aware live learning/growth. The observation-to-quaternion map remains assumed and non-injective. No exclusive quaternion advantage measured.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/18"},
+    {"id":"encounter","label":"Experience / sensorium","domain":"semantics","position":[-1.26,2.67,0.68],"size":0.35,"evidence":"A","stage":"main","summary":"Only locally available observations may modify the model.","detail":"Synthetic event environments supply context and probe IDs; genuinely endogenous semantic context formation remains open.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/active_epistemics_y.py"},
+    {"id":"questions","label":"Lullian interrogation","domain":"semantics","position":[0.68,3.30,0.14],"size":0.35,"evidence":"S","stage":"draft","summary":"Concordance, difference, contrariety and mediation generate hypotheses, not verified answers.","detail":"G0-AD's typed question grammar inspires interventions. The historical Llull analogy is a generative tool, not an empirical claim.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/15"},
+    {"id":"memory","label":"Relational memory","domain":"semantics","position":[1.70,2.18,-0.74],"size":0.39,"evidence":"H","stage":"draft","summary":"Witnesses, fading salience and context-conditional distinctions.","detail":"G0-AD memory pools question modes in the current prototype; that can discard task-relevant information.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/15"},
+    {"id":"typedmemory","label":"Question-indexed memory","domain":"semantics","position":[-0.03,1.58,-1.67],"size":0.35,"evidence":"M","stage":"draft","summary":"Keeping the interrogative mode improved a small synthetic forecast.","detail":"Development D1a: ordinary question-conditioned Brier 0.208 vs pooled 0.243, at the same eight integer slots. Offline synthetic result, not a new implemented embodied organ or proof of general intelligence.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/20"},
+    {"id":"provenance","label":"Provenance / remainders","domain":"governance","position":[-1.32,-2.39,0.98],"size":0.35,"evidence":"P","stage":"main","summary":"Remember what changed, what was lost, and which prior representation it came from.","detail":"Typed round-trip and source continuity contracts are implemented. Not every historical record is yet chart-covariant.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/esmf/provenance_z.py"},
+    {"id":"auditor","label":"Auditor / controls","domain":"governance","position":[0.34,-3.48,0.22],"size":0.38,"evidence":"M","stage":"main","summary":"Negative controls, regeneration checks and correction history stay visible.","detail":"Held-out and reproduction tests sometimes favor simpler baselines. Passing CI validates contracts, not the philosophy.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/RESEARCH_MAP.md"},
+    {"id":"remainder","label":"Unresolved remainder","domain":"governance","position":[1.63,-2.61,-1.16],"size":0.34,"evidence":"H","stage":"concept","summary":"Relations not yet transportable should remain explicit, not silently flattened.","detail":"Semantic source continuity, arbitrary context induction and physically grounded biological validity remain open bridges.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/blob/main/RESEARCH_CHRONICLE.md"}
+  ],
+  "links": [
+    {"from":"telos","to":"tissue","type":"constraint","label":"viability"},
+    {"from":"telos","to":"worldlets","type":"constraint","label":"representation"},
+    {"from":"telos","to":"questions","type":"constraint","label":"interrogation"},
+    {"from":"tissue","to":"neurite","type":"morphogenesis","label":"paid growth"},
+    {"from":"resources","to":"tissue","type":"metabolic","label":"substrate"},
+    {"from":"resources","to":"glia","type":"metabolic","label":"support"},
+    {"from":"glia","to":"neurite","type":"metabolic","label":"local regulation"},
+    {"from":"neurite","to":"quaternion","type":"morphogenesis","label":"new local section"},
+    {"from":"quaternion","to":"neurite","type":"transport","label":"growth feedback"},
+    {"from":"worldlets","to":"transport","type":"transport","label":"partial correspondence"},
+    {"from":"transport","to":"neutral","type":"transport","label":"signed quadratic"},
+    {"from":"transport","to":"holonomy","type":"transport","label":"composition"},
+    {"from":"holonomy","to":"remainder","type":"audit","label":"obstruction"},
+    {"from":"encounter","to":"questions","type":"inquiry","label":"ask"},
+    {"from":"questions","to":"memory","type":"inquiry","label":"condition evidence"},
+    {"from":"encounter","to":"memory","type":"inquiry","label":"observed response"},
+    {"from":"memory","to":"typedmemory","type":"repair","label":"D1a representation gap"},
+    {"from":"typedmemory","to":"provenance","type":"audit","label":"question index"},
+    {"from":"worldlets","to":"memory","type":"transport","label":"local meaning"},
+    {"from":"provenance","to":"auditor","type":"audit","label":"source trace"},
+    {"from":"auditor","to":"remainder","type":"audit","label":"open obligations"},
+    {"from":"remainder","to":"questions","type":"inquiry","label":"generate a test"},
+    {"from":"tissue","to":"encounter","type":"morphogenesis","label":"sensor affordance"},
+    {"from":"memory","to":"tissue","type":"morphogenesis","label":"proposed changes"}
+  ],
+  "hyperedges": [
+    {"id":"tripartite","label":"Three-party contact","members":["neurite","glia","memory"],"evidence":"H","stage":"draft","summary":"Neuron, glia-like support and cognitive encounter jointly modulate synthetic rates.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/18"},
+    {"id":"recognition","label":"Recognition triangle","members":["questions","worldlets","provenance"],"evidence":"H","stage":"concept","summary":"A question's meaning, local transport and retained witness must cohere.","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/20"}
+  ],
+  "findings": [
+    {"id":"d0","name":"D0 / Developmental ablation","label":"No clear growth advantage","value":"0.292 / 0.292","unit":"mean neurite extensions, full vs no geometry feedback","footnote":"24 synthetic development seeds; zero connection repairs in every arm. Not held-out cognition.","evidence":"M","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/19"},
+    {"id":"d1a","name":"D1a / Interrogative memory","label":"Question identity mattered","value":"0.208 vs 0.243","unit":"Brier loss, conditioned vs pooled memory","footnote":"14 synthetic development streams, eight bounded slots each. Ordinary memory did better; not an embodied result.","evidence":"M","source":"https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/pull/20"}
+  ],
+  "clockNames":["perceptual","metabolic","developmental","archival"]
+}
