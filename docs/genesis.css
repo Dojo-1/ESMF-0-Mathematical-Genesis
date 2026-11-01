@@ -1,0 +1,7 @@
+/* G0-AI inherits the Observatory's existing small, accessible visual language. */
+.stage {background:radial-gradient(ellipse at 52% 42%,#10303b 0%,#071923 58%,#031018 100%)}
+.essay h1 {font-size:clamp(42px,3.7vw,66px)}
+#event {min-height:36px}
+#detail {max-height:265px}
+.inspector .warning {margin-top:17px}
+@media(max-width:840px){.stage{min-height:440px}}
