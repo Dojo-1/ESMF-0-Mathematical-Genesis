@@ -4,6 +4,16 @@
 
 ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
 
+## G0-AG D1a — Measured interrogative-memory obstruction
+
+The [D1a behavioral probe](research/G0_AG_D1_BEHAVIORAL_PROTOCOL.md) tests whether ESMF-0's context-pooled behavioral Distinction can preserve **which question generated an observed relationship**, rather than only remembering whether responses agreed or differed. Predictions are committed before the evaluator draws independent future outcomes. Both the existing memory and the ordinary question-conditioned comparator use **eight bounded integer slots** and identical evidence; a question-label-shuffled negative control is included.
+
+The [development-only result](research/G0_AG_D1A_RESULTS.md) favors the ordinary question-conditioned estimator: future-outcome Brier **0.2082**, versus **0.2426** for the current pooled G0-AE memory, across 14 synthetic development streams. The shuffled control scored **0.2288**. Mode-by-mode measurements include losses on the more ambiguous modes, and no held-out real-world semantic or biological advantage is claimed. This directly identifies an **information-retention obstruction**: a Worldlet needs typed, query-indexed evidence when different questions support different conditional relations.
+
+[Code](research/g0_ag_d1a_memory_probe.py) · [tests](tests/test_g0_ag_d1a_memory_probe.py) · [CI and raw evidence](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/actions/runs/41297577245)
+
+Do not add another hypercomplex carrier merely to compensate for an avoidable loss of interrogative provenance. The original G0-AG1 heldout evaluation remains unrun.
+
 ## G0-AG D0 — Development controls and the first negative result
 
 The [G0-AG D0 rate-intervention study](research/G0_AG_D0_PROTOCOL.md) is the first bounded executed, **development-only** comparison of glial rate feedback and ordered quaternionic growth feedback. It uses the same reachable, conditioned tissue state across five rate-control arms, 24 paired development seeds and the exact joint CTMC; the unchanged placebo must reproduce full exactly. Its [measured result](research/G0_AG_D0_RESULTS.md) was **negative/inconclusive**: no paid quaternionic connection repairs occurred, and the no-geometry-feedback arm had the same neurite-extension counts on all 24 paired seeds. Differences with glial-rate feedback were small, and resource inflows diverged across some stochastic paths. This is *not* a cognitive-advantage result or the held-out G0-AG1 experiment.
