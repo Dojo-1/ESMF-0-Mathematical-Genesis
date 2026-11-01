@@ -1,0 +1,41 @@
+name: G0-AI Telos-nudged tissue D0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'esmf/telos_substrate_ai.py'
+      - 'research/g0_ai_probe.py'
+      - 'tests/test_telos_substrate_ai.py'
+      - 'tests/test_g0_ai_probe.py'
+      - 'research/G0_AI_TELOS_NUDGED_PROTOCOL.md'
+      - '.github/workflows/g0-ai-development.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  development:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify local rule self-rewrite, label blindness and exact ledgers
+        run: |
+          python -m unittest discover -s tests -p 'test_telos_substrate_ai.py' -v
+          python -m unittest discover -s tests -p 'test_g0_ai_probe.py' -v
+      - name: Execute frozen 12-seed development test with all predictions recorded
+        run: python -m research.g0_ai_probe --out g0_ai_d0_results.json
+      - name: Seal unfiltered development evidence and archive raw predictions
+        run: sha256sum g0_ai_d0_results.json | tee g0_ai_d0_results.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: g0-ai-telos-nudged-d0-development
+          path: |
+            g0_ai_d0_results.json
+            g0_ai_d0_results.sha256
+          if-no-files-found: error
