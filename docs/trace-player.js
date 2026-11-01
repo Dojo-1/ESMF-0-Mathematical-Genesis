@@ -24,7 +24,8 @@ function eventOrgan(eventName) {
 function validateTrace(data) {
   if (!data || data.schema !== 'esmf-observatory-trace/v1' ||
       !Array.isArray(data.runs) || data.runs.length < 1 ||
-      !Number.isInteger(data.side) || data.spatial_dims !== 3) {
+      data.side !== 4 || data.spatial_dims !== 3 ||
+      !/^[0-9a-f]{64}$/.test(data.payload_sha256)) {
     throw new Error('The published trace format is unsupported.');
   }
   const ids = new Set();
@@ -183,6 +184,8 @@ export async function initializeTracePlayer({ getScene, onNode, onModeChange }) 
       provenance.textContent = 'Model source ↗';
     }
     $('#trace-payload-id').textContent = data.payload_sha256.slice(0, 14);
+    $('#trace-download').href = TRACE_PATH;
+    $('#trace-download').setAttribute('download', 'g0_ag_model.json');
     toggle.disabled = false;
     status.textContent = 'Recorded from Python G0-AG · two deterministic traces · not live telemetry.';
     runSelect.addEventListener('change', () => selectRun(runSelect.value));
