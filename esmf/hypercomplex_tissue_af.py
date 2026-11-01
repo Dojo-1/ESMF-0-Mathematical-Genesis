@@ -218,8 +218,10 @@ class HyperNeuriteEcology:
                     type(cell.material) is not int or
                     not 0 <= cell.material <= self.max_material):
                 return False
-        if (state.links != tuple(sorted(set(state.links))) or
-                any(link != (0, 1) or not self.touches(*link, state.cells)
+        if (len(state.links) > 1 or
+                any(len(link) != 2 or link[0] not in (0, 1) or
+                    link[1] != 1 - link[0] or
+                    not self.touches(link[0], link[1], state.cells)
                     for link in state.links)):
             return False
         for scar in state.scars:
@@ -372,22 +374,22 @@ class HyperNeuriteEcology:
                     ("[R]_transport", scar))
 
             if neuron.path and neuron.atp and neuron.material and \
-                    (0, 1) not in state.links and self.touches(i, 1-i, state.cells):
+                    not state.links and self.touches(i, 1-i, state.cells):
                 target_cell = state.cells[1-i]
                 mismatch = phase_gap(neuron.sections[-1],
                                      target_cell.sections[0])
                 new = replace(neuron, atp=neuron.atp - 1,
                               material=neuron.material - 1)
                 add(f"contact_birth:{i}", .30 / (1. + mismatch),
-                    cell_change(i, new, links=((0, 1),),
+                    cell_change(i, new, links=((i, 1-i),),
                                 waste=state.waste + 1))
-            if state.links and neuron.material < self.max_material:
+            if state.links and state.links[0][0] == i and neuron.material < self.max_material:
                 # Explicit relation withdrawal; material is recycled
                 # rather than created. Provenance remains in event trace.
                 new = replace(neuron, material=neuron.material + 1)
                 add(f"contact_release:{i}", .04,
                     cell_change(i, new, links=()),
-                    ("[R]_attr", (0, 1)))
+                    ("[R]_attr", state.links[0]))
 
         for field_name in ("attract", "repel"):
             field = getattr(state, field_name)
