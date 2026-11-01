@@ -28,7 +28,7 @@ with:
 - buds[c]: a paid temporary additional context compartment;
 - last: index of an already observed local sensor pair; it is never prefilled with hidden environment truth.
 
-The environment offers a finite set of observable before/after responses and partial geometric sightings. The **external generator** has probabilities for which sightings occur. The organism only gets the realized observation. Its repair, learning and budding propensities do not inspect those probabilities or any hidden classification oracle.
+The current laboratory environment offers a finite set of observable before/after responses and **full four-coordinate synthetic paired sightings**. This is substantially stronger sensory access than the partial, delayed observations in G0-AC/G0-Y; no biological sensory equivalence is claimed. The **external generator** has probabilities for which sightings occur. The organism only gets the realized observation. Its repair, learning and budding propensities do not inspect those probabilities or any hidden classification oracle.
 
 The *complete* ESMF-0 ecology is not this fixed two-context laboratory. Rather this is a single small, executable chart on the larger proposed ecology. G0-F chemical fields, G0-AC delayed sensing and G0-Q's true nonorientable cylinder are **not yet jointly implemented** with this generator.
 
