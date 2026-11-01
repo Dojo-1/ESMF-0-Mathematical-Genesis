@@ -57,3 +57,16 @@ CPU time for all 120 synthetic trajectories was approximately **2.482 seconds** 
 **P:** conditional CTMC event-rate and bookkeeping identities. **M:** the bounded D0 trajectory observations and exact null. **H:** cognitive or biologically useful benefit of continuous quaternion transport, glia and rank growth. **A:** synthetic Mat2(R)-to-quaternion observation adapters and resource-to-biology analogies. **R:** any interpretation that architectural complexity alone validates meaningful ESMF-0 learning.
 
 Source-of-truth raw data and full per-seed record remain in the Actions artifact; the independently executable generator and raw-report script are versioned in this PR.
+
+
+## Raw trace cross-check (ZIP independently inspected)
+
+The GitHub Actions artifact contains **120 per-seed records** (24 seeds × five arms) and decompresses to the complete 103,169-byte g0_ag_d0_results.json file. The raw JSON SHA-256 is:
+
+    d4755bb31a4c4b1547c2bb8275f902fb426917268da3045141a5183256b5a10e
+
+The full-model event count averaged **4.6667**, with **1 to 10** events per simulation. Relative to full, no-geometry feedback changed extension *count* on **zero** paired seeds (but changed some event timings and encounter/inflow outcomes). The no-glial-rate arm changed extension counts on **one of 24** paired seeds, total event counts on **three of 24**, and nutrient-input counts on **five of 24**. These counts explain why a larger cognitive claim is wholly unsupported. They do not rule out small true causal-rate effects in the underlying finite simulator.
+
+The exact modified event hazards are observable in the code: the initial chain discrepancy 0.1203184975 produces a growth-hazard multiplier about **0.9708** (roughly a 2.9% reduction). Meanwhile, tripartite stabilization changes the relevant contact-release hazard from **0.04** to **0.01** per arbitrary time unit. Over a 0.75-unit observation window with relatively few events, very little visible difference is expected. These are **structural consequences of the chosen rate formulas**, not discovered improvements.
+
+The artifact checksum and recorded mean/counter comparisons are retained here so a later reviewer can detect changes of raw data, experiment code, seed pairing or interpretation.
