@@ -12,6 +12,8 @@ The aim is not a larger vector, a new name for a neural network, or geometry for
 
 *Explore the [Living Observatory](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/) — a source-linked, interactive 3D architectural schematic, not a live simulation.*
 
+**[Enter the G0-AH Neurite Microscope](https://dojo-1.github.io/ESMF-0-Mathematical-Genesis/neurite.html)** to inspect executable 3D branch growth, local evidence, glial gating and delayed inhibition. Its events are deliberately selected source recordings, not evidence of neural cognition.
+
 ## What lives here?
 
 The project is a family of small, executable research models. Its ingredients are coupled questions, not a processing pipeline:
