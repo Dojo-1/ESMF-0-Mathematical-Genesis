@@ -135,7 +135,7 @@ class TestObservatorySite(unittest.TestCase):
         self.assertIn("clearReplay", scene)
         self.assertIn("python -m research.export_observatory_trace", workflow)
         self.assertIn("actions/deploy-pages@", workflow)
-        self.assertIn("not randomly sampled", html.lower())
+        self.assertIn("not randomly sampled", ui.lower())
         self.assertNotIn("eval(", ui)
 
     def test_merged_research_is_shown_as_main_source_not_as_validated_science(self):
