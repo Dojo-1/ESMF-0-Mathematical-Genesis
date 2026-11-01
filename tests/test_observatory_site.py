@@ -144,7 +144,7 @@ class TestObservatorySite(unittest.TestCase):
         self.assertIn("compartments", {n["id"] for n in self.data["nodes"]})
         node=next(n for n in self.data["nodes"] if n["id"]=="compartments")
         self.assertEqual(node["evidence"], "M")
-        self.assertIn("ordinary", node["detail"].lower())
+        self.assertIn("tabular estimator", node["detail"].lower())
         cards={finding["id"]:finding for finding in self.data["findings"]}
         self.assertIn("ah-d0",cards)
         self.assertIn("ordinary",cards["ah-d0"]["label"].lower())
