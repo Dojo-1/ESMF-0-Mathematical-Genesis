@@ -82,6 +82,29 @@ class TestGlialQuaternionAG(unittest.TestCase):
         for x, y in zip(lifted, qmult(g2, base)):
             self.assertAlmostEqual(x, y, places=12)
 
+    def test_paid_neurite_growth_covaries_with_motor_chart(self):
+        # This fails if spatial qdirection is applied as a fixed left
+        # quaternion independently of the neurite's observer/motor frame.
+        gauge = qdirection((0, 1, 0), .71)
+        transformed = reframe_sections(self.seed.fibers[0], (gauge,))
+        s2 = replace(self.seed, fibers=(transformed, self.seed.fibers[1]))
+        self.assertTrue(self.m.valid(s2))
+        base = find(self.m, self.seed, "af/neurite_extend:0:0")
+        changed = find(self.m, s2, "af/neurite_extend:0:0")
+        self.assertAlmostEqual(base.rate, changed.rate, places=12)
+        a = base.destination.fibers[0]
+        b = changed.destination.fibers[0]
+        self.assertEqual(a.real_carrier_dimension, b.real_carrier_dimension)
+        self.assertEqual(base.destination.tissue, changed.destination.tissue)
+        for x, y in zip(b.phases[-1], qmult(gauge, a.phases[-1])):
+            self.assertAlmostEqual(x, y, places=12)
+        expected_connection = qmult(qmult(gauge, a.forward[-1]),
+                                    qconj(gauge))
+        for x, y in zip(b.forward[-1], expected_connection):
+            self.assertAlmostEqual(x, y, places=12)
+        self.assertAlmostEqual(qchain_discrepancy(a),
+                               qchain_discrepancy(b), places=12)
+
     def test_full_observation_plasticity_respects_active_local_frames(self):
         # Independent frame changes must co-transform *the learner's* sensor
         # chart, not merely its post-hoc qerror metric.
