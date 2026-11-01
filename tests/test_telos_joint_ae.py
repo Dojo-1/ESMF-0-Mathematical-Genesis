@@ -129,6 +129,9 @@ class TestTelosJointAE(unittest.TestCase):
         self.assertEqual(bud.material, 1)
         self.assertEqual(bud.distinctions, observed.distinctions)
         self.assertNotIn("worldlet_bud",
+                         rates_of(self.m, replace(observed,
+                             distinctions=(Distinction(1, 1, 1, 1), Distinction()))))
+        self.assertNotIn("worldlet_bud",
                          rates_of(self.m, replace(observed, material=1)))
         self.assertNotIn("worldlet_bud",
                          rates_of(self.m, replace(
@@ -187,6 +190,19 @@ class TestTelosJointAE(unittest.TestCase):
         one_step = self.m.uniformization_step({self.start: 1.})
         self.assertAlmostEqual(sum(one_step.values()), 1., places=12)
         self.assertTrue(all(p >= 0 for p in one_step.values()))
+
+    def test_classical_generator_has_real_causal_order_sensitivity(self):
+        # At zero available resource, encounter is disabled; feeding first
+        # enables it. This bracket is NOT a quantum commutator.
+        s = replace(self.start, resource=0)
+        witness = lambda x: x.distinctions[0].seen_different
+        gap = self.m.operator_bracket(
+            s, "energy_supply", "encounter", witness)
+        self.assertAlmostEqual(gap, .70 * .55 * .85, places=12)
+        self.assertAlmostEqual(
+            self.m.operator_bracket(s, "encounter", "energy_supply", witness),
+            -gap, places=12)
+        self.assertGreater(gap, 0.)
 
     def test_invalid_state_is_never_repaired_by_silent_clipping(self):
         with self.assertRaises(ValueError):
