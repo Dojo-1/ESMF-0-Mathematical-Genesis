@@ -1,0 +1,76 @@
+name: One-time cleanup of merged ESMF research branches
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-merged-esmf-branches.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: github.repository == 'Dojo-1/ESMF-0-Mathematical-Genesis'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove only verified merged refs at frozen SHAs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          failures=0
+          while IFS='|' read -r branch expected pr; do
+            [[ -z "$branch" ]] && continue
+            current=$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" --jq '.object.sha') || {
+              echo "::warning::Reference missing or inaccessible: ${branch}"
+              failures=$((failures + 1))
+              continue
+            }
+            if [[ "$current" != "$expected" ]]; then
+              echo "::warning::Branch advanced since merge; retaining ${branch}: ${current}"
+              failures=$((failures + 1))
+              continue
+            fi
+            merged=$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.merged')
+            if [[ "$merged" != 'true' ]]; then
+              echo "::error::PR #${pr} not confirmed merged; retaining ${branch}"
+              failures=$((failures + 1))
+              continue
+            fi
+            if [[ "$pr" == '21' ]]; then
+              merge_commit=$(gh api "repos/${GITHUB_REPOSITORY}/pulls/21" --jq '.merge_commit_sha')
+              if ! git merge-base --is-ancestor "$merge_commit" HEAD; then
+                echo "::error::Squash-merge result absent from main; retaining ${branch}"
+                failures=$((failures + 1))
+                continue
+              fi
+            elif ! git merge-base --is-ancestor "$expected" HEAD; then
+              echo "::error::Unmerged ancestry for ${branch}; retaining branch"
+              failures=$((failures + 1))
+              continue
+            fi
+            echo "Deleting merged branch ${branch} at frozen ${expected}"
+            if ! gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"; then
+              echo "::error::Deletion rejected for ${branch}"
+              failures=$((failures + 1))
+            fi
+          done <<'BRANCHES'
+          feature/esmf-living-observatory-pages|8556564c8aa5d0005d9fde5d2fca2a1c8768e291|21
+          research/g0-ad-relational-genesis|c6454e66719a3adb5b661d033a00d7f0ee332f65|15
+          research/g0-ae-telos-native-joint-genesis|8da65def4f3821e5a95d8552f1011c821e3ad064|16
+          research/g0-af-quaternionic-neurite-ecology|114c69023924397ce32f2a7afd81ba73c21760b4|17
+          research/g0-ag-astrocyte-continuous-quaternion-tissue|457a24727508010ea741135254330016ff54d6f4|18
+          research/g0-ag-development-controls|0afc222424a392ac5ebadce1b199120fe05491b0|19
+          research/g0-ag-d1a-question-conditioned-memory|f0931b1224a0c7936a959643fb2e50fadf1c4aba|20
+          BRANCHES
+          if [[ "$failures" -ne 0 ]]; then
+            echo "::error::${failures} references retained; inspect before retry"
+            exit 1
+          fi
+          echo 'All seven verified merged branches removed; main remains intact.'
