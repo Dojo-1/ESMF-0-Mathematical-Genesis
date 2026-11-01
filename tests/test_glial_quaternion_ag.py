@@ -1,0 +1,264 @@
+"""G0-AG: tests of glial resource coupling and continuous neurite connections.
+
+These check deterministic finite mathematical contracts, NOT biological
+validity or task-level predictive superiority.
+"""
+from dataclasses import replace
+import math
+import unittest
+
+from esmf.glial_quaternion_ag import (
+    ONE, ContinuousSections, GlialQuaternionEcology, Glia,
+    qmult, qconj, qnorm, qlength2, qerror, qdirection,
+    qreframe, qinterpolate, selfcheck,
+)
+
+
+def find(model, state, name):
+    choices = [e for e in model.channels(state) if e.name == name]
+    if len(choices) != 1:
+        raise AssertionError("missing/nonunique channel " + name)
+    return choices[0]
+
+
+def names(model, state):
+    return {e.name for e in model.channels(state)}
+
+
+class TestGlialQuaternionAG(unittest.TestCase):
+    def setUp(self):
+        self.m = GlialQuaternionEcology()
+        self.seed = self.m.seed()
+
+    def test_smoke_joint_generator_and_local_carriers(self):
+        self.assertEqual(selfcheck()["claims"], "bounded contracts only")
+        self.assertTrue(self.m.valid(self.seed))
+        self.assertEqual(self.m.summary(self.seed)["carrier_real_dimensions"], (8, 8))
+        self.assertEqual(self.m._energy_balance(self.seed), 0)
+        self.assertEqual(self.m.row(self.seed), self.m.row(self.seed, reverse=True))
+        self.assertAlmostEqual(
+            self.m.diagonal(self.seed)
+            + sum(self.m.row(self.seed).values()), 0., places=12)
+        self.assertTrue(all(self.m.valid(e.destination) and e.rate > 0.
+                            for e in self.m.channels(self.seed)))
+
+    def test_continuous_quaternion_algebra_not_just_q8(self):
+        i = (0., 1., 0., 0.)
+        j = (0., 0., 1., 0.)
+        k = (0., 0., 0., 1.)
+        self.assertEqual(qmult(i, j), k)
+        self.assertEqual(qmult(j, i), tuple(-v for v in k))
+        a = qdirection((1, 0, 0), .40)
+        b = qdirection((0, 1, 0), .63)
+        c = qdirection((0, 0, 1), .27)
+        self.assertAlmostEqual(qlength2(a), 1., places=12)
+        self.assertAlmostEqual(qlength2(qmult(a, b)), 1., places=12)
+        self.assertGreater(abs(a[0]), .9)
+        self.assertLess(a[0], 1.)
+        for x, y in zip(qmult(qmult(a, b), c),
+                        qmult(a, qmult(b, c))):
+            self.assertAlmostEqual(x, y, places=13)
+        result = qmult(a, qconj(a))
+        for x, y in zip(result, ONE):
+            self.assertAlmostEqual(x, y, places=12)
+
+    def test_independent_unit_quaternion_frame_covariance(self):
+        source = qdirection((1, 0, 0), .62)
+        target = qdirection((0, 0, 1), .48)
+        connection = qdirection((0, 1, 0), .91)
+        gs = qdirection((1, 1, 0), 1.1)
+        gt = qdirection((0, 1, 1), .8)
+        transformed = qreframe(source, target, connection, gs, gt)
+        self.assertAlmostEqual(
+            qerror(source, target, connection),
+            qerror(*transformed), places=12)
+        self.assertAlmostEqual(
+            qlength2(transformed[-1]), 1., places=12)
+        u = qinterpolate(source, target, .28)
+        framed_u = qinterpolate(qmult(gs, source), qmult(gs, target), .28)
+        for x, y in zip(qmult(gs, u), framed_u):
+            self.assertAlmostEqual(x, y, places=12)
+        with self.assertRaises(ValueError):
+            qnorm((0., 0., 0., 0.))
+        with self.assertRaises(ValueError):
+            qinterpolate(ONE, tuple(-x for x in ONE), .5)
+        with self.assertRaises(ValueError):
+            qdirection((0, 0, 0))
+
+    def test_physical_growth_extends_rank_and_adds_connection(self):
+        grow = find(self.m, self.seed, "af/neurite_extend:0:0")
+        s = grow.destination
+        self.assertTrue(self.m.valid(s))
+        self.assertEqual(s.tissue.cells[0].path, ((1, 0, 0),))
+        self.assertEqual(len(s.fibers[0].phases), 2)
+        self.assertEqual(len(s.fibers[0].forward), 1)
+        self.assertEqual(s.fibers[0].real_carrier_dimension, 12)
+        self.assertEqual(s.fibers[1].real_carrier_dimension, 8)
+        self.assertAlmostEqual(qerror(
+            s.fibers[0].phases[0], s.fibers[0].phases[1],
+            s.fibers[0].forward[0]), 0., places=12)
+        self.assertLess(s.fibers[0].phases[1][0], 1.)
+        self.assertEqual(self.m._energy_balance(s), 0)
+
+    def test_pruning_records_full_continuous_lost_section(self):
+        grown = find(self.m, self.seed, "af/neurite_extend:0:0").destination
+        result = find(self.m, grown, "af/neurite_prune:0")
+        s = result.destination
+        self.assertTrue(self.m.valid(s))
+        self.assertEqual(len(s.fibers[0].phases), 1)
+        self.assertEqual(len(s.fibers[0].forward), 0)
+        self.assertEqual(len(s.fiber_scars), 1)
+        scar = s.fiber_scars[0]
+        self.assertEqual((scar[0], scar[1]), (0, (1, 0, 0)))
+        self.assertEqual(scar[2], grown.fibers[0].phases[-1])
+        self.assertEqual(scar[3], grown.fibers[0].forward[-1])
+        self.assertEqual(result.remainder[0], "[R]_transport_continuous")
+        capped = GlialQuaternionEcology(max_fiber_records=0)
+        cut_target = find(capped, capped.seed(),
+                          "af/neurite_extend:0:0").destination
+        self.assertNotIn("af/neurite_prune:0", names(capped, cut_target))
+
+    def test_glia_has_separate_closed_metabolism(self):
+        s1 = find(self.m, self.seed, "glia_supply").destination
+        self.assertEqual(s1.glial_input, 1)
+        self.assertEqual(s1.glia.substrate, 3)
+        self.assertEqual(self.m._energy_balance(s1), 0)
+        s2 = find(self.m, self.seed, "glia_convert").destination
+        self.assertEqual((s2.glia.substrate, s2.glia.transferable), (1, 2))
+        self.assertEqual(self.m._energy_balance(s2), 0)
+        recipient = find(self.m, self.seed, "glia_transfer:0").destination
+        self.assertEqual(recipient.glia.transferable, 0)
+        self.assertEqual(recipient.tissue.cells[0].substrate, 3)
+        self.assertEqual(recipient.tissue.nutrient_input, 1)
+        self.assertEqual(recipient.glial_to_tissue, 1)
+        self.assertEqual(recipient.glial_input, 0)
+        self.assertEqual(self.m._energy_balance(recipient), 0)
+        self.assertTrue(self.m.af.valid(recipient.tissue))
+
+    def test_glial_calcium_requires_local_activity_not_an_oracle(self):
+        self.assertNotIn("glia_calcium_pulse", names(self.m, self.seed))
+        engaged = find(self.m, self.seed,
+                       "af/cognitive/encounter:0").destination
+        self.assertIn("glia_calcium_pulse", names(self.m, engaged))
+        pulsed = find(self.m, engaged, "glia_calcium_pulse").destination
+        self.assertEqual(pulsed.glia.calcium, 1)
+        self.assertEqual(pulsed.glial_waste, 1)
+        self.assertEqual(pulsed.glia.substrate, 1)
+        self.assertEqual(self.m._energy_balance(pulsed), 0)
+        relaxed = find(self.m, pulsed, "glia_calcium_relax").destination
+        self.assertEqual(relaxed.glia.calcium, 0)
+        self.assertEqual(self.m._energy_balance(relaxed), 0)
+
+    def test_glial_secretion_is_local_and_resource_accounted(self):
+        seen = find(self.m, self.seed, "af/cognitive/encounter:0").destination
+        activated = find(self.m, seen, "glia_calcium_pulse").destination
+        secreted = find(self.m, activated, "glia_local_signal").destination
+        loc = self.m.af.index(self.m.glial_origin)
+        self.assertEqual(secreted.tissue.attract[loc], 1)
+        self.assertEqual(secreted.glia.transferable, 0)
+        self.assertEqual(secreted.glial_to_tissue, 1)
+        self.assertEqual(secreted.tissue.nutrient_input, 1)
+        self.assertEqual(self.m._energy_balance(secreted), 0)
+
+    def test_tripartite_support_modulates_real_contact_and_releases(self):
+        grown = find(self.m, self.seed,
+                     "af/neurite_extend:0:0").destination
+        contacted = find(self.m, grown, "af/contact_birth:0").destination
+        self.assertEqual(contacted.tissue.links, ((0, 1),))
+        self.assertNotIn("tripartite_bind", names(self.m, contacted))
+        stimulated = find(self.m, contacted, "glia_calcium_pulse").destination
+        before_rate = find(self.m, stimulated,
+                           "af/contact_release:0").rate
+        bound = find(self.m, stimulated, "tripartite_bind").destination
+        self.assertTrue(bound.glia.tripartite)
+        self.assertEqual(bound.glial_waste, 2)
+        self.assertEqual(self.m._energy_balance(bound), 0)
+        after_rate = find(self.m, bound,
+                          "af/contact_release:0").rate
+        self.assertAlmostEqual(after_rate / before_rate, .25)
+        lost = find(self.m, bound, "af/contact_release:0")
+        self.assertFalse(lost.destination.glia.tripartite)
+        self.assertEqual(lost.remainder[0], "[R]_attr_glial_support")
+        self.assertTrue(self.m.valid(lost.destination))
+
+    def test_astrocyte_not_assumed_essential_for_all_events(self):
+        depleted_g = replace(self.seed.glia, substrate=0, transferable=0)
+        s = replace(self.seed, glia=depleted_g, glial_waste=3)
+        self.assertTrue(self.m.valid(s))
+        self.assertNotIn("glia_transfer:0", names(self.m, s))
+        self.assertIn("af/cognitive/encounter:0", names(self.m, s))
+        self.assertIn("af/neurite_extend:0:0", names(self.m, s))
+
+    def test_experience_update_and_transport_repair_are_distinct(self):
+        s = find(self.m, self.seed, "af/neurite_extend:0:0").destination
+        s = find(self.m, s, "af/cognitive/encounter:0").destination
+        self.assertEqual(s.tissue.cells[0].atp, 0)
+        self.assertNotIn("fiber_experience_update", names(self.m, s))
+        s = find(self.m, s, "af/metabolic_conversion:0").destination
+        update = find(self.m, s, "fiber_experience_update")
+        s = update.destination
+        f = s.fibers[0]
+        self.assertAlmostEqual(qlength2(f.phases[-1]), 1., places=12)
+        self.assertGreater(qerror(f.phases[0], f.phases[-1],
+                                  f.forward[-1]), 1e-8)
+        self.assertEqual(len(s.repairs), 0)
+        self.assertEqual(s.tissue.cells[0].atp, 0)
+        s = find(self.m, s, "af/metabolic_conversion:0").destination
+        repaired = find(self.m, s, "fiber_connection_repair")
+        s = repaired.destination
+        f = s.fibers[0]
+        self.assertAlmostEqual(qerror(f.phases[0], f.phases[-1],
+                                       f.forward[-1]), 0., places=12)
+        self.assertEqual(len(s.repairs), 1)
+        self.assertEqual(repaired.remainder[0], "[R]_transport_prior")
+        self.assertTrue(self.m.valid(s))
+
+    def test_context_switch_does_not_see_unobserved_target(self):
+        self.assertNotIn("fiber_experience_update", names(self.m, self.seed))
+        observed = find(self.m, self.seed,
+                        "af/cognitive/encounter:0").destination
+        switched = find(self.m, observed,
+                        "af/cognitive/context_shift").destination
+        self.assertNotIn("fiber_experience_update", names(self.m, switched))
+        self.assertNotIn("fiber_connection_repair", names(self.m, switched))
+
+    def test_invalid_state_and_ledger_mismatches_refused(self):
+        with self.assertRaises(ValueError):
+            self.m.channels(replace(self.seed, glial_to_tissue=1))
+        with self.assertRaises(ValueError):
+            self.m.channels(replace(self.seed, glial_waste=1))
+        with self.assertRaises(ValueError):
+            self.m.trajectory(self.seed, 1.0, max_events=0)
+        with self.assertRaises(ValueError):
+            GlialQuaternionEcology(max_support=0)
+        with self.assertRaises(ValueError):
+            GlialQuaternionEcology(max_glial_input=-1)
+        bad = replace(self.seed.fibers[0],
+                      phases=(qnorm((1., 1., 1., 1.))[:-1],))
+        self.assertFalse(self.m.valid(
+            replace(self.seed, fibers=(bad, self.seed.fibers[1]))))
+
+    def test_2d_and_3d_are_substrate_variants_not_quaternion_dimensions(self):
+        model2 = GlialQuaternionEcology(spatial_dims=2)
+        model3 = GlialQuaternionEcology(spatial_dims=3)
+        self.assertTrue(model2.valid(model2.seed()))
+        self.assertTrue(model3.valid(model3.seed()))
+        self.assertEqual(model2.seed().fibers[0].real_carrier_dimension,
+                         model3.seed().fibers[0].real_carrier_dimension)
+        self.assertEqual(len(model2.seed().tissue.attract), 16)
+        self.assertEqual(len(model3.seed().tissue.attract), 64)
+
+    def test_deterministic_short_trajectory_and_budget(self):
+        end, path = self.m.trajectory(self.seed, .45, seed=14, max_events=150)
+        twin, path2 = self.m.trajectory(self.seed, .45, seed=14, max_events=150)
+        self.assertEqual(end, twin)
+        self.assertEqual(path, path2)
+        self.assertTrue(self.m.valid(end))
+        self.assertEqual(self.m.summary(end)["joint_energy_residual"], 0)
+        self.assertTrue(all(math.isfinite(t) and t > 0 for t, _, _ in path))
+        self.assertTrue(all(path[i][0] < path[i + 1][0]
+                            for i in range(len(path) - 1)))
+
+
+if __name__ == "__main__":
+    unittest.main()
