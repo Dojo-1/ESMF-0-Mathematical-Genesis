@@ -77,6 +77,20 @@ def qinterpolate(a, b, fraction):
                        for x, y in zip(a, b)))
 
 
+def qtransport_chain(forward, source):
+    """Typed directed composition U_n ... U_1 q; order is essential."""
+    current = source
+    for connection in forward:
+        current = qmult(connection, current)
+    return current
+
+
+def qchain_discrepancy(fiber):
+    """Auxiliary endpoint mismatch; zero does not certify semantics."""
+    return qerror(qtransport_chain(fiber.forward, fiber.phases[0]),
+                  fiber.phases[-1])
+
+
 def qdirection(delta, angle=.43):
     """Smooth 3-D directional rotation; 2-D directions embed in R^3."""
     if len(delta) not in (2, 3):
@@ -289,6 +303,12 @@ class GlialQuaternionEcology:
                 s, tissue=e.destination, fibers=tuple(fibers),
                 fiber_scars=scars, glia=updated_glia)
             rate = e.rate
+            if e.name.startswith("neurite_extend:"):
+                # A locally incoherent continuous transport may make new
+                # anatomical extension less affordable before repair. This
+                # is a state-derived stabilizer, NOT an evaluator oracle.
+                neuron_i = int(e.name.split(":")[1])
+                rate /= 1. + .25 * qchain_discrepancy(s.fibers[neuron_i])
             if s.glia.tripartite and e.name.startswith("contact_release:"):
                 rate *= .25
             if s.glia.tripartite and e.name.startswith("cognitive/encounter:"):
@@ -469,6 +489,8 @@ class GlialQuaternionEcology:
                 f.real_carrier_dimension for f in s.fibers),
             "continuous_quaternion_segments": tuple(
                 len(f.forward) for f in s.fibers),
+            "endpoint_transport_discrepancy": tuple(
+                qchain_discrepancy(f) for f in s.fibers),
             "glial_support_state": {
                 "reserve": s.glia.substrate,
                 "transferable": s.glia.transferable,
