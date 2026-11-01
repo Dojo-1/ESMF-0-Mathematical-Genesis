@@ -1,0 +1,3113 @@
+{
+  "authority": "M: executable synthetic state/event trace ONLY",
+  "exporter": "research/export_observatory_trace.py",
+  "limitations": [
+    "Animation is event-by-event; UI playback speed is not simulation time.",
+    "The conditioned prefix deliberately selects legal positive-rate transitions; it is not stochastic sampling.",
+    "Only suffix events are sampled by the model's Gillespie dynamics.",
+    "Three-dimensional voxel positions are numerical coordinates, not biological morphology.",
+    "Physical ATP and material values are bounded synthetic proxy units.",
+    "A passing resource ledger and correct quaternion law do not validate cognition, biological tissue or quantum advantage.",
+    "This is not a held-out D0/D1a efficacy result."
+  ],
+  "payload_sha256": "dae809768cf4b88ec40fa8d672b9cb7f8b5d3166b8883cff6fda3118e1cbf907",
+  "runs": [
+    {
+      "conditioned_event_count": 11,
+      "final_sampled_time": 0.75,
+      "frames": [
+        {
+          "event": "initial",
+          "index": 0,
+          "outgoing_rate_sum": null,
+          "phase": "initial",
+          "selected_rate": null,
+          "state": {
+            "cells": [
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 1,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "78fc8ab21b19fcc501512ebf7f8c8e94c77df0cbe21af4b1c34e7a1063694d06",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/neurite_extend:0:0",
+          "index": 1,
+          "outgoing_rate_sum": 6.35,
+          "phase": "conditioned",
+          "selected_rate": 0.095,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 1,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "04bec23ebfd2b5c7d695d054b61ad85e2136ec43c3bcd590114e647b99a08164",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/contact_birth:0",
+          "index": 2,
+          "outgoing_rate_sum": 6.767,
+          "phase": "conditioned",
+          "selected_rate": 0.3,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 1,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "8fdb2bbc9e03ecbb2151bf02acb93cd24fa64f0e9a4e90f7b4db0a1ceb016d00",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "glia_calcium_pulse",
+          "index": 3,
+          "outgoing_rate_sum": 5.63,
+          "phase": "conditioned",
+          "selected_rate": 0.23,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 1,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "a0ed2bca1062f8d3cbaca8aa2a4e234e5b78df0a1b554aa878a6a59c0afe7084",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "tripartite_bind",
+          "index": 4,
+          "outgoing_rate_sum": 6.34,
+          "phase": "conditioned",
+          "selected_rate": 0.28,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "96a282e173f8dc74ffb77e6d64550f874889f0c755d79535ce3563b73979efcc",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/metabolic_conversion:0",
+          "index": 5,
+          "outgoing_rate_sum": 5.305,
+          "phase": "conditioned",
+          "selected_rate": 0.35,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 1,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "eef61518a4792422de58e380efe7fbd4e73ea06362497d80407a1203eb61ad55",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/cognitive/encounter:0",
+          "index": 6,
+          "outgoing_rate_sum": 6.465,
+          "phase": "conditioned",
+          "selected_rate": 0.70125,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 1,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "707e342d45ed83025a0feb0353bc32f7db3c0e83270a9a699108ab4416a6bb86",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/metabolic_conversion:0",
+          "index": 7,
+          "outgoing_rate_sum": 5.485,
+          "phase": "conditioned",
+          "selected_rate": 0.35,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "c1a991072e74e51349970486b0b7394b4909cfbca0dd812f611fb7500c4830f6",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "fiber_experience_update",
+          "index": 8,
+          "outgoing_rate_sum": 6.918376454349832,
+          "phase": "conditioned",
+          "selected_rate": 0.13337645434983178,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "f503f20d9ddc5ef08694476df5a1a44cb53839bba8b790d76ed7883c43fab15e",
+          "time": null,
+          "typed_remainder": {
+            "payload": [
+              0,
+              1,
+              [
+                0.9769763942068623,
+                0.2133474283007823,
+                0.0,
+                0.0
+              ],
+              [
+                0.8803539688611159,
+                0.37383016881518344,
+                0.1305587181264375,
+                0.261117436252875
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "type": "[R]_memory_prior"
+          }
+        },
+        {
+          "event": "af/nutrient_supply:0",
+          "index": 9,
+          "outgoing_rate_sum": 4.875,
+          "phase": "conditioned",
+          "selected_rate": 0.3,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 1,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 1
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "8ea1b7fc5449161de3737a9e1f4ebefddb12665f8b7a2b3692672aee6d81742c",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/metabolic_conversion:0",
+          "index": 10,
+          "outgoing_rate_sum": 5.485,
+          "phase": "conditioned",
+          "selected_rate": 0.35,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 0,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 1
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "2fb2be341ee837b38d28f57b3ca6bef37340cb84bce55b995d81086689a904c8",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/material_supply:0",
+          "index": 11,
+          "outgoing_rate_sum": 6.900824457016354,
+          "phase": "conditioned",
+          "selected_rate": 0.21,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 1,
+              "nutrient": 1
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "ca6d13c063c6474599ddc7de6eab395604ff62e48eb51345b9d06b5beae010c2",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/nutrient_supply:1",
+          "index": 12,
+          "outgoing_rate_sum": 7.128962160588453,
+          "phase": "sampled",
+          "selected_rate": 0.3,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 1,
+              "nutrient": 2
+            },
+            "glia": {
+              "calcium": 1,
+              "substrate": 1,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "fdf0071b9e84da34fd487942cbb33ef45070ba54217d3a3d1477001c051cc179",
+          "time": 0.0811779482007619,
+          "typed_remainder": null
+        },
+        {
+          "event": "glia_calcium_pulse",
+          "index": 13,
+          "outgoing_rate_sum": 6.828962160588453,
+          "phase": "sampled",
+          "selected_rate": 0.23,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 1,
+              "nutrient": 2
+            },
+            "glia": {
+              "calcium": 2,
+              "substrate": 0,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "f9891fcaeb07ab82453f2923b6b8f35790819cad8c80f6fa2079bee6a7486fcb",
+          "time": 0.49983478427763534,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/maintenance:1",
+          "index": 14,
+          "outgoing_rate_sum": 6.125760314009881,
+          "phase": "sampled",
+          "selected_rate": 0.15000000000000002,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 1,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 1,
+              "nutrient": 2
+            },
+            "glia": {
+              "calcium": 2,
+              "substrate": 0,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "e1c6d74b31a8ab2d26ec8237af9a4d29d945311a132eef109e99fac08ad258c5",
+          "time": 0.5857425269757597,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/cognitive/transport_repair",
+          "index": 15,
+          "outgoing_rate_sum": 6.125760314009881,
+          "phase": "sampled",
+          "selected_rate": 0.75,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 0,
+                "tip_quaternion": [
+                  0.8803539688611159,
+                  0.37383016881518344,
+                  0.1305587181264375,
+                  0.261117436252875
+                ],
+                "transport_defect": 0.12031849747679974
+              },
+              {
+                "atp": 1,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": [
+                0,
+                0,
+                0
+              ],
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 1,
+                  "live_different": 1,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 1,
+              "nutrient": 2
+            },
+            "glia": {
+              "calcium": 2,
+              "substrate": 0,
+              "transferable": 0,
+              "tripartite": true,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [
+              [
+                0,
+                1
+              ]
+            ],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 1,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "48c987874ed0e366733770d6d618bb7abe64c33ecbe653bc3c49a72054fe233f",
+          "time": 0.7295776801567113,
+          "typed_remainder": null
+        }
+      ],
+      "horizon": 0.75,
+      "id": "conditioned",
+      "sampled_event_count": 4,
+      "seed": 8100,
+      "source_process": "G0-AG bounded-channel pure-jump Markov process",
+      "title": "Conditioned encounter \u00b7 then stochastic events"
+    },
+    {
+      "conditioned_event_count": 0,
+      "final_sampled_time": 1.6,
+      "frames": [
+        {
+          "event": "initial",
+          "index": 0,
+          "outgoing_rate_sum": null,
+          "phase": "initial",
+          "selected_rate": null,
+          "state": {
+            "cells": [
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 1,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "78fc8ab21b19fcc501512ebf7f8c8e94c77df0cbe21af4b1c34e7a1063694d06",
+          "time": null,
+          "typed_remainder": null
+        },
+        {
+          "event": "glia_transfer:1",
+          "index": 1,
+          "outgoing_rate_sum": 6.35,
+          "phase": "sampled",
+          "selected_rate": 0.24,
+          "state": {
+            "cells": [
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "fdb739960a24506673fe3403e42b6f4ef3ffbf3688ff15d4a069edfe8401ea83",
+          "time": 0.09819474232327031,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/neurite_extend:0:0",
+          "index": 2,
+          "outgoing_rate_sum": 5.57,
+          "phase": "sampled",
+          "selected_rate": 0.095,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "1257906d04b2884ef5d980655958602e370aa42bbd62a7cd77b2c06685b916b5",
+          "time": 0.5171743083882696,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/secrete_attract:1",
+          "index": 3,
+          "outgoing_rate_sum": 5.987,
+          "phase": "sampled",
+          "selected_rate": 0.17,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "172c62a70f08eec66a731d7d86f483770828de24b88f515fe94fef2583af1f2e",
+          "time": 0.548902069643451,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/cognitive/energy_supply",
+          "index": 4,
+          "outgoing_rate_sum": 6.992,
+          "phase": "sampled",
+          "selected_rate": 0.7,
+          "state": {
+            "cells": [
+              {
+                "atp": 1,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 0,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "172c62a70f08eec66a731d7d86f483770828de24b88f515fe94fef2583af1f2e",
+          "time": 0.6851903267346955,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/cognitive/interrogate",
+          "index": 5,
+          "outgoing_rate_sum": 6.992,
+          "phase": "sampled",
+          "selected_rate": 0.132,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 1,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "0788feeeec3104324cb4bd025705f3510e437e5ee9a7d7a7977577adeb024b17",
+          "time": 0.8172196708599998,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/cognitive/material_supply",
+          "index": 6,
+          "outgoing_rate_sum": 5.695,
+          "phase": "sampled",
+          "selected_rate": 0.23,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 1,
+                "path": [
+                  [
+                    1,
+                    0,
+                    0
+                  ]
+                ],
+                "real_carrier_dimension": 12,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0.9769763942068623,
+                  0.2133474283007823,
+                  0.0,
+                  0.0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 1,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 0,
+              "phase_revisions": 0,
+              "pruned_sections": 0
+            }
+          },
+          "state_sha256": "0788feeeec3104324cb4bd025705f3510e437e5ee9a7d7a7977577adeb024b17",
+          "time": 1.0435719182900975,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/neurite_prune:0",
+          "index": 7,
+          "outgoing_rate_sum": 5.695,
+          "phase": "sampled",
+          "selected_rate": 0.22999999999999998,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 1,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 0
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 1,
+              "phase_revisions": 0,
+              "pruned_sections": 1
+            }
+          },
+          "state_sha256": "dd88c2138eb7106234a312c8080bde5bcb1cf6043e0d89a14f01c2663b271b36",
+          "time": 1.1370327839114749,
+          "typed_remainder": {
+            "payload": [
+              0,
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0.9769763942068623,
+                0.2133474283007823,
+                0.0,
+                0.0
+              ],
+              [
+                0.9769763942068623,
+                0.2133474283007823,
+                0.0,
+                0.0
+              ]
+            ],
+            "type": "[R]_transport_continuous"
+          }
+        },
+        {
+          "event": "af/nutrient_supply:0",
+          "index": 8,
+          "outgoing_rate_sum": 5.465,
+          "phase": "sampled",
+          "selected_rate": 0.3,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 2,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 2,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 1,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 1
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 1,
+              "phase_revisions": 0,
+              "pruned_sections": 1
+            }
+          },
+          "state_sha256": "5558a71fbf851091c182b5d1215d7727c97836cf1f84b2eefb473b70260abfde",
+          "time": 1.1833892423244783,
+          "typed_remainder": null
+        },
+        {
+          "event": "af/metabolic_conversion:1",
+          "index": 9,
+          "outgoing_rate_sum": 5.165,
+          "phase": "sampled",
+          "selected_rate": 0.35,
+          "state": {
+            "cells": [
+              {
+                "atp": 0,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  0,
+                  0,
+                  0
+                ],
+                "substrate": 3,
+                "tip_quaternion": [
+                  1,
+                  0,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              },
+              {
+                "atp": 3,
+                "material": 2,
+                "path": [],
+                "real_carrier_dimension": 8,
+                "soma": [
+                  2,
+                  0,
+                  0
+                ],
+                "substrate": 1,
+                "tip_quaternion": [
+                  0,
+                  1,
+                  0,
+                  0
+                ],
+                "transport_defect": 0.0
+              }
+            ],
+            "chemical": {
+              "attract": [
+                {
+                  "units": 1,
+                  "voxel": [
+                    2,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "repel": []
+            },
+            "cognitive": {
+              "buds": [
+                false,
+                false
+              ],
+              "context": 0,
+              "last": null,
+              "question": 1,
+              "witnesses": [
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                },
+                {
+                  "different": 0,
+                  "live_different": 0,
+                  "live_same": 0,
+                  "same": 0
+                }
+              ]
+            },
+            "external_inputs": {
+              "material": 0,
+              "nutrient": 1
+            },
+            "glia": {
+              "calcium": 0,
+              "substrate": 2,
+              "transferable": 0,
+              "tripartite": false,
+              "voxel": [
+                1,
+                0,
+                0
+              ]
+            },
+            "ledger": {
+              "combined_energy_residual": 0,
+              "structural_material_residual": 0
+            },
+            "links": [],
+            "provenance": {
+              "connection_repairs": 0,
+              "neutral_tissue_scars": 1,
+              "phase_revisions": 0,
+              "pruned_sections": 1
+            }
+          },
+          "state_sha256": "625849f34dcd34afe743e26ef7ae6f32670a8111ed71a24f7b831699849409a6",
+          "time": 1.2968167467116307,
+          "typed_remainder": null
+        }
+      ],
+      "horizon": 1.6,
+      "id": "unconditioned",
+      "sampled_event_count": 9,
+      "seed": 7012,
+      "source_process": "G0-AG bounded-channel pure-jump Markov process",
+      "title": "Unconditioned stochastic run"
+    }
+  ],
+  "schema": "esmf-observatory-trace/v1",
+  "side": 4,
+  "source": "esmf/glial_quaternion_ag.py",
+  "source_commit": "7f4562a25f2cc9f7aae592e86a89b19dd9268dda",
+  "spatial_dims": 3
+}
