@@ -10,7 +10,7 @@
     "A passing resource ledger and correct quaternion law do not validate cognition, biological tissue or quantum advantage.",
     "This is not a held-out D0/D1a efficacy result."
   ],
-  "payload_sha256": "a32aabb91ef2a0224f39c70d454b572ccfbddd0870895579029eacfe7dd62f97",
+  "payload_sha256": "1af7328151767d12fe04746d425310dae3f81605f452b40b7f14d6dcb42e4bbc",
   "runs": [
     {
       "conditioned_event_count": 11,
@@ -3108,6 +3108,6 @@
   "schema": "esmf-observatory-trace/v1",
   "side": 4,
   "source": "esmf/glial_quaternion_ag.py",
-  "source_commit": "fea144203edfb6e7f2b4dcff63e32dd05b2a0929",
+  "source_commit": "e08ca81bd6fb129fbc18a14478ab282b5d419cbc",
   "spatial_dims": 3
 }
