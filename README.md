@@ -4,6 +4,14 @@
 
 ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
 
+## G0-AG D0 — Development controls and the first negative result
+
+The [G0-AG D0 rate-intervention study](research/G0_AG_D0_PROTOCOL.md) is the first bounded executed, **development-only** comparison of glial rate feedback and ordered quaternionic growth feedback. It uses the same reachable, conditioned tissue state across five rate-control arms, 24 paired development seeds and the exact joint CTMC; the unchanged placebo must reproduce full exactly. Its [measured result](research/G0_AG_D0_RESULTS.md) was **negative/inconclusive**: no paid quaternionic connection repairs occurred, and the no-geometry-feedback arm had the same neurite-extension counts on all 24 paired seeds. Differences with glial-rate feedback were small, and resource inflows diverged across some stochastic paths. This is *not* a cognitive-advantage result or the held-out G0-AG1 experiment.
+
+[Executable probe](research/g0_ag_development_probe.py) · [control tests](tests/test_g0_ag_development_probe.py) · [GitHub Actions raw evidence](https://github.com/Dojo-1/ESMF-0-Mathematical-Genesis/actions/runs/41297205891) · [next behavioral protocol (unrun)](research/G0_AG_D1_BEHAVIORAL_PROTOCOL.md)
+
+The negative result is a stop rule for further ornamental geometric lifts: validate a genuinely downstream, independently scored decision against a conventional, equally informed model before promoting anything about learning or organismal intelligence.
+
 ## G0-AG — Astroglial support and continuously transported neurites (experimental draft)
 
 The telos-native [G0-AG experiment](research/G0_AG_GLIAL_CONTINUOUS_NEURITE.md) extends G0-AF rather than restarting the architecture. Each paid neurite segment now owns a continuous unit-quaternion phase and a separately modifiable unit-quaternion connection *in addition to* the inherited discrete Q8/neutral structures. An experience update is ATP-paid and records the displaced phase; any later connection repair separately spends ATP and retains the displaced connection as a typed remainder. Ordered, noncommuting chain transport now modulates the subsequent physical neurite-extension rate through a frame-invariant endpoint discrepancy. A new **glia-inspired** support Worldlet carries finite substrate, transferable resources, a calcium-like gate and an optional three-party contact state. Glial support, neuronal sensing, AF chemical diffusion, structural changes and continuous transport evolve under one coupled Markov generator with a closed combined energy ledger. Neither glia nor the quaternionic carrier is assumed necessary for intelligence.
