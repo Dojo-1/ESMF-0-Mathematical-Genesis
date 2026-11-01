@@ -50,8 +50,8 @@ def qnorm(a):
     if len(a) != 4 or any(not math.isfinite(x) for x in a):
         raise ValueError("four finite quaternion coordinates required")
     magnitude = math.hypot(*a)
-    if magnitude <= 1e-12:
-        raise ValueError("cannot normalize a null quaternion")
+    if not math.isfinite(magnitude) or magnitude <= 1e-12:
+        raise ValueError("cannot normalize a null or overflowed quaternion")
     return tuple(x / magnitude for x in a)
 
 
@@ -106,7 +106,7 @@ def observation_quaternion(observed_coordinates, observer_frame=ONE):
             abs(qlength2(observer_frame) - 1.) > 1e-9):
         raise ValueError("invalid typed observation or observer frame")
     magnitude = math.hypot(*observed_coordinates)
-    if magnitude <= 1e-12:
+    if not math.isfinite(magnitude) or magnitude <= 1e-12:
         return None
     return qmult(observer_frame, tuple(x / magnitude for x in observed_coordinates))
 
