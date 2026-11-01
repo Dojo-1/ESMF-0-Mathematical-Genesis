@@ -39,7 +39,7 @@ Importantly, the code carries *two different geometry families*, not a claim of 
 
 ## Tissue and biochemical coupling
 
-The external 2D periodic lattice is a coarse **spatial substrate for chemical packets**, not the dimension of cognition. Individual somata, tips and paid neurite segments occupy lattice sites. The system exposes competing nonnegative continuous-time hazards:
+The extracellular substrate is a coarse **configurable 2D or 3D periodic voxel lattice** (3D by default), not the dimension of cognition. Its coarse voxel guidance is not 3D cytoskeletal mechanics or validated biological transport. Individual somata, tips and paid neurite segments occupy lattice sites. The system exposes competing nonnegative continuous-time hazards:
 
 - local nutrient supply, conversion between substrate and ATP-like proxy, maintenance and material supply;
 - activity-independent or context-modulated attractive/repulsive signal secretion, voxel-neighbor diffusion and dissipation;
@@ -98,9 +98,9 @@ The previous G0-AE diagonal GKSL construction still applies *in principle* to fi
 
 ## Why this is not a completed neurite tissue
 
-G0-F's continuous finite-volume diffusion and branching costs are richer, physically scaled, and empirically evaluated as a synthetic surrogate. **G0-AF does not yet reuse its field solver**: this first integration discretizes chemical packets as CTMC events on a separate bounded grid. It is explicitly *not* a 3D cytoskeletal model, neuron–astrocyte metabolic physiology, continuous quaternion learning, general nonassociative algebra field, global higher category, or a verified multi-cell cortical tissue.
+G0-F's continuous finite-volume diffusion and branching costs are richer, physically scaled, and empirically evaluated as a synthetic surrogate. **G0-AF does not yet reuse its field solver**: this first integration discretizes chemical packets as CTMC events on a separate bounded grid. It is explicitly *not* a continuous 3D cytoskeletal model, neuron–astrocyte metabolic physiology, continuous quaternion learning, general nonassociative algebra field, global higher category, or a verified multi-cell cortical tissue.
 
-Its local fields may act like rudimentary attract/repel cues, inspired by neurite outgrowth research. Recent experimental and model studies motivating environmental/physical influences include Pathak et al., *Nanotopographic Control of Actin Waves and Growth Cone Navigation in Developing Neurons* (2025, preprint DOI 10.1101/2025.05.16.654525), and Kassianides et al., *The multiscale mechanics of axon durotaxis* (2025, DOI 10.1016/j.jmps.2025.106134). Neither endorses the artificial quaternionic carrier.
+Its local fields may act like rudimentary attract/repel cues, inspired by neurite outgrowth research. Recent experimental and model studies motivating environmental/physical influences include Pathak et al., *Nanotopographic Control of Actin Waves and Growth Cone Navigation in Developing Neurons* (2025, preprint DOI 10.1101/2025.05.16.654525), and Kassianides et al., *The multiscale mechanics of axon durotaxis* (2025, DOI 10.1016/j.jmps.2025.106134). Neither endorses the artificial quaternionic carrier. More directly, Rao et al., *Smart Nerves Sprout and Assemble in an Extracellular Matrix-Based 3D Nerve-in-a-Chip Microfluidic Model* (2025, DOI 10.1002/smll.202505674), reports distinct three-dimensional pathfinder/fasciculation behavior; it motivates offering a 3D extracellular substrate, **not** our Q8 dynamics.
 
 ## Executable contract and next falsification
 
@@ -122,6 +122,6 @@ Hold out novel appearance recodings and context changes. Score *false semantic m
 
 ## What to build *after* this contract
 
-**G0-AG (proposed):** 3D or surface-adaptive tissue finite-volume mechanics, variable-dimensional local Clifford/quaternion section functors, biologically distinct neuron/astrocyte/enteric support compartments, continuous local connection learning under interventions, source-provenance repair and higher-order multicellular contacts. The burden of proof rises with each additional operator, dimension and cell type.
+**G0-AG (proposed):** continuous 3D or surface-adaptive tissue finite-volume mechanics, variable-dimensional local Clifford/quaternion section functors, biologically distinct neuron/astrocyte/enteric support compartments, continuous local connection learning under interventions, source-provenance repair and higher-order multicellular contacts. The burden of proof rises with each additional operator, dimension and cell type.
 
 The purpose is not to become ever more complicated. It is to let an organism develop a mathematically richer way of acting **only when its own encounters, material resources and observed relationships warrant that structure**.
