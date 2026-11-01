@@ -528,6 +528,11 @@ class GlialQuaternionEcology:
     def summary(self, s):
         if not self.valid(s):
             raise ValueError("invalid joint state")
+        current = s.tissue.cognitive
+        sight = self.af.core.observed_pair(current)
+        active_fiber = s.fibers[current.context % len(s.fibers)]
+        unrepresentable = (sight is not None and observation_quaternion(
+            sight.target, active_fiber.observer_frame) is None)
         return {
             "evidence": "finite-contract-only",
             "organism": "G0-AE + G0-AF + one G0-AG glial support Worldlet",
@@ -548,11 +553,7 @@ class GlialQuaternionEcology:
             "connection_repairs_recorded": len(s.repairs),
             "phase_revisions_recorded": len(s.phase_history),
             "observation_adapter": "A: canonical R4 coefficients to local H, not semantic identity",
-            "unrepresentable_active_observation": (
-                (lambda sight, f: sight is not None and
-                 observation_quaternion(sight.target, f.observer_frame) is None)(
-                    self.af.core.observed_pair(s.tissue.cognitive),
-                    s.fibers[s.tissue.cognitive.context % len(s.fibers)])),
+            "unrepresentable_active_observation": unrepresentable,
             "joint_energy_residual": self._energy_balance(s),
             "af_tissue_balance": self.af.diagnostics(s.tissue)[
                 "material_balance_residual"],
