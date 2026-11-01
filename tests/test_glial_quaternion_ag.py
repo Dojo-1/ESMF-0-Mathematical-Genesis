@@ -15,6 +15,18 @@ from esmf.glial_quaternion_ag import (
 )
 
 
+def real_four_coordinate_hamilton(a, b):
+    """Independent R4 left-action matrix: a control, not quaternion magic."""
+    w, x, y, z = a
+    matrix = (
+        (w, -x, -y, -z),
+        (x, w, -z, y),
+        (y, z, w, -x),
+        (z, -y, x, w),
+    )
+    return tuple(sum(row[k] * b[k] for k in range(4)) for row in matrix)
+
+
 def find(model, state, name):
     choices = [e for e in model.channels(state) if e.name == name]
     if len(choices) != 1:
@@ -62,6 +74,19 @@ class TestGlialQuaternionAG(unittest.TestCase):
         result = qmult(a, qconj(a))
         for x, y in zip(result, ONE):
             self.assertAlmostEqual(x, y, places=12)
+
+    def test_independent_four_real_hamilton_reference(self):
+        # An algebraically equivalent real-coordinate comparator should
+        # reproduce quaternion multiplication, not show a mythical gain.
+        axes = ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 2, -1))
+        for i, direction in enumerate(axes):
+            a = qdirection(direction, .17 + i * .32)
+            for j, other_direction in enumerate(axes):
+                b = qdirection(other_direction, .31 + j * .27)
+                expected = real_four_coordinate_hamilton(a, b)
+                observed = qmult(a, b)
+                for x, y in zip(observed, expected):
+                    self.assertAlmostEqual(x, y, places=12)
 
     def test_ordered_connection_composition_retains_gauge_structure(self):
         i = (0., 1., 0., 0.)
