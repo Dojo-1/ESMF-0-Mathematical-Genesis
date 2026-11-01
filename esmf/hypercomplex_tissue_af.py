@@ -416,6 +416,22 @@ class HyperNeuriteEcology:
                                 waste=state.waste + 1))
         return tuple(out)
 
+    def generator_action(self, state, prefix, observable):
+        """Named part of a *joint* generator on a test observable."""
+        if not self.valid(state) or not prefix:
+            raise ValueError("invalid observation or generator prefix")
+        original = observable(state)
+        return math.fsum(
+            ch.rate * (observable(ch.destination) - original)
+            for ch in self.channels(state) if ch.name.startswith(prefix))
+
+    def generator_bracket(self, state, first, second, observable):
+        """Classical causal noncommutativity, not quantum coherence."""
+        return (self.generator_action(
+            state, first, lambda s: self.generator_action(s, second, observable))
+                - self.generator_action(
+                    state, second, lambda s: self.generator_action(s, first, observable)))
+
     def row(self, state, reverse=False):
         channels = self.channels(state)
         if reverse:
