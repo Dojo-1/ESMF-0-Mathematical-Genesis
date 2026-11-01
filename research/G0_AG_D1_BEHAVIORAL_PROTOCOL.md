@@ -44,3 +44,20 @@ Do not claim full architecture capacity parity from matching only memory count s
 **Causal tests:** evaluate whether the additional geometry changes *what the organism can predict or do*, not just its exposure time to a contact. A low Brier score from observing a label is invalid: record the prediction and time before sampling or revealing its test outcome. Cap and report class imbalance and abstention.
 
 **Stop/kill rule:** if a simple question-conditioned estimator with the same evidence and lower compute is at least as competent, the stronger claim of special hypercomplex semantic learning must be retired. If a richer manifold or cell type becomes desirable, demand a measured representational obstruction in D1 first. Never introduce a new algebra merely because D0 was underpowered.
+
+
+## D1a development configuration — frozen before instrument implementation
+
+This subsection **fixes the D1a development probe before its first run**. It does not freeze or execute D1b or the original G0-AG1 held-out programme.
+
+- Seeds: **8150–8163 inclusive** (14 distinct development streams), never 18100–18227.
+- Training: **six observable encounters per (context, question mode)** cell; 24 training encounters per stream, in a predeclared balanced 0/1 context × 0/1 question schedule. Outcomes are independent Bernoulli draws from the external evaluator's table above. Input events expose context, question, and actual changed/unchanged response, but never the probability.
+- Testing: **32 independent, future outcomes per cell** per stream; 128 held-out-from-training observations per stream. Test outcomes are generated **after the predictors have committed their predictions**. This is a development-split score, not the untouched G0-AG1 holdout.
+- Two prediction rules: G0-AE's actual Distinction raw seen_changed / seen_same capped at **3** per context, pooled across modes, versus a conventional question-conditioned estimator with two counters capped at **3** per (context, mode) cell.
+- Both use the same **Beta(1,1) smoothed change probability**, so difference reflects retained question information rather than a privileged readout. G0-AE has two contexts × (seen_same, seen_changed, live_same, live_changed) = **8 capped integer memory slots**; the conventional estimator has two contexts × two modes × (same, changed) = **8 capped integer slots**. This equalizes slot count but not other architectural overhead.
+- Negative control: same estimator and exact observed training sequence, with question labels permuted *within each context* by a separate fixed RNG. Must not use test outcomes or hidden probabilities to permute.
+- Primary observable: **mean future-outcome Brier score**, averaged with equal weight over four context/mode cells. Paired differences across 14 streams are descriptive with normal-approximation 95% intervals; no confirmatory p-value.
+- Secondary: expected Brier under the independent evaluator's reference distribution (analytic known answer), conditional per-cell Brier, number of confident declarations at thresholds <=0.25 or >=0.75, and total memory slots. Preserve raw predictions and outcomes.
+- Full placebo: rerun each predictor on the same source trace; identical output required. Do not use a hidden task probability in either prediction implementation.
+- A better conventional estimator is a **negative result for any claim that the current pooled memory is already sufficient to recognize probe-dependent relationships**. It does not establish that glial/quaternionic geometry is ineffective, because D1a is an offline memory-only diagnostic.
+- Kill gate: if the ordinary estimator ties or wins at the same observations and eight integer slots, do **not** add another algebra to rescue pooled semantic memory; identify and explicitly repair the lost contextual distinction first. D1b cannot begin until D1a's comparator validity and provenance pass.
