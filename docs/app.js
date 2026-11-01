@@ -1,4 +1,5 @@
 // ESMF-0 / Living Observatory
+import { initializeTracePlayer } from './trace-player.js';
 // All motion is a schematic, never a claim of running organism telemetry.
 const $ = (selector) => document.querySelector(selector);
 const state = {
@@ -227,7 +228,21 @@ async function start() {
       $('#render-state').textContent = '3D unavailable in this browser. The structures and evidence directory remain interactive.';
       document.querySelector('.directory details').open = true;
     }
-    $('#footer-model').textContent = 'SCHEMATIC  /  NOT LIVE TELEMETRY  /  ' + state.data.version;
+    await initializeTracePlayer({
+      getScene: () => state.scene,
+      onNode: id => selectNode(id, false),
+      onModeChange: active => {
+        state.scene?.setMotion(active ? false : state.motion);
+        $('#footer-model').textContent = active
+          ? 'REPLAY / RECORDED SYNTHETIC STATES / NOT LIVE TELEMETRY'
+          : 'SCHEMATIC / NOT LIVE TELEMETRY / ' + state.data.version;
+      }
+    });
+    if (!$('#trace-controls').hidden) {
+      $('#footer-model').textContent = 'REPLAY / RECORDED SYNTHETIC STATES / NOT LIVE TELEMETRY';
+    } else {
+      $('#footer-model').textContent = 'SCHEMATIC / REPLAY AVAILABLE / NOT LIVE TELEMETRY / ' + state.data.version;
+    }
   } catch (error) {
     console.error(error);
     $('#domain-controls').replaceChildren(el('div', 'error-panel', 'Could not load the architecture. Browse the research map from the header.'));
