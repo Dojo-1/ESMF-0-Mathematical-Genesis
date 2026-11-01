@@ -49,7 +49,7 @@ def qnorm(a):
     """Normalize a nonzero finite quaternion without conflating +/- states."""
     if len(a) != 4 or any(not math.isfinite(x) for x in a):
         raise ValueError("four finite quaternion coordinates required")
-    magnitude = math.sqrt(qlength2(a))
+    magnitude = math.hypot(*a)
     if magnitude <= 1e-12:
         raise ValueError("cannot normalize a null quaternion")
     return tuple(x / magnitude for x in a)
@@ -91,6 +91,48 @@ def qchain_discrepancy(fiber):
                   fiber.phases[-1])
 
 
+def observation_quaternion(observed_coordinates, observer_frame=ONE):
+    """A-typed observation adapter: canonical R4 sensor -> local H phase.
+
+    Identifying four observed real numbers with quaternion coefficients is a
+    DECLARED model assumption, not a semantic/theorem transport from Mat2(R).
+    The learned fiber's observer_frame changes under its local gauge.
+    Zero or tiny input is unrepresentable: return None, never fake a phase.
+    """
+    if (len(observed_coordinates) != 4 or
+            any(not math.isfinite(x) for x in observed_coordinates) or
+            len(observer_frame) != 4 or
+            any(not math.isfinite(x) for x in observer_frame) or
+            abs(qlength2(observer_frame) - 1.) > 1e-9):
+        raise ValueError("invalid typed observation or observer frame")
+    magnitude = math.hypot(*observed_coordinates)
+    if magnitude <= 1e-12:
+        return None
+    return qmult(observer_frame, tuple(x / magnitude for x in observed_coordinates))
+
+
+def reframe_sections(fiber, gauges):
+    """Independent local S3 gauges, including observation at the tip.
+
+    Does not transport old provenance records: those require recorded chart
+    IDs. Use this as a present-state metamorphic transformation only.
+    """
+    if not isinstance(fiber, ContinuousSections) or len(gauges) != len(fiber.phases):
+        raise ValueError("one local gauge per active quaternion section required")
+    for gauge in gauges:
+        if (not isinstance(gauge, tuple) or len(gauge) != 4 or
+                any(not math.isfinite(x) for x in gauge) or
+                abs(qlength2(gauge) - 1.) > 1e-9):
+            raise ValueError("all section gauges must be unit quaternions")
+    phases = tuple(qmult(g, p) for g, p in zip(gauges, fiber.phases))
+    links = tuple(
+        qmult(qmult(gauges[i + 1], link), qconj(gauges[i]))
+        for i, link in enumerate(fiber.forward)
+    )
+    return replace(fiber, phases=phases, forward=links,
+                   observer_frame=qmult(gauges[-1], fiber.observer_frame))
+
+
 def qdirection(delta, angle=.43):
     """Smooth 3-D directional rotation; 2-D directions embed in R^3."""
     if len(delta) not in (2, 3):
@@ -109,6 +151,7 @@ class ContinuousSections:
 
     phases: tuple
     forward: tuple
+    observer_frame: tuple = ONE  # A: typed Mat2(R) observation -> local H chart
 
     @property
     def real_carrier_dimension(self):
@@ -225,7 +268,7 @@ class GlialQuaternionEcology:
                     len(fiber.phases) != len(s.tissue.cells[i].sections) or
                     len(fiber.forward) != len(s.tissue.cells[i].path)):
                 return False
-            for q in fiber.phases + fiber.forward:
+            for q in fiber.phases + fiber.forward + (fiber.observer_frame,):
                 if (not isinstance(q, tuple) or len(q) != 4 or
                         any(not math.isfinite(x) for x in q) or
                         abs(qlength2(q) - 1.) > 1e-9):
@@ -397,8 +440,11 @@ class GlialQuaternionEcology:
             parent = s.tissue.cells[neuron_i]
             f = s.fibers[neuron_i]
             if parent.atp:
-                observed = qnorm(sight.target)
-                discrepancy = qerror(f.phases[-1], observed)
+                # External G0-AE values are in its declared canonical R4
+                # observation chart; an explicit per-fiber adapter is required.
+                observed = observation_quaternion(sight.target, f.observer_frame)
+                discrepancy = (qerror(f.phases[-1], observed)
+                               if observed is not None else 0.)
                 if discrepancy > 1e-8 and len(s.phase_history) < self.max_fiber_records:
                     updated = qinterpolate(f.phases[-1], observed, .30)
                     record = (neuron_i, len(f.phases) - 1,
@@ -416,7 +462,8 @@ class GlialQuaternionEcology:
 
                 # A connection is independently mutable; update does not
                 # overwrite the earlier correspondence without an audit.
-                if f.forward and len(s.repairs) < self.max_fiber_records:
+                if (observed is not None and f.forward and
+                        len(s.repairs) < self.max_fiber_records):
                     old = f.forward[-1]
                     mismatch = qerror(f.phases[-2], f.phases[-1], old)
                     if mismatch > 1e-8:
@@ -500,6 +547,12 @@ class GlialQuaternionEcology:
             "fiber_removals_recorded": len(s.fiber_scars),
             "connection_repairs_recorded": len(s.repairs),
             "phase_revisions_recorded": len(s.phase_history),
+            "observation_adapter": "A: canonical R4 coefficients to local H, not semantic identity",
+            "unrepresentable_active_observation": (
+                (lambda sight, f: sight is not None and
+                 observation_quaternion(sight.target, f.observer_frame) is None)(
+                    self.af.core.observed_pair(s.tissue.cognitive),
+                    s.fibers[s.tissue.cognitive.context % len(s.fibers)])),
             "joint_energy_residual": self._energy_balance(s),
             "af_tissue_balance": self.af.diagnostics(s.tissue)[
                 "material_balance_residual"],
