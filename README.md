@@ -4,6 +4,19 @@
 
 ESMF-0 asks whether locally adaptive predictive relations, with bounded resources and dynamic topology, can develop reusable distinctions between causally different encounters. A word, class label, or token is **not** the unit of learning. Initially, the organism sees observations and interventions; latent causal rules are hidden and used only by the evaluator.
 
+## G0-AG — Astroglial support and continuously transported neurites (experimental draft)
+
+The telos-native [G0-AG experiment](research/G0_AG_GLIAL_CONTINUOUS_NEURITE.md) extends G0-AF rather than restarting the architecture. Each paid neurite segment now owns a continuous unit-quaternion phase and a separately modifiable unit-quaternion connection *in addition to* the inherited discrete Q8/neutral structures. An experience update may alter a local phase and expose a transport defect; any later connection repair is separately resource-paid and retains the displaced connection as a typed remainder. A new **glia-inspired** support Worldlet carries finite substrate, transferable resources, a calcium-like gate and an optional three-party contact state. Glial support, neuronal sensing, AF chemical diffusion, structural changes and continuous transport evolve under one coupled Markov generator with a closed combined energy ledger. Neither glia nor the quaternionic carrier is assumed necessary for intelligence.
+
+[Implementation](esmf/glial_quaternion_ag.py) · [contract tests](tests/test_glial_quaternion_ag.py) · [proposed, unrun matched-control protocol](research/G0_AG1_PREREGISTRATION.json)
+
+\`\`\`bash
+python -m esmf.glial_quaternion_ag
+python -m unittest discover -s tests -p 'test_glial_quaternion_ag.py' -v
+\`\`\`
+
+G0-AG does **not** claim realistic astrocyte physiology, endogenous semantic context discovery, quantum coherence, or a measured learning benefit. The experiment still contains two artificial neurons and one fixed-voxel support cell in a synthetic 2D/3D extracellular lattice; the continuous quaternion transport does **not yet** drive spatial growth choices. It is to be compared with no-glia, glia-without-tripartite, real arithmetic, fixed-morphology and resource-matched pairwise controls. All earlier frozen measurements and their reproduction guards remain untouched.
+
 ## G0-AF — Variable-rank quaternionic neurite tissue (experimental draft)
 
 [G0-AF](research/G0_AF_QUATERNIONIC_NEURITE_TISSUE.md) couples ESMF-0's existing G0-AE cognitive state and generator to a finite mechanochemical **tissue CTMC**, inspired by G0-F's paid neurite growth. Each soma carries two distinct local structures: a four-real-coordinate neutral Mat₂(R) block and a variable number of quaternionic sections. The implemented phases lie in the genuine noncommutative eight-element subgroup Q8; when a tissue branch is *paid for*, one quaternionic section is added, raising that soma's formal real carrier dimension by four. Retraction loses the section with a typed, retained record. This is a discrete experimental substrate, **not** continuous quaternionic neural dynamics, continuous 3D cytoskeletal tissue or demonstrated semantic understanding.
