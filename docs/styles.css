@@ -59,3 +59,7 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.35}
  .trace-transport output{order:2}
  .trace-run-row{align-items:stretch;flex-direction:column;gap:6px}
 }
+
+/* Source-backed G0-AH microscope entrance */
+.microscope-cta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#bce7da;background:rgba(135,226,199,.07);border:1px solid rgba(135,226,199,.24);padding:11px 13px;border-radius:5px;margin-top:13px;font-size:11px;line-height:1.45}
+.microscope-cta span:first-child{font-size:9px;letter-spacing:.11em;font-weight:750;color:#93e6cb}.microscope-cta span:last-child{margin-left:auto;color:#93e6cb}.microscope-cta:hover{border-color:#93e6cb;background:rgba(135,226,199,.12)}
