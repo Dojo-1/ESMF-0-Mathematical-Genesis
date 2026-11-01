@@ -554,6 +554,8 @@ class GlialQuaternionEcology:
             "phase_revisions_recorded": len(s.phase_history),
             "observation_adapter": "A: canonical R4 coefficients to local H, not semantic identity",
             "unrepresentable_active_observation": unrepresentable,
+            "R_transport_observation_norm": (
+                math.hypot(*sight.target) if sight is not None else None),
             "joint_energy_residual": self._energy_balance(s),
             "af_tissue_balance": self.af.diagnostics(s.tissue)[
                 "material_balance_residual"],
