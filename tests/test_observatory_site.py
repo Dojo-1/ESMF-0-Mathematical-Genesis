@@ -111,6 +111,8 @@ class TestObservatorySite(unittest.TestCase):
         self.assertIn("SCHEMATIC", (DOCS / "index.html").read_text())
         self.assertTrue("not live" in scene.lower() or "never simulates" in scene.lower())
         self.assertIn("setMorphology", scene)
+        self.assertNotIn("eval(", ui)
+        self.assertNotIn("eval(", scene)
 
     def test_merged_research_is_shown_as_main_source_not_as_validated_science(self):
         self.assertNotIn("draft", {n["stage"] for n in self.data["nodes"]})
@@ -123,8 +125,6 @@ class TestObservatorySite(unittest.TestCase):
                               if n["id"] == "glia")["evidence"], "H")
         self.assertIn("synthetic", next(n for n in self.data["nodes"]
                                        if n["id"] == "typedmemory")["detail"].lower())
-        self.assertNotIn("eval(", ui)
-        self.assertNotIn("eval(", scene)
 
 
 if __name__ == "__main__":
