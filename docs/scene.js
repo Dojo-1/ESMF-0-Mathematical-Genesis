@@ -1,4 +1,5 @@
-// Spatial *illustration* of ESMF-0 research objects. This never simulates ESMF-0.
+// Architecture is illustrative; the optional voxel overlay replays recorded
+// G0-AG Python states. This scene never simulates the organism in the browser.
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -199,6 +200,99 @@ export function createScene(viewport, labelsRoot, data, onSelect) {
   geometryRing.rotation.x = .96;
   root.add(geometryRing);
 
+  // A separate, explicitly recorded layer. Positions are voxel-chart
+  // projections from G0-AG state snapshots, never newly simulated growth.
+  const traceRoot = new THREE.Group();
+  root.add(traceRoot);
+  const traceOrigin = point(nodeById.get('tissue').position);
+  let replayActive = false;
+  function tracePosition(voxel) {
+    const side = 4; // trace schema's published side, validated in exporter.
+    return traceOrigin.clone().add(new THREE.Vector3(
+      (voxel[0] - (side - 1) / 2) * .39,
+      (voxel[1] - (side - 1) / 2) * .39,
+      (voxel[2] - (side - 1) / 2) * .39
+    ));
+  }
+  function traceDot(at, radius, color, alpha = .9) {
+    const dot = new THREE.Mesh(
+      new THREE.SphereGeometry(radius, 10, 9),
+      new THREE.MeshBasicMaterial({
+        color, transparent: true, opacity: alpha, depthWrite: false
+      })
+    );
+    dot.position.copy(tracePosition(at));
+    traceRoot.add(dot);
+  }
+  function traceLine(a, b, color, alpha = .82) {
+    const points = [tracePosition(a), tracePosition(b)];
+    const line = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(points),
+      new THREE.LineBasicMaterial({
+        color, transparent: true, opacity: alpha, depthWrite: false
+      })
+    );
+    traceRoot.add(line);
+  }
+  function clearTraceObjects() {
+    for (const child of [...traceRoot.children]) {
+      child.geometry?.dispose();
+      child.material?.dispose();
+      traceRoot.remove(child);
+    }
+  }
+  function setReplay(snapshot, eventName = '') {
+    clearTraceObjects();
+    replayActive = true;
+    const colors = ['#86edca', '#f4c78f'];
+    for (let i = 0; i < snapshot.cells.length; i++) {
+      const cell = snapshot.cells[i];
+      const color = colors[i % colors.length];
+      traceDot(cell.soma, .115, color, .94);
+      let previous = cell.soma;
+      for (const voxel of cell.path) {
+        const wrapped = voxel.some((value, axis) => Math.abs(value - previous[axis]) > 1);
+        // Periodic seams are not drawn as physically long neurites.
+        if (!wrapped) traceLine(previous, voxel, color);
+        traceDot(voxel, .065, color, .80);
+        previous = voxel;
+      }
+      traceDot(previous, .13, color);
+    }
+    for (const field of ['attract', 'repel']) {
+      for (const entry of snapshot.chemical[field]) {
+        traceDot(entry.voxel, .042 + .013 * entry.units,
+          field === 'attract' ? '#69c9ff' : '#ee9290', .55);
+      }
+    }
+    if (snapshot.links.length > 0) {
+      const a = snapshot.cells[0];
+      const b = snapshot.cells[1];
+      traceLine(a.path.at(-1) || a.soma, b.path.at(-1) || b.soma,
+        '#f7dfb5', .55);
+    }
+    const g = snapshot.glia;
+    traceDot(g.voxel, .09 + .025 * g.calcium,
+      g.tripartite ? '#f5cf98' : '#8db5fc', .87);
+    if (g.tripartite && snapshot.links.length > 0) {
+      for (const cell of snapshot.cells) {
+        traceLine(g.voxel, cell.path.at(-1) || cell.soma, '#a5abf5', .42);
+      }
+    }
+    traceRoot.visible = activeDomains.has('biology') && activeEvidence.has('M');
+    // Event labels remain tied to source event names, not invented signals.
+    traceRoot.userData.lastRecordedEvent = eventName;
+    for (const v of tissue) v.path.visible = false;
+  }
+  function clearReplay() {
+    replayActive = false;
+    clearTraceObjects();
+    traceRoot.visible = false;
+    for (const v of tissue) {
+      v.path.visible = activeDomains.has('biology') && activeEvidence.has('M');
+    }
+  }
+
   function isVisible(n) {return activeDomains.has(n.domain) && activeEvidence.has(n.evidence);}
   function setFilters(domainsSet, evidenceSet) {
     activeDomains = new Set(domainsSet); activeEvidence = new Set(evidenceSet);
@@ -217,7 +311,8 @@ export function createScene(viewport, labelsRoot, data, onSelect) {
       const yes = activeEvidence.has(h.evidence) && h.members.every(id => isVisible(nodeById.get(id)));
       h.line.visible = yes; h.orb.visible = yes;
     }
-    for (const v of tissue) v.path.visible = activeDomains.has('biology') && activeEvidence.has('M');
+    for (const v of tissue) v.path.visible = !replayActive && activeDomains.has('biology') && activeEvidence.has('M');
+    traceRoot.visible = replayActive && activeDomains.has('biology') && activeEvidence.has('M');
     geometryRing.visible = activeDomains.has('geometry') && activeEvidence.has('P');
   }
   function highlight(id) {
@@ -326,11 +421,12 @@ export function createScene(viewport, labelsRoot, data, onSelect) {
   highlight('telos');
   frameId = requestAnimationFrame(animate);
   return {
-    setFilters, highlight, setMorphology, setMotion, view, focusNode,
+    setFilters, highlight, setMorphology, setMotion, setReplay, clearReplay, view, focusNode,
     destroy() {
       cancelAnimationFrame(frameId);
       resizeObserver.disconnect();
       controls.dispose();
+      clearTraceObjects();
       renderer.dispose();
       if (renderer.domElement.parentNode) renderer.domElement.remove();
       labelsRoot.replaceChildren();
