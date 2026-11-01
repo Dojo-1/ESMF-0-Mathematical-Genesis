@@ -1,0 +1,75 @@
+{
+  "experiment": "G0-AF1",
+  "status": "proposed-only, not frozen, not executed, no performance result",
+  "evidence_floor": "H",
+  "motivation": "Test whether material-paid local quaternionic rank growth under joint tissue chemistry and semantic contrasts adds causal predictive distinctions beyond matched conventional methods.",
+  "development_seeds": [
+    720,
+    783
+  ],
+  "heldout_seeds": [
+    7200,
+    7327
+  ],
+  "precommit_required": true,
+  "tasks": [
+    "chemically guided neurite pathfinding with resource interruptions",
+    "context-dependent response-invariant transfer",
+    "out-of-distribution appearance recoding",
+    "delayed deceptive chemical cues",
+    "noise-driven contradictory evidence and false bud stress",
+    "lesion and recovery of grown local sections"
+  ],
+  "comparators": [
+    "complete G0-AF coupled dynamics",
+    "fixed rank and equal memory footprint",
+    "dynamic paths with real-valued phase features and same capacity",
+    "Q8 multiplication replaced by commuting same-size Abelian group",
+    "Q8 phase shuffled under matched observations",
+    "chemistry ablated",
+    "tissue growth disabled",
+    "converged sequential splitting to same CTMC",
+    "conventional resource-aware recurrent or Bayesian learner",
+    "algebraically equivalent real-encoding control"
+  ],
+  "matched_conditions": [
+    "same environment traces and declared observations",
+    "equal total storage and state budget",
+    "equal material ATP sensing budget and real CPU where feasible",
+    "same seed pairings, intervention count, opportunity count and evaluation horizon",
+    "the same information available to each controller"
+  ],
+  "diagnostics": [
+    "true material and nutrient bookkeeping residual",
+    "positive local resources and finite representation ranks",
+    "matrix neutral determinant invariance across seam",
+    "Q8 left-gauge mismatch invariance",
+    "retained typed pruning remainders",
+    "link owner provenance",
+    "generator row closure and noncommuting resource/sensing bracket"
+  ],
+  "metrics": [
+    "heldout action/prediction quality",
+    "conditional false invariance and false distinctions",
+    "coverage and abstention",
+    "material growth length and valid contact formation",
+    "contact duration and maturity (not yet implemented)",
+    "structural efficiency and attempted growth",
+    "prune false-positive rate",
+    "recovery after lesion",
+    "wall and CPU time",
+    "peak RAM",
+    "simulated resource expense",
+    "actual hardware joules recorded null unless measured"
+  ],
+  "promotion_gate": "No advantage claimed unless paired held-out utility improves at comparable cost and coverage over all eligible baselines; extra structural growth must be useful rather than just numerous.",
+  "kill_criteria": [
+    "identical real-encoding model ties or wins: no exclusive quaternion advantage",
+    "sequential splitting converges: no intrinsic concurrency benefit over an accurately integrated model",
+    "randomized or Abelian phases tie: no supported noncommutative phase benefit",
+    "higher rank increases false merges or loses viability: no morphological promotion",
+    "manipulated or hidden evaluator labels leak into local learning: invalidate experiment"
+  ],
+  "source_scope": "G0-F mechanochemical dynamics inspire surrogates, but no shared continuous PDE solver here.",
+  "constraints": "CPU-only standard-library local tests; no GPU, remote job, paid inference or automatic merge"
+}
