@@ -63,6 +63,7 @@ jobs:
       - name: Validate source-linked architecture and recorded event provenance
         run: |
           python -m unittest discover -s tests -p 'test_observatory_*.py' -v
+          python -m unittest discover -s tests -p 'test_observatory_live_lab.py' -v
           python -m unittest discover -s tests -p 'test_g0_ah_microscope.py' -v
           python -m unittest discover -s tests -p 'test_g0_ai_film.py' -v
       - name: Syntax-check interactive modules
@@ -72,6 +73,7 @@ jobs:
           node --check docs/trace-player.js
           node --check docs/neurite.js
           node --check docs/genesis.js
+          node --check docs/live.js
 
   deploy:
     if: github.event_name != 'pull_request'
