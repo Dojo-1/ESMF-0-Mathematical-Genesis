@@ -194,7 +194,7 @@ function createTissueScene(container,onSelect){
  for(let i=0;i<34;i++){const mesh=new THREE.Mesh(pulseGeo,new THREE.MeshBasicMaterial({color:i%2?'#a7b9ff':'#8cecd5',transparent:true,opacity:.0,depthWrite:false,blending:THREE.AdditiveBlending}));world.add(mesh);pulses.push(mesh);}
  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();renderer.domElement.addEventListener('pointerdown',event=>{pointer.x=event.clientX;pointer.y=event.clientY;});renderer.domElement.addEventListener('pointerup',event=>{if(Math.abs(event.clientX-pointer.x)>6||Math.abs(event.clientY-pointer.y)>6)return;const rect=renderer.domElement.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1),camera);const hit=raycaster.intersectObjects(pickables)[0];if(hit)onSelect(hit.object.userData.index);});
  let previous=null;const colors={positive:new THREE.Color('#70f0d8'),negative:new THREE.Color('#b99dff')};
- const bloomEnabled=!!renderer.capabilities.isWebGL2;
+ const bloomEnabled=renderer.capabilities.isWebGL2 && !matchMedia('(prefers-reduced-motion: reduce)').matches;
  let composer=null;
  try{if(bloomEnabled){composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));composer.addPass(new UnrealBloomPass(new THREE.Vector2(800,600),.72,.55,.26));}}catch(error){console.warn('Bloom disabled:',error);composer=null;}
  const clock=new THREE.Clock();
@@ -203,7 +203,7 @@ function createTissueScene(container,onSelect){
   previous=snapshot;const {units,contacts}=snapshot;
   units.forEach((u,i)=>{const mesh=nodes[i],halo=halos[i];mesh.position.set(...u.xyz.map(v=>v*2.15));halo.position.copy(mesh.position);
    const t=THREE.MathUtils.clamp((u.activity+1)/2,0,1);mesh.material.color.copy(colors.negative).lerp(colors.positive,t);mesh.material.emissive.copy(mesh.material.color);
-   const scale=.85+Math.abs(u.activity)*.95+(i===state.selected?.24:0);mesh.scale.setScalar(scale);
+   const scale=.85+Math.abs(u.activity)*.95+(i===state.selected ? .24 : 0);mesh.scale.setScalar(scale);
    halo.scale.setScalar(.8+Math.abs(u.slow_trace)*4);halo.material.opacity=state.showSlow? .05+Math.abs(u.slow_trace)*.18 : 0;
   });
   const active=new Set();contacts.forEach(c=>{const key=c.source+'-'+c.target;active.add(key);const positive=c.weight>=0;
