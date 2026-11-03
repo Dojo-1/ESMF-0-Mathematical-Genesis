@@ -2,6 +2,10 @@
 
 A source-linked architectural cosmos with **two visibly separate modes**: the original Three.js schematic and a recorded event-by-event replay of the actual **synthetic G0-AG Python generator**. The atlas's breathing/transport particles remain illustrative. In replay mode, the neurite paths, glial proxy, chemical field packets, observed distinctions and resource ledgers come from recorded model states—not browser-generated biology. Neither mode implies actual neural cognition or quantum behavior.
 
+## Interactive live Python laboratory
+
+[Open the Live Lab](live.html) to run the actual G0-AI `TelosSubstrate` in-browser through Pyodide. The source snapshot at `docs/runtime/telos_substrate_ai.py` is required to match `esmf/telos_substrate_ai.py` byte-for-byte, enforced in CI. The UI projects Python-generated unit states and contacts through Three.js. Arithmetic parsing and limited lexical classification happen **outside** the tissue: their explicit four-channel cues and boolean labels are passed into the source model. This is a local, synthetic online demonstration only. There is no language-model inference, mathematical theorem prover, online benchmark score, or live server telemetry. Pyodide and Three.js load from pinned public CDNs; user input is processed locally after loading. The original negative G0-AI controls remain unchanged.
+
 ## Local preview
 
 From the repository root:
