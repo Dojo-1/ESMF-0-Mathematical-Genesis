@@ -20,7 +20,7 @@ class Page(HTMLParser):
             self.ids.add(a["id"])
         for key in ("src","href"):
             v=a.get(key,"")
-            if v.startswith("./"):
+            if v.startswith("./") and v != "./":
                 self.assets.add(v[2:])
         if tag=="script" and a.get("src"):
             self.scripts.add(a["src"])
